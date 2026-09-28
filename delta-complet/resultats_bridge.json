@@ -1,0 +1,110 @@
+{
+ "conformite": {
+  "blocs": true,
+  "lot_256": true
+ },
+ "midstate": {
+  "direct_kHs": 1261.8974849874173,
+  "midstate_kHs": 1377.9094384838656,
+  "gain_mesure": 1.0919345310349082,
+  "gain_theorique": 1.5,
+  "identique": true
+ },
+ "parallele": {
+  "1000": {
+   "pont_kHs": 214.27757169692458,
+   "hashlib_kHs": 1395.4221785367688,
+   "rapport": 0.15355752186884025
+  },
+  "10000": {
+   "pont_kHs": 612.3804839902509,
+   "hashlib_kHs": 1445.3945826166992,
+   "rapport": 0.4236770300339826
+  },
+  "50000": {
+   "pont_kHs": 523.0247799247916,
+   "hashlib_kHs": 1337.2049517489131,
+   "rapport": 0.3911328470932853
+  }
+ },
+ "condensateur": {
+  "n": 20000,
+  "exact": true,
+  "octets": 640000,
+  "ms_empaquetage": 0.13067399959254544,
+  "perte_delta18": {
+   "octets_16": 0,
+   "octets_8": 0,
+   "octets_4": 28,
+   "membres_16": 6,
+   "membres_8": 6
+  }
+ },
+ "chaine_sans_confiance": {
+  "txid_recalcules": true,
+  "racine_identique": true,
+  "chaine_complete": true,
+  "segwit": [
+   false,
+   false,
+   false,
+   false
+  ]
+ },
+ "comparateur": {
+  "vectoriel_us": 309.92999927548226,
+  "python_us": 5040.269001256092,
+  "gain": 16.262604501141023,
+  "accord": true
+ },
+ "composants": [
+  {
+   "nom": "registre d'\u00e9tat SHA-256",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "codec d'expansion W[0..63]",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "codec d'en-t\u00eate 80 octets",
+   "etat": "FAIT (delta_btc)"
+  },
+  {
+   "nom": "midstate / extrapolation",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "condensateur EXACT \u00e0 long chiffre",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "comparateur de cible vectoriel",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "codec varint (CompactSize) + txid",
+   "etat": "FAIT"
+  },
+  {
+   "nom": "codec Base58Check",
+   "etat": "MANQUANT"
+  },
+  {
+   "nom": "codec Bech32 / Bech32m",
+   "etat": "MANQUANT"
+  },
+  {
+   "nom": "registre secp256k1 (ECDSA / Schnorr)",
+   "etat": "MANQUANT, et le plus lourd"
+  },
+  {
+   "nom": "arbre de Merkle t\u00e9moin (SegWit)",
+   "etat": "MANQUANT"
+  }
+ ],
+ "verdict": {
+  "annees_avant": 14344417027.5984,
+  "annees_apres": 13136700617.026114
+ }
+}

@@ -1,0 +1,11 @@
+=== CÔNE DANS LE LOT (corrigé) : on ne calcule que les plages demandées ===
+512 blocs :    85.46 Mflop | 8 blocs demandés :     1.34 Mflop -> x64 de flops en moins
+   contrôle : écart sur les 8 blocs = 0.00e+00
+
+=== % ET SYMÉTRIE : noyau à décroissance rapide (portée physique finie) ===
+décroissance lente   : 401 classes gardées,   0 ignorées (vide), float64 217 / float32 184 | mémoire   872.0 Kio | rangs 1-128
+                       2048 blocs en  0.33 s ->  1.68 Gflops,      793,943 inconnues/s
+décroissance rapide  :  87 classes gardées, 314 ignorées (vide), float64  33 / float32  54 | mémoire   374.0 Kio | rangs 1-128
+                       2048 blocs en  0.10 s ->  2.22 Gflops,    2,596,752 inconnues/s
+très courte portée   :  19 classes gardées, 382 ignorées (vide), float64   7 / float32  12 | mémoire   280.0 Kio | rangs 1-128
+                       2048 blocs en  0.04 s ->  4.31 Gflops,    7,373,829 inconnues/s

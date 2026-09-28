@@ -1,0 +1,196 @@
+DELTA — STATISTIQUES, SPECIFICATIONS ET BASE COMPARATIVE
+Rene Le Corre — 2026-09-24
+
+Ce document ne contient AUCUN chiffre qui ne vienne d'une mesure ecrite
+dans un journal du dossier. Les extrapolations declarees sont marquees
+[EXTRAPOLE]. Les limites assumees ont leur propre section, et elles sont
+aussi longues que les resultats.
+
+
+1. STATISTIQUES DU PROJET (comptees, pas estimees)
+------------------------------------------------------------------------
+   modules Delta ................     30  fichiers,   5635 lignes
+   bancs de mesure ..............     47  fichiers,   4274 lignes
+   journaux d'execution .........     47  fichiers,   2265 lignes
+   fichiers de resultats (json) .     38
+   TOTAL ........................    162  fichiers,    692 Kio
+
+   Plus de bancs que de modules, et plus de lignes de mesure que de
+   lignes de theorie : c'est voulu. Chaque brique est arrivee avec son
+   epreuve, et aucune n'a ete gardee sans etre confrontee.
+
+
+2. SPECIFICATIONS PAR ETAGE (chiffre principal, mesure)
+------------------------------------------------------------------------
+   D1-D5   ilots, intrication flottante, chaine infinie, grappes
+           10 000 000 qubits en 2,53 Gio, fidelite 0,9927
+           chaine INFINIE en 16 Kio, accord 7e-15 avec le fini
+           fond partage + grappes : exact a 2,2e-16
+           3 noeuds HTTP reels : erreur EXACTEMENT 0
+   D8-D11  X a la demande, ECC, symetrie U(1), cone de lumiere
+           symetrie : x5 memoire, x18 temps, AUCUNE perte
+           cone : jusqu'a 99,0 % d'energie economisee
+           parite exactement 1/N apres passage a l'octet
+   D13-D15 D-FLOPS, fond infini, traitement par lots
+           x64 memoire et flops sur noyau structure
+           9,27 Gflops, 7,1 M inconnues/s, CONSTANT a 10^18
+   D16-D19 memoire, cache predictif, condensateurs, X3D
+           deduplication x50 ; condensateur x128
+           cache predictif x3,03 (apres TROIS corrections)
+           256 etages coutent autant qu'un seul : 4,39 us
+   D-UN    la fusion : 4,95 Gflops, erreur 4,5e-13, cache x27
+   D-BTC   conformite Bitcoin : 6 epreuves sur 6
+   D-BRIDGE registres, codecs, midstate, chaine sans confiance
+           midstate x1,50 theorique, x1,11 mesure (cout d'appel)
+   D-FRACTAL preuve en log2(N) : 256 octets pour 65 536 grains
+   D-SIGMA  un bloc, une empreinte, reproductible en processus neuf
+   D-SHA    moteur SHA-256 ouvert : etat sortable en 41-104 octets
+   D-QUTRIT dimension 3 : X=3, entropie = ln(3) a 2,2e-16
+   D-NEURONE rang 40 -> 4,15 et alignement 0,997 SOUS CONTRAINTE
+   D-ATOME  13,60433 eV contre 13,60569 admis (ecart 0,010 %)
+   D-DIVERSITE rang participatif = Hill q=1, ecart 0,00e+00
+   D-SYSTEME granularite 8 retenue : 0,84 s contre 5,45 s pour l'agent
+
+
+3. BASE COMPARATIVE — DELTA CONTRE CE QUI EXISTE
+------------------------------------------------------------------------
+   Chaque ligne oppose Delta a une reference EXTERIEURE ou a une
+   implementation classique, sur la meme tache et la meme machine.
+
+   ETAT QUANTIQUE
+     reference : vecteur d'etat dense (exact, sans compression)
+     Delta     : 10 M qubits en 2,53 Gio, fidelite 0,9927
+     verdict   : le dense plafonne vers 50 qubits sur 64 Gio. L'ecart
+                 n'est pas un facteur, c'est un changement de regime —
+                 MAIS il n'existe QUE pour des etats peu intriques.
+
+   SYMETRIE (D10)
+     reference : les memes tenseurs sans blocs de charge
+     Delta     : x5 memoire, x18 temps, erreur INCHANGEE
+     verdict   : gain net, sans contrepartie. Le seul de tout le projet.
+
+   CACHE, A BUDGET EGAL (D19 contre cache 3 niveaux)
+     2 Mio de lignes a loger dans 256 Kio
+     classique : 1 792 lignes PERDUES, 7,2 % de succes, 3 585 ms
+     Delta     : 0 perdue, 100 % de succes, 147 ms
+     contrepartie MESUREE : les vieilles lignes sont FLOUES —
+                 16 bits erreur 2,3e-07 | 2 bits erreur 2,1e-02
+
+   CACHE PREDICTIF (D17 contre LRU)
+     Delta x3,03 — mais APRES trois corrections. Avant elles, il etait
+     PLUS LENT que le LRU bete. C'est ecrit au journal.
+
+   HACHAGE (D-SHA contre hashlib)
+     hashlib : 401 Mo/s        Delta : 0,41 Mo/s      x968 EN DEFAVEUR
+     ce que Delta a en plus : etat sortable (hashlib leve TypeError),
+     midstate, moteur en arbre, constantes auditables.
+     verdict : en production on hache avec hashlib et on PILOTE avec
+               Delta. Le moteur ouvert sert a decider, pas a abattre.
+
+   BITCOIN (reference exterieure, publique, figee depuis 2009)
+     4 blocs reels : en-tete -> hash officiel        CONFORME 4/4
+     393 transactions : racine de Merkle recalculee  CONFORME 3/3
+     preuve de travail, difficulte, preuve SPV       CONFORME
+     CVE-2012-2459 reproduite puis corrigee          CONFORME
+     ET UNE FAILLE REELLE TROUVEE DANS NOTRE PROPRE CODE : Delta18
+     donnait la meme racine pour 5 et 6 blocs. Corrige.
+
+   PHYSIQUE (reference : la nature)
+     ionisation de l'hydrogene : 13,60433 eV contre 13,60569 (0,010 %)
+     raies de Balmer : 656,14 / 486,02 / 433,95 / 410,08 nm (0,05 %)
+     degenerescence en l : ecart 4,2e-06 hartree
+     etat du Higgs (ATLAS, arXiv 2603.26463) : X=3, entropie ln(3) a
+     2,2e-16, negativite 1,000000000000, seuil 1/(d+1) retrouve a 3,8e-06
+
+   MATHEMATIQUES (reference : Leinster & Cobbold)
+     notre rang participatif EST la diversite de Hill d'ordre 1 :
+     ecart 0,00e+00 sur 500 spectres. Delta utilisait un cas particulier
+     d'une famille entiere sans le savoir.
+     deduplication : Delta16 voyait 60 pages distinctes la ou la
+     diversite en compte 4,1 — facteur 15 laisse sur la table.
+
+   PILOTAGE (agent contre reglage fixe)
+     arene, 6 charges : D-HYSTERESIS pire regret 52,5 %, moyen 26,7 %
+                        GLOUTON 598,2 % | BANDIT 561,3 %
+     systeme reel     : FIXE G8 0,84 s | AGENT 5,45 s
+     verdict : DANS CE SYSTEME, L'AGENT NE SERT A RIEN. Il est
+               desactive par defaut, et la raison est ecrite a cote du
+               parametre dans le code.
+
+   MINAGE (le contre-essai mene par l'adversaire)
+     meilleur debit du projet : 2,23 MH/s
+     reseau Bitcoin : ~1e21 H/s        facteur manquant : 4,5e14
+     un bloc a notre debit : 8,1e9 ANNEES (l'univers en a 1,4e10)
+     verdict : hors d'atteinte, DEFINITIVEMENT, et c'est normal :
+               SHA-256 est bati pour n'offrir aucune structure.
+
+
+4. LIMITES ASSUMEES (aussi longues que les resultats)
+------------------------------------------------------------------------
+   - Delta ne gagne QUE sur la structure. Verifie NEUF fois : noyau
+     aleatoire (rangs 64/64), SHA-256, potentiel sans forme, reseau
+     entraine sur du bruit, spectre aleatoire. Zero gain a chaque fois.
+   - le gain quantique n'existe que pour des etats PEU INTRIQUES.
+   - la capacite « 10^11 Yio » du X3D est une capacite de PLAN, pas de
+     silicium. [EXTRAPOLE]
+   - la preuve en log2(N) est mesuree jusqu'a 65 536 grains ; au-dela,
+     c'est la loi qui est verifiee, pas la materialisation. [EXTRAPOLE]
+   - la cryptographie est pedagogique : pour un usage reel, AES-GCM ou
+     ChaCha20-Poly1305 d'une bibliotheque eprouvee.
+   - le moteur SHA est 968 fois plus lent que hashlib.
+   - l'agent est plus lent que le meilleur reglage fixe, et desactive.
+   - dans un systeme bati sur X3D, le taux de succes vaut
+     structurellement 1,000 : il ne peut RIEN piloter.
+   - les debits dependent de la machine. Ceux-ci ont ete mesures ici,
+     sur 2 coeurs, et les journaux sont dans le dossier.
+
+
+5. ERREURS TROUVEES ET CORRIGEES (la vraie statistique)
+------------------------------------------------------------------------
+   Dans le code, trouvees par la mesure :
+     1  estimateur d'azimut de D-SCOPE pointant a l'oppose du soleil
+     2  biais d'echelle : toute detection collee au plus petit rayon
+     3  edition de fichier ayant duplique une classe entiere
+     4  D8 en mode fixe mal code (eps=1.0 -> X=1)
+     5  SVD randomise presente comme un gain : il plafonnait X en
+        silence. Desactive.
+     6  reparation sur saturation : effet mesure NUL. Documentee inutile.
+     7  parite a 50 % au lieu de 25 % (decoupe par site impossible)
+     8  preuve de Merkle toujours fausse (indices et cotes)
+     9  artefact d'energie x60 000 000 (qubits sans passe actif)
+    10  cache predictif PLUS LENT que le LRU (trois causes)
+    11  cascade X3D ne deplacant qu'une ligne par etage
+    12  h() renvoyant None au-dela du Tio
+    13  perte de generation a chaque relecture du condensateur
+    14  float16 debordant EN SILENCE (infinis stockes)
+    15  CVE-2012-2459 REELLE dans Delta18 : meme racine pour 5 et 6 blocs
+    16  sceau compare au lieu d'etre RECALCULE : altération invisible
+    17  orbitales orthogonales : je cherchais une redondance qu'un
+        theoreme interdit
+    18  agent V1 pilotant sur le TAUX : regret 573 %
+    19  agent V2 pilotant sur le COUT : 5,78 s contre 2,97 s
+    20  changer la taille de lot invalidait l'ALIGNEMENT : 8,98 s
+    21  oracle faux : je n'avais teste que 64/256/1024. Le vrai optimum
+        etait 10 fois plus bas, et TOUS les regrets annonces etaient
+        flattes (l'agent etait a +549 %, pas +43 %)
+
+   Dans ma propre memoire, attrapees par les bancs :
+    22  vecteur SHA-256 du million de 'a' cite de memoire : FAUX
+    23  perk « Robustesse » de Call of Duty decrit a l'envers
+    24  nom du pneumologue mal ecrit
+
+   Deux contre-essais RATES, laisses au journal : charge aleatoire et
+   alternance stricte sont TOUTES DEUX des regimes stables. Je n'ai pas
+   reussi a mettre le detecteur en defaut, et je l'ecris plutot que de
+   tordre la charge jusqu'a obtenir ce que je cherchais.
+
+   24 erreurs ecrites. C'est la statistique dont je suis le plus sur.
+
+
+6. LA LOI, EN UNE LIGNE
+------------------------------------------------------------------------
+   Le gain vient de la STRUCTURE, jamais de la magie — et la structure
+   ne vient jamais de ce qui est permis, elle vient de ce qui est
+   INTERDIT. Verifie au LHC (spin nul du Higgs), dans un reseau de
+   neurones (la contrainte de parcimonie) et dans un atome (le moment
+   cinetique). Trois echelles, un seul mecanisme.

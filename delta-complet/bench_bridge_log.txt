@@ -1,0 +1,143 @@
+════════════════════════════════════════════════════════════════════════
+1. CONFORMITÉ — le pont redonne-t-il les hashs officiels ?
+════════════════════════════════════════════════════════════════════════
+  bloc       0 : CONFORME  000000000019d6689c085ae165831e93...
+  bloc  100000 : CONFORME  000000000003ba27aa200b1cecaad478...
+  bloc  200000 : CONFORME  000000000000034a7dedef4a161fa058...
+  bloc  968000 : CONFORME  00000000000000000001428f733536dc...
+  constantes SHA-256 : RECALCULÉES (racines des 64 premiers nombres premiers), pas recopiées
+  256 nonces traités DE FRONT, comparés un par un à hashlib : True
+
+════════════════════════════════════════════════════════════════════════
+2. EXTRAPOLATION (midstate) — 3 compressions deviennent 2
+════════════════════════════════════════════════════════════════════════
+  tout droit      :    1,262 kH/s   (3 compressions par essai)
+  avec midstate   :    1,378 kH/s   (2 compressions par essai)
+  gain THÉORIQUE  : ×1.50   (on supprime une compression sur trois)
+  gain MESURÉ ICI : ×1.09
+  et c'est bien le même hash : True
+
+  POURQUOI L'ÉCART ? Mesuré, pas supposé :
+    une compression de 64 octets coûte          24 ns
+    l'appel Python autour coûte                339 ns
+    -> on économise 24 ns de travail utile, mais chaque essai
+       traîne 678 ns de plomberie qui, elle, ne bouge pas.
+  Le gain de STRUCTURE est réel et entier ; c'est le langage qui en
+  reprend une part. Dans une implémentation en C, ou dès que les
+  compressions dominent l'appel, on retrouve le ×1,5.
+  Le gain ne vient pas d'un calcul plus malin : 64 des 80 octets de
+  l'en-tête ne bougent jamais d'un essai à l'autre. C'est la STRUCTURE
+  du message qui paye. Exactement la loi de Δ, sur un terrain adverse.
+
+════════════════════════════════════════════════════════════════════════
+3. LE PONT EN PARALLÈLE — N messages de front, et la vérité des chiffres
+════════════════════════════════════════════════════════════════════════
+  N=  1000 | pont vectorisé      214 kH/s | hashlib+midstate    1,395 kH/s | rapport ×6.5 en DÉFAVEUR du pont
+  N= 10000 | pont vectorisé      612 kH/s | hashlib+midstate    1,445 kH/s | rapport ×2.4 en DÉFAVEUR du pont
+  N= 50000 | pont vectorisé      523 kH/s | hashlib+midstate    1,337 kH/s | rapport ×2.6 en DÉFAVEUR du pont
+
+  RÉSULTAT NÉGATIF, ET IL COMPTE AUTANT QUE LES AUTRES :
+  le pont vectorisé est EXACT mais plus LENT que la routine C de
+  hashlib. Les 64 tours font ~1 300 passages numpy sur le tableau ;
+  chaque passage relit la mémoire. hashlib, lui, garde les 8 mots dans
+  les registres du processeur et ne sort jamais du cache L1.
+  Le pont ne sert donc PAS à aller plus vite. Il sert à OUVRIR la
+  boîte : sans registre exposé, pas de midstate, pas de sceau partiel,
+  pas de reprise. Le gain du §2 vient de là.
+
+════════════════════════════════════════════════════════════════════════
+4. CONDENSATEUR À LONG CHIFFRE — exact, et pourquoi il DOIT l'être
+════════════════════════════════════════════════════════════════════════
+  20,000 empreintes de 256 bits rangées en 0.1 ms (625 Kio, 8 membres de 32 bits)
+  restitution EXACTE, bit pour bit : True
+
+  MÊME EMPREINTE, PASSÉE PAR LE CONDENSATEUR À PERTE DE Δ18 :
+    rangée en OCTETS,  16 bits/chiffre :  0/32 faux -> empreinte INTACTE
+    rangée en OCTETS,   8 bits/chiffre :  0/32 faux -> empreinte INTACTE
+    rangée en OCTETS,   4 bits/chiffre : 28/32 faux -> empreinte DÉTRUITE
+    rangée en MEMBRES, 16 bits/chiffre :  6/8  faux -> empreinte DÉTRUITE
+    rangée en MEMBRES,  8 bits/chiffre :  6/8  faux -> empreinte DÉTRUITE
+
+  NUANCE QUI COMPTE, ET QUE JE NE VAIS PAS ESCAMOTER : rangée octet
+  par octet, une empreinte survit au condensateur 8 bits — 256 valeurs
+  tiennent dans 256 niveaux, il n'y a rien à perdre. Ce n'est donc pas
+  vrai que Δ18 détruit TOUJOURS une empreinte.
+  Mais dès qu'on la range comme on doit la ranger pour la comparer —
+  en membres de 32 bits — la destruction est totale et immédiate. Et
+  un octet à la fois, c'est quatre fois plus de place que le
+  condensateur exact pour exactement zéro gain.
+  D'où la règle du pont : vers la cryptographie, c'est EXACT ou rien.
+  Les deux condensateurs coexistent, chacun à sa place. Δ18 range des
+  grandeurs physiques où perdre un peu ne coûte rien ; celui-ci range
+  des chiffres où perdre un bit coûte tout.
+
+════════════════════════════════════════════════════════════════════════
+4bis. COUPER LE DERNIER FIL DE CONFIANCE — des octets bruts au bloc
+════════════════════════════════════════════════════════════════════════
+  txid recalculé depuis 135 octets bruts : CONFORME  8c14f0db3df150123e6f3dbbf30f8b95...
+  txid recalculé depuis 259 octets bruts : CONFORME  fff2525b8931402dd09222c50775608f...
+  txid recalculé depuis 257 octets bruts : CONFORME  6359f0868171b1d194cbee1af2f16ea5...
+  txid recalculé depuis 225 octets bruts : CONFORME  e9a66845e05d5abc0ad04ec80f774a7e...
+  racine de Merkle bâtie sur NOS txid : identique à celle de l en-tête
+  en-tête portant cette racine -> hash officiel du bloc : True
+
+  CHAÎNE COMPLÈTE VÉRIFIÉE : True
+  octets bruts -> txid -> racine de Merkle -> en-tête -> hash du bloc.
+  Avant ce codec, on CROYAIT l'explorateur sur les txid. Maintenant on
+  les recalcule. C'est la différence entre vérifier et faire confiance,
+  et elle tient dans un varint de quelques lignes.
+
+════════════════════════════════════════════════════════════════════════
+5. JUGER N EMPREINTES D'UN SEUL GESTE
+════════════════════════════════════════════════════════════════════════
+  20,000 comparaisons | condensateur      310 µs | entiers Python    5,040 µs -> ×16
+  mêmes verdicts : True | sous la cible : 0
+  parité XOR du lot (signature exacte de 20,000 empreintes) : 592b96574d2cb40a8a5576d9e7e2c0af...
+
+════════════════════════════════════════════════════════════════════════
+6. ANALYSE — les composants présents, et ceux qui manquent
+════════════════════════════════════════════════════════════════════════
+  ✓ registre d'état SHA-256
+      FAIT — les 8 mots a..h sortis de la boîte noire : c'est lui qui rend le midstate possible
+  ✓ codec d'expansion W[0..63]
+      FAIT — étire 16 mots en 64 ; vectorisé, il traite N messages de front
+  ✓ codec d'en-tête 80 octets
+      FAIT (delta_btc) — sérialisation petit-boutiste ; l'inversion des txid est la faute n°1
+  ✓ midstate / extrapolation
+      FAIT — trois compressions deviennent deux : gain de structure, pas de magie
+  ✓ condensateur EXACT à long chiffre
+      FAIT — 128 à 512 bits par chiffre, zéro perte ; le pont vers la crypto ne tolère aucun epsilon
+  ✓ comparateur de cible vectoriel
+      FAIT — N empreintes jugées d'un geste, sans entier Python
+  ✓ codec varint (CompactSize) + txid
+      FAIT — lit une transaction BRUTE et recalcule son txid soi-même, témoins SegWit retirés : le dernier fil de confiance envers l'explorateur est coupé
+  · codec Base58Check
+      MANQUANT — adresses historiques 1... ; somme de contrôle sur 4 octets
+  · codec Bech32 / Bech32m
+      MANQUANT — adresses bc1... ; code correcteur BCH qui DÉSIGNE le caractère fautif — exactement l'esprit de l'ECC de Δ9
+  · registre secp256k1 (ECDSA / Schnorr)
+      MANQUANT, et le plus lourd — vérifier une SIGNATURE, pas seulement une empreinte. C'est là que l'arithmétique modulaire à long chiffre servirait vraiment, et c'est là aussi qu'une bibliothèque éprouvée doit prendre le relais
+  · arbre de Merkle témoin (SegWit)
+      MANQUANT — racine des témoins, rangée dans la coinbase depuis 2017
+
+════════════════════════════════════════════════════════════════════════
+7. CE QUE L'ASTUCE A DONNÉ
+════════════════════════════════════════════════════════════════════════
+  GAGNÉ : le midstate — ×1,50 en théorie, ×1.09 mesuré ici,
+          et vérifié conforme sur 4 blocs réels.
+  GAGNÉ : le comparateur de cible vectoriel, ×16.
+  GAGNÉ : la chaîne sans confiance — on ne croit plus personne sur les
+          txid, on les recalcule depuis les octets.
+  GAGNÉ : un registre, trois codecs, un condensateur exact — la base
+          pour Bech32 et secp256k1.
+  PERDU : le chemin vectorisé est 2.4× à 6.5× plus LENT que
+          hashlib. Dit, mesuré, gardé au journal.
+
+  ET CE QUI NE CHANGE PAS : 1.43e+10 années pour un bloc avant
+  l'astuce, 1.31e+10 après. Gagner 8 % sur l'infini,
+  c'est toujours l'infini. Le pont rend Δ plus CAPABLE, il ne rend pas la
+  montagne plus basse — et aucune astuce ne le fera, parce que SHA-256
+  est bâti pour n'offrir aucune prise. C'est d'ailleurs ce qui fait
+  qu'il tient debout depuis dix-sept ans.
+
+→ resultats_bridge.json

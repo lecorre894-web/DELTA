@@ -1,0 +1,20 @@
+Δ@8801 prêt sur http://127.0.0.1:8801  (fond infini construit en 11.0 ms)
+Δ@8802 prêt sur http://127.0.0.1:8802  (fond infini construit en 30.5 ms)
+Δ@8803 prêt sur http://127.0.0.1:8803  (fond infini construit en 11.4 ms)
+
+--- allumage des grappes (réparties sur le nœud le moins chargé) ---
+grappe                          0 P=100% -> 8801  845 Kio  message envoyé 18 Kio
+grappe                  1,000,000 P= 71% -> 8802  845 Kio  message envoyé 21 Kio
+grappe      1,000,000,000,000,000 P=  4% -> 8803  845 Kio  message envoyé 27 Kio
+grappe      2,000,000,000,000,000 P= 92% -> 8801  845 Kio  message envoyé 27 Kio
+grappe 700,000,000,000,000,000,000 P=100% -> 8802  845 Kio  message envoyé 30 Kio
+grappe 1,000,000,000,000,000,000,000,000 P= 50% -> 8803  845 Kio  message envoyé 32 Kio
+
+--- questions routées ---
+50 questions en 0.04 s, écart max cluster / calcul local = 0.0e+00
+taille d une réponse sur le réseau : 61 octets
+
+--- état des nœuds Δ_i = (QI, V, D, P, M) ---
+Δ@8801: QI=128 qubits individuels + infini (fond partagé) | V=2 voisins | D=marge 20 | P={'0': 1.0, '2000000000000000': 0.92} | M=1706 Kio
+Δ@8802: QI=128 qubits individuels + infini (fond partagé) | V=2 voisins | D=marge 20 | P={'1000000': 0.71, '700000000000000000000': 1.0} | M=1706 Kio
+Δ@8803: QI=128 qubits individuels + infini (fond partagé) | V=2 voisins | D=marge 20 | P={'1000000000000000': 0.04, '1000000000000000000000000': 0.5} | M=1706 Kio

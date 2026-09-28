@@ -1,0 +1,141 @@
+{
+ "conformite": {
+  "ecart_max": 0.0,
+  "profondeur": 11,
+  "grains": 1024,
+  "ms": 12.521982192993164
+ },
+ "preuve": {
+  "toutes_vraies": true,
+  "aucune_fausse": true,
+  "octets": 160,
+  "octets_donnees": 1048576
+ },
+ "grain": [
+  {
+   "grain": 1,
+   "utile": 2048,
+   "total": 22464,
+   "surcout": 9.96875
+  },
+  {
+   "grain": 2,
+   "utile": 4096,
+   "total": 24512,
+   "surcout": 4.984375
+  },
+  {
+   "grain": 4,
+   "utile": 8192,
+   "total": 28608,
+   "surcout": 2.4921875
+  },
+  {
+   "grain": 8,
+   "utile": 16384,
+   "total": 36800,
+   "surcout": 1.24609375
+  },
+  {
+   "grain": 16,
+   "utile": 32768,
+   "total": 53184,
+   "surcout": 0.623046875
+  },
+  {
+   "grain": 64,
+   "utile": 131072,
+   "total": 151488,
+   "surcout": 0.15576171875
+  },
+  {
+   "grain": 256,
+   "utile": 524288,
+   "total": 544704,
+   "surcout": 0.0389404296875
+  },
+  {
+   "grain": 1024,
+   "utile": 2097152,
+   "total": 2117568,
+   "surcout": 0.009735107421875
+  },
+  {
+   "grain": 4096,
+   "utile": 8388608,
+   "total": 8409024,
+   "surcout": 0.00243377685546875
+  }
+ ],
+ "croissance": [
+  {
+   "grains": 16,
+   "profondeur": 5,
+   "preuve_octets": 64,
+   "donnees_octets": 2048
+  },
+  {
+   "grains": 256,
+   "profondeur": 9,
+   "preuve_octets": 128,
+   "donnees_octets": 32768
+  },
+  {
+   "grains": 4096,
+   "profondeur": 13,
+   "preuve_octets": 192,
+   "donnees_octets": 524288
+  },
+  {
+   "grains": 65536,
+   "profondeur": 17,
+   "preuve_octets": 256,
+   "donnees_octets": 8388608
+  }
+ ],
+ "extrapolation": [
+  {
+   "exposant": 16,
+   "preuve_octets": 256,
+   "mesure": true
+  },
+  {
+   "exposant": 20,
+   "preuve_octets": 320,
+   "mesure": false
+  },
+  {
+   "exposant": 32,
+   "preuve_octets": 512,
+   "mesure": false
+  },
+  {
+   "exposant": 64,
+   "preuve_octets": 1024,
+   "mesure": false
+  },
+  {
+   "exposant": 128,
+   "preuve_octets": 2048,
+   "mesure": false
+  },
+  {
+   "exposant": 256,
+   "preuve_octets": 4096,
+   "mesure": false
+  }
+ ],
+ "corruption": {
+  "designe": 300,
+  "attendu": 300,
+  "branches": 9,
+  "grains": 512,
+  "ms": 3.3044815063476562,
+  "sain_avant": true,
+  "aucun_faux_positif": true,
+  "preuve_refusee_apres": true
+ },
+ "contre_essai": {
+  "mutation_rejetee": true
+ }
+}

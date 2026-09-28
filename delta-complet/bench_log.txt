@@ -1,0 +1,38 @@
+=== A. VALIDATION : Δ1 exact (ε=0) contre simulateur dense 2^n ===
+produit        fidélité exacte = 1.000000000000
+GHZ            fidélité exacte = 1.000000000000
+aller-retour   fidélité exacte = 1.000000000000
+brique d=6     fidélité exacte = 1.000000000000
+faible d=8     fidélité exacte = 0.999999999999
+
+=== B. PASSAGE À L'ÉCHELLE ===
+produit (0 intrication)  n=    10 k_max=   1  Δ=    320 o  dense=     16 Kio  gain=x10^1.7  t=  0.00s   
+produit (0 intrication)  n=   100 k_max=   1  Δ=    3 Kio  dense=    10^31 o  gain=x10^27.8  t=  0.00s   
+produit (0 intrication)  n=  1000 k_max=   1  Δ=   31 Kio  dense=   10^302 o  gain=x10^297.7  t=  0.02s   
+produit (0 intrication)  n= 10000 k_max=   1  Δ=  312 Kio  dense=  10^3012 o  gain=x10^3006.0  t=  0.23s   
+vague flottante          n=    10 k_max=   2  Δ=    320 o  dense=     16 Kio  gain=x10^1.7  t=  0.00s   
+vague flottante          n=   100 k_max=   2  Δ=    3 Kio  dense=    10^31 o  gain=x10^27.8  t=  0.04s   
+vague flottante          n=  1000 k_max=   2  Δ=   31 Kio  dense=   10^302 o  gain=x10^297.7  t=  0.62s   
+vague flottante          n= 10000 k_max=   2  Δ=  312 Kio  dense=  10^3012 o  gain=x10^3006.0  t= 39.56s   
+aller-retour chaîne      n=    10 k_max=  10  Δ=   16 Kio  dense=     16 Kio  gain=x10^0.0  t=  0.00s   k_final=1
+aller-retour chaîne      n=    20 k_max=  20  Δ=   16 Mio  dense=     16 Mio  gain=x10^0.0  t=  0.40s   k_final=1
+aller-retour chaîne      n=    30 k_max=  24  Δ=   64 Mio  dense=     16 Gio  gain=x10^2.4  t=  3.88s  <<< MUR 2^k atteint : k = 24 k_final=-1
+GHZ (intrication totale) n=    10 k_max=  10  Δ=   16 Kio  dense=     16 Kio  gain=x10^0.0  t=  0.00s   
+GHZ (intrication totale) n=    16 k_max=  16  Δ=    1 Mio  dense=      1 Mio  gain=x10^0.0  t=  0.01s   
+GHZ (intrication totale) n=    20 k_max=  20  Δ=   16 Mio  dense=     16 Mio  gain=x10^0.0  t=  0.08s   
+GHZ (intrication totale) n=    22 k_max=  22  Δ=   64 Mio  dense=     64 Mio  gain=x10^0.0  t=  0.39s   
+GHZ (intrication totale) n=    30 k_max=  23  Δ=   64 Mio  dense=     16 Gio  gain=x10^2.4  t=  0.54s  <<< MUR 2^k atteint : k = 23 
+GHZ n=22 + 1 mesure : k avant = 22, k après = 1  (la mesure libère tout)
+brique aléatoire d=1     n=   100 k_max=   2  Δ=    3 Kio  dense=    10^31 o  gain=x10^27.8  t=  0.01s   
+brique aléatoire d=2     n=   100 k_max=  24  Δ=   64 Mio  dense=    10^31 o  gain=x10^23.5  t=  2.61s  <<< MUR 2^k atteint : k = 24 
+brique aléatoire d=4     n=   100 k_max=  24  Δ=   64 Mio  dense=    10^31 o  gain=x10^23.5  t=  1.74s  <<< MUR 2^k atteint : k = 24 
+
+=== C. DOUBLE INTRICATION + PROPORTIONNÉ (circuit à intrication faible) ===
+    vérité terrain : n=18, comparaison à la simulation dense exacte
+exact ε=0              k_max= 18  mem=    4 Mio  fid estimée=1.000000  fid VRAIE=1.000000  troncatures=   0  t=1.24s
+flottant ε=1e-4        k_max=  2  mem=    576 o  fid estimée=0.999459  fid VRAIE=0.999677  troncatures=  89  t=0.02s
+flottant ε=1e-3        k_max=  2  mem=    576 o  fid estimée=0.993488  fid VRAIE=0.996063  troncatures= 101  t=0.02s
+flottant ε=1e-2        k_max=  2  mem=    576 o  fid estimée=0.868740  fid VRAIE=0.877524  troncatures=  99  t=0.02s
+proportionné ε=1e-2    k_max= 18  mem=    4 Mio  fid estimée=0.989279  fid VRAIE=0.986963  troncatures=  11  t=0.94s
+
+    même circuit, grande taille (plus de vérité terrain possible au-delà de ~28 qubits)

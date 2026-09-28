@@ -1,0 +1,139 @@
+source des données de référence : API publique blockstream.info, relevee le 2026-09-23
+
+════════════════════════════════════════════════════════════════════════
+C1 — EN-TÊTE DE BLOC (80 octets) -> HASH OFFICIEL
+════════════════════════════════════════════════════════════════════════
+  bloc       0 : 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+                attendu 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f  CONFORME
+  bloc  100000 : 000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506
+                attendu 000000000003ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506  CONFORME
+  bloc  200000 : 000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf
+                attendu 000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf  CONFORME
+  bloc  968000 : 00000000000000000001428f733536dc16a06b7125d1154ad6a4955094e1a87a
+                attendu 00000000000000000001428f733536dc16a06b7125d1154ad6a4955094e1a87a  CONFORME
+
+════════════════════════════════════════════════════════════════════════
+C2 — RACINE DE MERKLE RECALCULÉE DEPUIS LES TRANSACTIONS
+════════════════════════════════════════════════════════════════════════
+  bloc       0 :    1 tx -> 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
+                attendu 4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b  CONFORME  (0.00 ms)
+  bloc  100000 :    4 tx -> f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766
+                attendu f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766  CONFORME  (0.01 ms)
+  bloc  200000 :  388 tx -> a08f8101f50fd9c9b3e5252aff4c1c1bd668f878fffaf3d0dbddeb029c307e88
+                attendu a08f8101f50fd9c9b3e5252aff4c1c1bd668f878fffaf3d0dbddeb029c307e88  CONFORME  (0.53 ms)
+  bloc  968000 : txid non relevés (en-tête seul) — non testé
+
+════════════════════════════════════════════════════════════════════════
+C3 — PREUVE DE TRAVAIL : le hash est-il SOUS la cible ?
+════════════════════════════════════════════════════════════════════════
+  bloc       0 :  43 bits de zéros en tête | hash/cible = 0.000394 | CONFORME
+  bloc  100000 :  46 bits de zéros en tête | hash/cible = 0.823757 | CONFORME
+  bloc  200000 :  54 bits de zéros en tête | hash/cible = 0.561832 | CONFORME
+  bloc  968000 :  79 bits de zéros en tête | hash/cible = 0.594286 | CONFORME
+
+════════════════════════════════════════════════════════════════════════
+C4 — DIFFICULTÉ RECALCULÉE DEPUIS nBits
+════════════════════════════════════════════════════════════════════════
+  bloc       0 : nBits 0x1d00ffff -> difficulté 1.000000 | attendue 1.000000 | CONFORME
+  bloc  100000 : nBits 0x1b04864c -> difficulté 14,484.162361 | attendue 14,484.162361 | CONFORME
+  bloc  200000 : nBits 0x1a05db8b -> difficulté 2,864,140.507811 | attendue 2,864,140.507811 | CONFORME
+  bloc  968000 : nBits 0x17021ec5 -> difficulté 132,757,073,449,487.515625 | attendue 132,757,073,449,487.515625 | CONFORME
+
+════════════════════════════════════════════════════════════════════════
+C5 — PREUVE SPV : prouver qu'une transaction est dans le bloc
+════════════════════════════════════════════════════════════════════════
+  tx n°   0 : 9 empreintes (288 octets) | acceptée : True | sur un txid falsifié : False | CONFORME
+  tx n°   1 : 9 empreintes (288 octets) | acceptée : True | sur un txid falsifié : False | CONFORME
+  tx n° 193 : 9 empreintes (288 octets) | acceptée : True | sur un txid falsifié : False | CONFORME
+  tx n° 386 : 9 empreintes (288 octets) | acceptée : True | sur un txid falsifié : False | CONFORME
+  tx n° 387 : 9 empreintes (288 octets) | acceptée : True | sur un txid falsifié : False | CONFORME
+  -> un portefeuille léger vérifie une tx parmi 388 avec 288 octets au lieu des 12416 octets de la liste : ×43
+
+════════════════════════════════════════════════════════════════════════
+C6 — CONFORMITÉ DE Δ18 : son arbre de Merkle est-il celui de Bitcoin ?
+════════════════════════════════════════════════════════════════════════
+  Δ18 (BLAKE2b) : be380f073c23d4e9d6408c862388be7a
+  Bitcoin       : f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766
+  *** ÉCART *** — et c'est NORMAL. Les deux arbres ne répondent
+  pas à la même question. Voici les quatre écarts, nommés :
+    · fonction d'empreinte
+        Δ18 : BLAKE2b-128 à clé
+        Bitcoin : SHA-256 appliqué DEUX fois, sans clé
+    · boutisme
+        Δ18 : les octets tels quels
+        Bitcoin : txid inversé pour le calcul, réinversé pour l'affichage
+    · nœud impair
+        Δ18 : le dernier est apparié AVEC LUI-MÊME dans la concaténation
+        Bitcoin : le dernier est DUPLIQUÉ comme nœud à part entière — le résultat est le même ici, mais le chemin de preuve, lui, diffère
+    · clé
+        Δ18 : arbre à clé (personne ne peut refabriquer la racine sans la clé)
+        Bitcoin : arbre public, vérifiable par tous, donc sans clé
+
+  CONCLUSION HONNÊTE : Δ18 n'est pas un nœud Bitcoin et ne prétend pas
+  l'être. Son arbre à clé est FAIT pour qu'un tiers ne puisse pas
+  refabriquer la racine ; celui de Bitcoin est fait pour que TOUT LE
+  MONDE le puisse. Ce sont deux besoins opposés, et deux bons choix.
+  Pour parler à Bitcoin, on utilise delta_btc.racine_merkle — conforme,
+  vérifié ci-dessus sur 393 transactions réelles.
+
+════════════════════════════════════════════════════════════════════════
+C7 — CVE-2012-2459 : deux blocs DIFFÉRENTS, la MÊME racine
+════════════════════════════════════════════════════════════════════════
+  3 transactions      -> fa435470825de273081dcc706b25514c936fa6dc80ab965ce6970d68ddd0b553
+  4 (la 3e doublée)   -> fa435470825de273081dcc706b25514c936fa6dc80ab965ce6970d68ddd0b553
+  collision : True  <- c'est la faille, et elle est RÉELLE
+  Un attaquant fabrique un bloc invalide avec la même racine ; un nœud
+  de 2012 le marquait comme « déjà vu et invalide » et refusait ensuite
+  le VRAI bloc. Déni de service par confusion d'identité.
+  correctif appliqué  -> deux nœuds appariés identiques : arbre muté, bloc rejeté (CVE-2012-2459)
+  et le bloc sain passe toujours : True
+  le correctif ne rejette AUCUN des blocs reels testes : True (3 blocs, 393 transactions)
+
+  LA LEÇON POUR Δ : Δ18 duplique lui aussi le dernier nœud impair.
+  Il hérite donc du même défaut. Il est corrigé de la même façon :
+  refuser un doublon en fin de niveau. C'est une faille trouvée en
+  confrontant Δ à l'extérieur, pas en le regardant tout seul.
+
+════════════════════════════════════════════════════════════════════════
+C8 — DÉBIT DE HACHAGE, ET CE QUE Δ N'APPORTE PAS
+════════════════════════════════════════════════════════════════════════
+  200,000 doubles SHA-256 en 0.13 s -> 1,528 kH/s (1.528 MH/s)
+  difficulté actuelle du réseau (bloc 968000) : 132,757,073,449,488
+  essais attendus pour UN bloc : 5.702e+23
+  à ce débit, il faudrait 1.185e+10 années.
+
+  ET C'EST LE POINT LE PLUS IMPORTANT DE TOUT CE TEST :
+  Δ ne peut RIEN pour le minage, et ne le pourra jamais. Tout son gain
+  vient de la STRUCTURE d'un problème. Or SHA-256 est conçu, ligne par
+  ligne, pour n'en avoir AUCUNE : pas de rang faible, pas de symétrie,
+  pas de voisinage exploitable. C'est exactement le contre-essai du
+  noyau aléatoire de Δ-UN, mais mené par l'adversaire lui-même.
+  Si un jour quelqu'un vous dit qu'une architecture « quantique » ou
+  « Δ » mine plus vite, c'est faux, et ce banc le prouve chiffres en main.
+
+════════════════════════════════════════════════════════════════════════
+VERDICT
+════════════════════════════════════════════════════════════════════════
+  ✓  C1 en-tête -> hash officiel
+  ✓  C2 racine de Merkle recalculée
+  ✓  C3 preuve de travail
+  ✓  C4 difficulté
+  ✓  C5 preuve SPV (acceptée / falsifiée rejetée)
+  ✓  C7 faille CVE-2012-2459 reproduite puis corrigée
+  ·  C6 Δ18 non conforme au format Bitcoin — écart ASSUMÉ et expliqué
+  ·  C8 Δ n'accélère pas le minage — limite ASSUMÉE et chiffrée
+
+  TOUTES LES ÉPREUVES DE CONFORMITÉ SONT PASSÉES.
+
+→ resultats_btc.json
+
+════════════════════════════════════════════════════════════════════════
+C9 — LE CORRECTIF APPLIQUÉ À Δ18 LUI-MÊME
+════════════════════════════════════════════════════════════════════════
+  Δ18 sans correctif : 5 blocs  -> 694ffb6f0ca62a72d7e52885659f2c97
+  Δ18 sans correctif : 6 (doublé) -> 694ffb6f0ca62a72d7e52885659f2c97
+  collision dans Δ18 : True
+  strict=True        -> deux nœuds appariés identiques : arbre muté (CVE-2012-2459)
+  le cas sain passe toujours : True
+  le cas muté est rejeté     : True
+  coffre Δ18 toujours valide après modification : True

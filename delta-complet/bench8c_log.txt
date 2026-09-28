@@ -1,0 +1,6 @@
+=== CIRCUIT MIXTE (zone chaude + zone calme) : là où X à la demande doit gagner ===
+X fixe = 32        fid=1.000000 mem=   236.9 Kio t=  32.4 ms  X par lien=[2, 4, 8, 16, 32, 32, 32, 32, 32, 32, 32, 16, 8, 4, 2]
+X fixe = 64        fid=1.000000 mem=   686.1 Kio t= 135.9 ms  X par lien=[2, 4, 8, 16, 32, 64, 64, 64, 64, 64, 32, 16, 8, 4, 2]
+X fixe = 128       fid=1.000000 mem=  1711.6 Kio t= 375.4 ms  X par lien=[2, 4, 8, 16, 32, 64, 128, 128, 128, 64, 32, 16, 8, 4, 2]
+demande eps=1e-6   fid=1.000000 mem=    19.4 Kio t=   7.2 ms  X par lien=[2, 4, 8, 16, 16, 8, 4, 2, 1, 1, 1, 1, 1, 1, 1]
+demande eps=1e-8   fid=1.000000 mem=    19.4 Kio t=   5.1 ms  X par lien=[2, 4, 8, 16, 16, 8, 4, 2, 1, 1, 1, 1, 1, 1, 1]

@@ -1,0 +1,19 @@
+=== 1. VÉRITÉ TERRAIN n=16 : profondeur croissante (l intrication monte) θ=0.6 ===
+profondeur= 10 χ= 2  fid_est=0.999920  fid_VRAIE=0.999908
+profondeur= 10 χ= 4  fid_est=1.000000  fid_VRAIE=1.000000
+profondeur= 10 χ= 8  fid_est=1.000000  fid_VRAIE=1.000000
+profondeur= 10 χ=16  fid_est=1.000000  fid_VRAIE=1.000000
+profondeur= 20 χ= 2  fid_est=0.995647  fid_VRAIE=0.995534
+profondeur= 20 χ= 4  fid_est=0.999999  fid_VRAIE=0.999998
+profondeur= 20 χ= 8  fid_est=1.000000  fid_VRAIE=1.000000
+profondeur= 20 χ=16  fid_est=1.000000  fid_VRAIE=1.000000
+profondeur= 40 χ= 2  fid_est=0.891868  fid_VRAIE=0.915596
+profondeur= 40 χ= 4  fid_est=0.999428  fid_VRAIE=0.999364
+profondeur= 40 χ= 8  fid_est=1.000000  fid_VRAIE=0.999997
+profondeur= 40 χ=16  fid_est=1.000000  fid_VRAIE=0.999998
+
+=== 2. PASSAGE À L ÉCHELLE : θ=0.6, profondeur 10, χ=4, complex64, par lots ===
+n=    1000  t=   0.06s  portes=    14995      242297 portes/s  mem=  266 Kio  vecteur 2^n = 10^302 o  fid globale=10^-3.44e-07  perte max/lien=1.9e-07
+n=   10000  t=   0.62s  portes=   149995      240183 portes/s  mem=    3 Mio  vecteur 2^n = 10^3011 o  fid globale=10^-3.03e-06  perte max/lien=2.3e-07
+n=  100000  t=   8.56s  portes=  1499995      175238 portes/s  mem=   26 Mio  vecteur 2^n = 10^30104 o  fid globale=10^-3.11e-05  perte max/lien=9.0e-07
+n= 1000000  t= 106.14s  portes= 14999995      141320 portes/s  mem=  259 Mio  vecteur 2^n = 10^301031 o  fid globale=10^-3.16e-04  perte max/lien=3.6e-06

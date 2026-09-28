@@ -1,0 +1,15 @@
+=== 1. CONTRÔLE : travail à la demande = même résultat que tout réveiller ===
+tout réveiller :   378 portes exécutées,     0 sautées,    13.2 ms,      0.5 Mflops
+à la demande   :    90 portes exécutées,   288 sautées,     3.8 ms,      0.4 Mflops
+écart max sur <Z> de tous les qubits : 1.94e-15   -> identique
+économie : travail x1.1, temps x3.4
+
+=== 2. CÔNE DE LUMIÈRE : une question sur 3 qubits dans un grand registre ===
+n=  200 | tout :     50 portes,      2.2 ms, 0.0044 J | cône :   19 portes,    0.8 ms, 0.001565 J | économie x    2.8 | écart sur la réponse 0.0e+00
+n= 1000 | tout :    275 portes,     11.4 ms, 0.0228 J | cône :    9 portes,    0.4 ms, 0.000899 J | économie x   25.3 | écart sur la réponse 0.0e+00
+n= 4000 | tout :   1050 portes,     59.2 ms, 0.1184 J | cône :    0 portes,    0.0 ms, 0.000000 J | économie x59179544.4 | écart sur la réponse 0.0e+00
+
+=== 3. PORTES INERTES : registre presque endormi (90 % de portes identité) ===
+tout réveiller : 2394 portes, 104 ms, 0.2071 J (estimation 2 W)
+à la demande   : 253 portes, 12 ms, 0.0238 J
+écart max <Z> : 1.11e-10  | énergie économisée : 88.5 %

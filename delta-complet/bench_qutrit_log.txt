@@ -1,0 +1,105 @@
+══════════════════════════════════════════════════════════════════════════
+1. L'ÉTAT DU HIGGS — et le X que la nature lui impose
+══════════════════════════════════════════════════════════════════════════
+  |H> = ( |+1,-1>  -  |0,0>  +  |-1,+1> ) / racine(3)
+  norme : 1.000000000000000
+  coefficients de Schmidt : [0.57735027 0.57735027 0.57735027]
+  tous égaux à 1/racine(3) = 0.577350269190 : True
+  X = 3   (maximum possible pour deux qutrits : 3)
+  entropie d'intrication : 1.098612288668 nats
+  ln(3) = 1.098612288668  ->  écart 2.22e-16
+
+  L'état est MAXIMALEMENT intriqué. En dimension 2 on n'aurait pas pu
+  dépasser X = 2 ; ici la nature monte à 3, et pas plus haut. Le X de Δ
+  n'est pas un réglage libre : c'est la dimension locale qui le borne.
+
+══════════════════════════════════════════════════════════════════════════
+2. LE TEST D'ATLAS REJOUÉ — Δ a-t-il le droit de découper ?
+══════════════════════════════════════════════════════════════════════════
+  état du Higgs (H -> ZZ*)         X = 3   coupure autorisée : False
+  état produit (contre-essai)      X = 1   coupure autorisée : True
+
+  C'est EXACTEMENT l'hypothèse qu'ATLAS a testée sur le ciel :
+  « l'état est-il séparable ? », c'est-à-dire « X vaut-il 1 ? ».
+  Le détecteur a répondu NON à 4,7 sigma. Le test de découpage de Δ1
+  répond NON aussi, et pour la même raison : le deuxième coefficient
+  de Schmidt vaut 0.577350, il ne tombe pas sous la tolérance.
+
+══════════════════════════════════════════════════════════════════════════
+3. LA SYMÉTRIE m1+m2 = 0 — Δ10 appliqué à la physique réelle
+══════════════════════════════════════════════════════════════════════════
+  charge m1+m2 = +0 : |+1,-1> x +0.57735 , | 0, 0> x -0.57735 , |-1,+1> x +0.57735
+
+  amplitudes possibles : 9   réellement non nulles : 3   -> ×3
+  Le Higgs a un spin NUL : la conservation du moment cinétique interdit
+  toute configuration où m1+m2 est différent de zéro. Six amplitudes sur
+  neuf n'existent pas — non pas « petites », INEXISTANTES.
+  Dans Δ10 on rejette une porte qui viole la charge ; ici c'est la
+  nature qui refuse, et c'est cette contrainte qui FABRIQUE l'intrication.
+  L'état n'est pas intriqué par hasard : il l'est parce qu'une symétrie
+  lui interdit d'être autre chose.
+
+══════════════════════════════════════════════════════════════════════════
+4. JUSQU'OÙ L'INTRICATION RÉSISTE — et où Δ récupère le droit de couper
+══════════════════════════════════════════════════════════════════════════
+  négativité de l'état pur : 1.000000000000
+  valeur théorique (d-1)/2 = 1.0  ->  écart 2.22e-16
+
+     fraction p d'état pur   négativité   verdict
+                      1.00     1.000000   INTRIQUÉ
+                      0.80     0.733333   INTRIQUÉ
+                      0.60     0.466667   INTRIQUÉ
+                      0.40     0.200000   INTRIQUÉ
+                      0.30     0.066667   INTRIQUÉ
+                      0.26     0.013333   INTRIQUÉ
+                      0.25     0.000000   séparable — Δ peut couper
+                      0.24    -0.000000   séparable — Δ peut couper
+                      0.20    -0.000000   séparable — Δ peut couper
+                      0.10    -0.000000   séparable — Δ peut couper
+
+  seuil CHERCHÉ par dichotomie : p = 0.250004
+  seuil THÉORIQUE 1/(d+1)     : p = 0.250000
+  écart : 3.81e-06
+
+  Voilà le pont entre la physique et le canon de Δ : eps, c'est ce
+  qu'on a le droit de PERDRE. Ici la nature fixe le point exact où la
+  perte devient totale. Au-dessus de p = 1/4, Δ n'a PAS le droit de
+  découper l'état, quelle que soit la tolérance qu'on lui donne.
+  En dessous, le découpage devient légitime — l'intrication a disparu
+  dans le bruit. Ce seuil n'est pas un réglage : c'est une frontière.
+
+══════════════════════════════════════════════════════════════════════════
+5. COMBIEN DE DONNÉES MANQUE-T-IL À ATLAS ?
+══════════════════════════════════════════════════════════════════════════
+  observé : 4,7 sigma   (attendu : 4,9)
+  seuil de DÉCOUVERTE en physique des particules : 5 sigma
+  la significativité croît comme racine(N) :
+    pour atteindre 5,0 sigma -> ×1.132 de données, soit +13 %
+    pour 7 sigma             -> ×2.22
+    pour 10 sigma            -> ×4.53
+
+  Treize pour cent. C'est tout ce qui sépare « évidence forte » de
+  « découverte ». Le HiLumi n'apportera pas une idée neuve : il
+  apportera du VOLUME, et les barres d'erreur se resserreront toutes
+  seules. C'est la même loi que partout chez nous — on ne multiplie
+  pas ce qu'on n'a pas, on accumule ce qui existe.
+
+══════════════════════════════════════════════════════════════════════════
+6. CE QUE CE CALCUL NE DIT PAS — et il faut le dire
+══════════════════════════════════════════════════════════════════════════
+  · Δ reconstruit ici l'état THÉORIQUE imposé par la symétrie, et il le
+    fait exactement. Il ne rejoue PAS l'analyse d'ATLAS : reconstruire
+    les coefficients C à partir des angles des quatre leptons demande
+    leur convention de normalisation des opérateurs tensoriels, que je
+    n'ai pas. Leurs C_(2,1,2,-1) = -0,71 ± 0,45 ne sont donc PAS
+    comparables tels quels aux nombres ci-dessus.
+  · l'étoile de ZZ* compte : l'un des deux Z est virtuel (125 GeV ne
+    suffisent pas pour deux Z réels à 91 GeV chacun). L'état réel n'est
+    donc pas le singulet pur, mais un mélange — d'où le modèle isotrope
+    du §4, qui est une approximation déclarée, pas la vérité du détecteur.
+  · Δ ne prouve rien sur la nature. Il montre qu'un état contraint par
+    une symétrie est forcément intriqué, et à quel point. C'est ATLAS
+    qui a fait la mesure ; Δ ne fait que retrouver ce que la structure
+    imposait d'avance.
+
+→ resultats_qutrit.json

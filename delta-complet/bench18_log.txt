@@ -1,0 +1,28 @@
+=== 1. CONDENSATEUR : plusieurs chiffres par cellule ===
+16 bits par chiffre (4 chiffres par mot de 64 bits) :     1.9 Mio contre     7.6 Mio (x 4.0) | erreur max 1.51e-05 | empaquetage    11 ms, lecture    35 ms
+ 8 bits par chiffre (8 chiffres par mot de 64 bits) :   976.6 Kio contre     7.6 Mio (x 8.0) | erreur max 3.89e-03 | empaquetage     9 ms, lecture    60 ms
+ 4 bits par chiffre (16 chiffres par mot de 64 bits) :   488.3 Kio contre     7.6 Mio (x16.0) | erreur max 6.60e-02 | empaquetage    11 ms, lecture    10 ms
+
+=== 2. SCEAU À CLÉ contre CRC : la falsification ===
+CRC32 : 4 octets bien choisis suffisent à le retrouver -> détection contournable
+sceau à clé : identique après falsification ? False  -> falsification impossible sans la clé
+débit du sceau : 869 Mo/s
+
+=== 3. ARBRE DE MERKLE : une racine pour tout l état ===
+64 blocs,     9.8 Mio : racine construite en 13 ms (810 Mo/s)
+racine : 3b01d1c767e844003186e8014213e852...
+un octet modifié dans le bloc 37 -> tout bon ? False | blocs fautifs désignés : [37]
+preuve d authenticité d un bloc : 6 empreintes (96 octets) pour 64 blocs -> vérifiée : True
+
+=== 4. COFFRE : chiffré, scellé, réparti, parité sur le CHIFFRÉ ===
+8 blocs (    3.1 Mio) chiffrés et scellés en 42 ms -> 76 Mo/s
+sceaux valides : True
+un octet altéré dans le bloc 3 -> sceaux valides ? False
+bloc 2 perdu puis reconstruit SANS déchiffrer les autres : identique True
+déchiffré = original : True | parité   390.6 Kio pour     3.1 Mio (12.5 %)
+
+=== 5. CE QU UN QPU NE PEUT PAS FAIRE ===
+un état quantique cohérent ne peut être ni copié (non-clonage) ni lu sans être détruit :
+  -> pas de sceau, pas d arbre de Merkle, pas de parité, pas de reconstruction.
+Δ étant classique, son état porte sa propre preuve d intégrité. C est un avantage
+de l émulation sur la machine, pas l inverse.

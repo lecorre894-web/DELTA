@@ -1,0 +1,101 @@
+══════════════════════════════════════════════════════════════════════════
+1. L'ORACLE — le meilleur lot FIXE de chaque charge, connu après coup
+══════════════════════════════════════════════════════════════════════════
+  charge               16       32       64      128      256      512  meilleur
+  sequentielle       36.7     19.8     11.3      7.2      5.1      7.1       256
+  dispersee         581.1    624.9    712.3    885.0   1228.3   3451.1        16
+  boucle              0.7      0.6      0.4      0.4      0.6      1.3        64
+  zipf                6.4      3.5      2.1      1.3      1.0      1.3       256
+  alternance        309.9    323.5    363.1    447.9    619.4   1733.7        16
+  adverse           307.0    320.2    359.8    443.8    613.6   1717.5        16
+
+  (coûts en millisecondes simulées) Regarde la ligne « alternance » et
+  la ligne « boucle » : le meilleur lot n'est PAS le même. Aucun réglage
+  immobile ne peut gagner partout — c'est ce qui manquait au banc d'hier.
+
+══════════════════════════════════════════════════════════════════════════
+2. LA COMPÉTITION — regret de chacun sur chaque charge
+══════════════════════════════════════════════════════════════════════════
+  Le regret est le surcoût par rapport à l'oracle, en pourcentage.
+  0 % = aussi bon que le meilleur réglage connu après coup.
+
+  agent           sequentie dispersee    boucle      zipf alternanc   adverse    PIRE
+  FIXE 16            623.0%      0.0%     89.1%    556.1%      0.0%      0.0%  623.0%
+  FIXE 32            289.7%      7.6%     46.4%    259.5%      4.4%      4.3%  289.7%
+  FIXE 64            123.0%     22.6%      0.0%    111.2%     17.2%     17.2%  123.0%
+  FIXE 128            42.6%     52.3%     14.9%     37.1%     44.5%     44.5%   52.3%
+  FIXE 256             0.0%    111.4%     44.6%      0.0%     99.8%     99.9%  111.4%
+  FIXE 512            39.3%    493.9%    236.3%     34.3%    459.4%    459.4%  493.9%
+  GLOUTON            598.2%    489.1%     14.9%     37.1%    422.5%    324.7%  598.2%
+  Δ-HYSTERESIS        52.5%     17.5%     14.9%     37.1%     17.1%     21.4%   52.5%
+  BANDIT-UCB         186.0%    103.8%     89.1%    561.3%    118.0%     94.1%  561.3%
+
+══════════════════════════════════════════════════════════════════════════
+3. CLASSEMENT — par PIRE cas, pas par moyenne
+══════════════════════════════════════════════════════════════════════════
+  rang agent             pire regret   regret moyen  changements
+     1 FIXE 128                52.3%          39.3%            0
+     2 Δ-HYSTERESIS            52.5%          26.7%           71
+     3 FIXE 256               111.4%          59.3%            0
+     4 FIXE 64                123.0%          48.5%            0
+     5 FIXE 32                289.7%         102.0%            0
+     6 FIXE 512               493.9%         287.1%            0
+     7 BANDIT-UCB             561.3%         192.1%          112
+     8 GLOUTON                598.2%         314.4%          282
+     9 FIXE 16                623.0%         211.4%            0
+
+  GAGNANT EN FIABILITÉ : FIXE 128
+  Un agent qui gagne cinq charges et s'effondre sur la sixième ne vaut
+  rien dans une machine qui tourne sans surveillance. C'est pour ça
+  qu'on classe sur le pire cas.
+  (le meilleur en MOYENNE serait Δ-HYSTERESIS — et ce n'est pas
+   le même. La moyenne cache exactement ce qu'on cherche à éviter.)
+
+══════════════════════════════════════════════════════════════════════════
+4. L'OSCILLATION — l'agent change-t-il d'avis sans arrêt ?
+══════════════════════════════════════════════════════════════════════════
+  agent           sequentie dispersee    boucle      zipf alternanc   adverse
+  GLOUTON                 3         2         3         3        58       213
+  Δ-HYSTERESIS           14         5        14        14        11        13
+  BANDIT-UCB             17        19        19        19        19        19
+
+  GLOUTON explose sur les charges qui changent : 213 revirements sur la
+  charge adverse, où il court après chaque fluctuation. Δ-HYSTERESIS
+  reste entre 5 et 14 par charge : il tente un cran, mesure si ça a
+  payé, et revient en arrière sinon. Ce ne sont pas des hésitations,
+  ce sont des essais qui se concluent.
+
+══════════════════════════════════════════════════════════════════════════
+5. ROBUSTESSE — cinq graines différentes, le pire reste-t-il borné ?
+══════════════════════════════════════════════════════════════════════════
+  agent             pire sur 5 graines   écart-type
+  FIXE 16                       621.1%         0.0%
+  FIXE 32                       291.7%         0.0%
+  FIXE 64                       127.7%         0.0%
+  FIXE 128                       52.2%         0.3%
+  FIXE 256                      111.4%         0.3%
+  FIXE 512                      493.3%         0.2%
+  GLOUTON                       583.9%         0.0%
+  Δ-HYSTERESIS                   54.9%         0.0%
+  BANDIT-UCB                    595.7%        39.2%
+
+  Un agent fiable a un pire cas BORNÉ et un écart-type faible : on sait
+  d'avance ce qu'il coûtera au maximum, quelle que soit la charge.
+
+══════════════════════════════════════════════════════════════════════════
+6. VERDICT
+══════════════════════════════════════════════════════════════════════════
+  Δ-HYSTERESIS : pire regret 52.5 %, moyen 26.7 %, 71 changements au total.
+  meilleur réglage FIXE : pire regret 52.3 %
+  GLOUTON : pire regret 598.2 %  (282 changements)
+  BANDIT  : pire regret 561.3 %
+
+  ÉGALITÉ AU PIRE CAS : 52.5 % contre 52.3 %, soit 0.2 point d'écart — c'est du bruit de mesure.
+  MAIS le réglage fixe gagnant ne peut être choisi qu'APRÈS avoir
+  vu les six charges. Δ-HYSTERESIS atteint la même garantie SANS
+  les connaître, et il fait mieux en moyenne : 26.7 %
+  contre 39.3 %.
+  C'est ça, l'utilité d'un agent : pas de battre l'oracle, mais
+  d'atteindre sa garantie sans avoir eu besoin de le consulter.
+
+→ resultats_arene.json

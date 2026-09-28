@@ -1,0 +1,123 @@
+══════════════════════════════════════════════════════════════════════════
+1. Δ RÉSOUT L'ATOME — sans connaître la réponse
+══════════════════════════════════════════════════════════════════════════
+  matrice 6000x6000 tridiagonale, diagonalisée en 0.2 s
+  aucune formule des niveaux n'a été fournie au programme.
+
+   n    Δ (hartree)          exact   écart relatif       Δ (eV)
+   1    -0.49995001    -0.50000000        1.00e-04    -13.60433
+   2    -0.12499688    -0.12500000        2.50e-05     -3.40134
+   3    -0.05555494    -0.05555556        1.11e-05     -1.51173
+   4    -0.03124980    -0.03125000        6.25e-06     -0.85035
+   5    -0.01999992    -0.02000000        4.00e-06     -0.54423
+   6    -0.01388843    -0.01388889        3.31e-05     -0.37792
+
+  ÉNERGIE D'IONISATION calculée par Δ : 13.60433 eV
+  valeur admise                       : 13.60569 eV
+  écart : 0.010 %
+
+══════════════════════════════════════════════════════════════════════════
+2. LES RAIES DE BALMER — celles qu'on voit dans le Soleil
+══════════════════════════════════════════════════════════════════════════
+  Transitions vers n=2. Ce sont les raies visibles de l'hydrogène,
+  observées depuis 1885. Δ ne les a jamais lues.
+
+              raie     Δ (nm)   Rydberg (nm)   cité (nm)   écart Δ
+   H-alpha (rouge)     656.14        656.470      656.28    0.051%
+     H-beta (bleu)     486.02        486.274      486.13    0.051%
+  H-gamma (violet)     433.95        434.173      434.05    0.052%
+  H-delta (violet)     410.08        410.294      410.17    0.052%
+
+  Les trois sources concordent : Δ, la formule de Rydberg, et les
+  valeurs tabulées. L'atome de Δ émet aux bonnes couleurs.
+
+══════════════════════════════════════════════════════════════════════════
+3. l = 0, 1, 2 — LA DÉGÉNÉRESCENCE, SIGNATURE DU 1/r
+══════════════════════════════════════════════════════════════════════════
+  Dans l'atome d'hydrogène, et SEULEMENT là, les niveaux ne dépendent
+  pas de l. C'est une symétrie cachée du potentiel en 1/r.
+  Si Δ la retrouve, c'est qu'il a bien résolu la vraie équation.
+
+   n           l=0           l=1           l=2         exact
+   1   -0.49995001             —             —   -0.50000000
+   2   -0.12499688   -0.12500104             —   -0.12500000
+   3   -0.05555494   -0.05555604   -0.05555560   -0.05555556
+   4   -0.03124980   -0.03125025   -0.03125004   -0.03125000
+
+  écart maximal entre l différents, à n fixé : 4.17e-06 hartree
+  La dégénérescence est bien là. Δ n'a pas résolu « une » équation :
+  il a résolu LA bonne.
+
+══════════════════════════════════════════════════════════════════════════
+4. OÙ EST LA STRUCTURE — et où elle n'est PAS
+══════════════════════════════════════════════════════════════════════════
+  PREMIER RÉFLEXE, ET IL EST FAUX : comprimer les orbitales entre elles.
+  X effectif des 6 densités : 6 sur 6 — AUCUN gain.
+  valeurs singulières : 4.36  2.60  1.85  1.40  1.08  0.84
+  Et ce n'est pas un échec de Δ : les fonctions propres d'un
+  hamiltonien sont ORTHOGONALES par construction. Chercher à les
+  comprimer les unes par les autres, c'est chercher une redondance
+  qu'un théorème interdit. Je me suis trompé de cible, et la mesure
+  me l'a dit en une ligne.
+
+  LA STRUCTURE EST AILLEURS, ET ELLE EST ÉNORME :
+    matrice pleine    :     36,000,000 nombres
+    ses 3 diagonales  :         11,999 nombres   -> ×3,000
+  L'opérateur de dérivée seconde ne relie que des points VOISINS.
+  C'est la localité — le cône de lumière de Δ11 — et elle donne un
+  facteur 3,000 SANS RIEN APPROXIMER : le résultat est identique.
+
+  DEUXIÈME QUESTION DE Δ : combien de points suffisent VRAIMENT ?
+    points    E1 (hartree)   écart au vrai     gain
+       200     -0.46163994        7.67e-02    30.0×
+       500     -0.49300018        1.40e-02    12.0×
+      1000     -0.49821284        3.57e-03     6.0×
+      2000     -0.49955081        8.98e-04     3.0×
+      4000     -0.49988755        2.25e-04     1.5×
+      6000     -0.49995001        1.00e-04     1.0×
+
+  L'erreur décroît comme le carré du pas : c'est la signature des
+  différences finies, et elle est vérifiée ici sur un facteur 30.
+
+══════════════════════════════════════════════════════════════════════════
+5. CE QUE L'ATOME N'A PAS LE DROIT DE FAIRE
+══════════════════════════════════════════════════════════════════════════
+  Un photon emporte un moment cinétique de 1. Une transition n'est
+  permise que si l change d'exactement 1.
+
+    l=0 -> l=1 : PERMISE
+    l=1 -> l=2 : PERMISE
+    l=0 -> l=0 : INTERDITE
+    l=1 -> l=1 : INTERDITE
+    l=0 -> l=2 : INTERDITE
+
+  Encore une symétrie qui INTERDIT. C'est le troisième endroit en
+  deux jours où l'on retombe dessus : le spin nul du Higgs qui
+  force l'intrication, la pénalité qui force le réseau à choisir ses
+  directions, et maintenant le moment cinétique qui ferme des
+  transitions. La structure ne vient jamais de ce qui est permis.
+  Elle vient de ce qui est INTERDIT.
+
+══════════════════════════════════════════════════════════════════════════
+6. CONTRE-ESSAI — un potentiel SANS structure
+══════════════════════════════════════════════════════════════════════════
+  potentiel tiré au hasard, même taille de matrice.
+  6 premiers niveaux : -2.6144  -2.5675  -2.5353  -2.5229  -2.5209  -2.4983
+  rapports E1/En : 1.018  1.031  1.036  1.037
+  pour l'hydrogène ils vaudraient n^2 : 4  9  16  25
+
+  X effectif du potentiel aléatoire : 6 sur 6   (hydrogène : 6 sur 6)
+  valeurs singulières : 3.397e+00  3.333e+00  3.184e+00  3.028e+00  2.951e+00  2.113e+00
+
+  SOYONS EXACTS SUR CE QUE CE CONTRE-ESSAI MONTRE ET NE MONTRE PAS :
+  il ne distingue PAS les deux cas sur la compressibilité — les
+  fonctions propres sont orthogonales des deux côtés, donc 6 sur 6
+  partout. C'est attendu, et le dire évite de se raconter une
+  histoire.
+  Ce qu'il montre, c'est l'absence de LOI : les rapports d'énergie
+  valent 1,02 / 1,03 / 1,04 au lieu de 4 / 9 / 16 / 25, il n'y a
+  aucune dégénérescence, et aucune formule ne prédit le niveau
+  suivant. L'hydrogène, lui, tient en trois symboles : -1/(2n²).
+  C'est ça, la structure — pas un taux de compression, une LOI.
+
+→ resultats_atome.json

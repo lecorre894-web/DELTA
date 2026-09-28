@@ -1,0 +1,51 @@
+{
+ "epreuves": {
+  "C1_entete": {
+   "tous_conformes": true,
+   "blocs": 4
+  },
+  "C2_merkle": {
+   "tous_conformes": true,
+   "blocs": 3
+  },
+  "C3_pow": {
+   "tous_conformes": true,
+   "blocs": 4
+  },
+  "C4_difficulte": {
+   "tous_conformes": true
+  },
+  "C5_spv": {
+   "tous_conformes": true,
+   "empreintes": 9,
+   "octets_preuve": 288,
+   "octets_liste": 12416
+  },
+  "C6_delta18": {
+   "conforme": false,
+   "nb_ecarts": 4
+  },
+  "C7_cve": {
+   "collision_reproduite": true,
+   "correctif_efficace": true,
+   "aucun_faux_positif": true
+  },
+  "C8_debit": {
+   "hashs_par_seconde": 1528124.9136402481,
+   "difficulte_reseau": 132757073449487.52,
+   "essais_par_bloc": 5.701872887782188e+23,
+   "annees_pour_un_bloc": 11845356102.216192
+  }
+ },
+ "verdict": {
+  "conforme": true,
+  "detail": {
+   "C1 en-t\u00eate -> hash officiel": true,
+   "C2 racine de Merkle recalcul\u00e9e": true,
+   "C3 preuve de travail": true,
+   "C4 difficult\u00e9": true,
+   "C5 preuve SPV (accept\u00e9e / falsifi\u00e9e rejet\u00e9e)": true,
+   "C7 faille CVE-2012-2459 reproduite puis corrig\u00e9e": true
+  }
+ }
+}

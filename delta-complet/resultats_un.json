@@ -1,0 +1,72 @@
+{
+ "exactitude": {
+  "erreur_relative": 4.519188134813064e-13,
+  "eps": 1e-08,
+  "blocs": 32
+ },
+ "debit": {
+  "blocs": 4096,
+  "inconnues": 524288,
+  "secondes": 0.13815903663635254,
+  "gflops": 4.954602797440308,
+  "inconnues_par_seconde": 3798085.701372409,
+  "octets_operateur": 1716224
+ },
+ "cache": {
+  "budget_octets": 262144,
+  "lignes": 2048,
+  "lignes_brutes_octets": 2097152,
+  "etages_occupes": 98,
+  "degradations": 5035,
+  "oubliees": 0,
+  "taux": 1.0,
+  "latence_succes_us": 48.45023155212402,
+  "recalcul_us": 1308.7916374206543,
+  "gain": 27.01311418940531,
+  "erreur_par_etage": {
+   "2": 0.0213820544504802,
+   "4": 0.0037602780452453593,
+   "8": 0.00032953622679668615,
+   "16": 2.3214399609370437e-07
+  }
+ },
+ "cache_classique": {
+  "perdues": 4429,
+  "taux": 0.07190966719492868,
+  "secondes": 3.584838628768921
+ },
+ "memoire": {
+  "pages_logiques": 512,
+  "pages_stockees": 8,
+  "dedup": 64.0,
+  "octets_bruts": 67108864,
+  "octets": 9216,
+  "integrite": true,
+  "condensateur_facteur": 8.0,
+  "condensateur_erreur": 6.54506312302267e-05
+ },
+ "sceau": {
+  "blocs": 256,
+  "ms": 5.179643630981445,
+  "Mo_s": 50.610431658273875,
+  "preuve_vraie": true,
+  "preuve_alteree": false,
+  "reconstruction": true,
+  "cout_parite_pct": 0.390625
+ },
+ "contre_essai": {
+  "rangs": [
+   64,
+   64,
+   64,
+   64,
+   64,
+   64,
+   64,
+   64,
+   64
+  ],
+  "plein": 64,
+  "gain": false
+ }
+}

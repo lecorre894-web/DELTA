@@ -1,0 +1,22 @@
+=== 1. CONTRÔLE : le lot donne-t-il EXACTEMENT le même résultat ? ===
+écart relatif max entre lot (Δ15) et une par une (Δ14) : 1.11e-14
+
+=== 2. LE GAIN DU LOT : même calcul, même flops, débit multiplié ===
+lot de     1 blocs : 4096 blocs calculés en   2.77 s ->   0.25 Gflops |      189,854 inconnues/s
+lot de     8 blocs : 4096 blocs calculés en   0.34 s ->   2.04 Gflops |    1,562,025 inconnues/s
+lot de    64 blocs : 4096 blocs calculés en   0.09 s ->   7.42 Gflops |    5,687,139 inconnues/s
+lot de   512 blocs : 4096 blocs calculés en   0.07 s ->  10.20 Gflops |    7,823,033 inconnues/s
+lot de  4096 blocs : 4096 blocs calculés en   0.11 s ->   6.34 Gflops |    4,860,590 inconnues/s
+
+=== 3. MAXIMUM : le débit tient-il à l échelle infinie ? ===
+n=             1,000,000 | 4096 blocs (524,288 inconnues) en  0.11 s |   6.44 Gflops |    4,940,326 inconnues/s | mémoire     3.1 Mio | opérateur explicite 10^13 o
+n=     1,000,000,000,000 | 4096 blocs (524,288 inconnues) en  0.13 s |   5.09 Gflops |    3,904,446 inconnues/s | mémoire     3.1 Mio | opérateur explicite 10^25 o
+n=1,000,000,000,000,000,000 | 4096 blocs (524,288 inconnues) en  0.15 s |   4.65 Gflops |    3,567,735 inconnues/s | mémoire     3.1 Mio | opérateur explicite 10^37 o
+
+=== 4. CÔNE + % + SYMÉTRIE dans le lot ===
+classes retenues 401 (ignorées car négligeables : 0) | float64 : 401 classes, float32 : 0 | mémoire     1.9 Mio
+512 blocs demandés :   253.23 Mflop | 8 blocs seulement :     0.00 Mflop (le cône coupe la SORTIE, pas encore le calcul : piste V1.6)
+
+=== 5. ECC + NŒUDS (découpe à l octet) ===
+empreintes valides : True
+8 nœuds : données     1.6 Mio, parité   209.5 Kio -> surcoût 12.5 % (idéal 12.5 %)

@@ -1,0 +1,5 @@
+n=16 uniforme χ=3         fid VRAIE=0.97508 mem=2.2 Kio
+n=16 proportionné χ=4/3   fid VRAIE=0.99405 mem=3.1 Kio
+n=1000000 uniforme χ=4         t=  98.9s mem compacte=259.4 Mio ( 272.0 o/qubit) fid globale=0.99927
+n=1000000 uniforme χ=3         t=  66.3s mem compacte=148.8 Mio ( 156.0 o/qubit) fid globale=0.70421
+n=1000000 proportionné χ=4/3   t=  93.4s mem compacte=149.2 Mio ( 156.4 o/qubit) fid globale=0.70500

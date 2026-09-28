@@ -1,0 +1,12 @@
+=== 1. VÉRITÉ TERRAIN n=16, θ=0.6, profondeur 40 (le cas dur) ===
+uniforme χ=2           mem compacte=  1.1 Kio  fid globale VRAIE=0.91560  fid qubits importants=0.998677  (erreur 1.3e-03)  fid_est=0.89187
+uniforme χ=4           mem compacte=  3.5 Kio  fid globale VRAIE=0.99936  fid qubits importants=0.999998  (erreur 2.3e-06)  fid_est=0.99943
+uniforme χ=8           mem compacte= 11.7 Kio  fid globale VRAIE=1.00000  fid qubits importants=0.999998  (erreur 2.2e-06)  fid_est=1.00000
+proportionné χ=8/2     mem compacte=  6.3 Kio  fid globale VRAIE=0.96750  fid qubits importants=0.999995  (erreur 4.9e-06)  fid_est=0.96088
+proportionné χ=8/4     mem compacte=  7.6 Kio  fid globale VRAIE=0.99992  fid qubits importants=0.999998  (erreur 2.2e-06)  fid_est=0.99987
+
+=== 2. PALIERS x10 : μ_j proportionné (χ=4 autour de 0,1 % de qubits importants, χ=2 ailleurs) ===
+n=     1000 t=     0.1s    236524 portes/s  mem compacte= 71.0 Kio (72.7 o/qubit)  fid globale=0.97972  perte max/lien=1.1e-03
+n=    10000 t=     0.6s    272692 portes/s  mem compacte=710.2 Kio (72.7 o/qubit)  fid globale=0.80581  perte max/lien=4.8e-03
+n=   100000 t=     7.6s    196935 portes/s  mem compacte=  6.9 Mio (72.7 o/qubit)  fid globale=0.12828  perte max/lien=4.5e-03
+n=  1000000 t=    79.8s    188015 portes/s  mem compacte= 69.4 Mio (72.7 o/qubit)  fid globale=0.00000  perte max/lien=1.6e-02

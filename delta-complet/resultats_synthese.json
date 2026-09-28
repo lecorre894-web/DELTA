@@ -1,0 +1,233 @@
+{
+ "table": [
+  {
+   "etage": "\u03941",
+   "quoi": "\u00eeles et intrication flottante",
+   "perf": "acc\u00e8s libre conserv\u00e9 apr\u00e8s fusion",
+   "preuve": "bench_log.txt",
+   "presente": true
+  },
+  {
+   "etage": "\u03942",
+   "quoi": "MPS complex64 + SVD par lots",
+   "perf": "r\u00e9f\u00e9rence dense \u00e9gal\u00e9e \u00e0 1e-7",
+   "preuve": "resultats_delta2.json",
+   "presente": true
+  },
+  {
+   "etage": "\u03943",
+   "quoi": "budget m\u00e9moire par paliers",
+   "perf": "10 000 000 qubits en 2,53 Gio, fid\u00e9lit\u00e9 0,9927",
+   "preuve": "resultats_delta3_10M.json",
+   "presente": true
+  },
+  {
+   "etage": "\u03944",
+   "quoi": "cha\u00eene INFINIE (iTEBD)",
+   "perf": "cha\u00eene sans fin en 16 Kio, accord 7e-15 avec le fini",
+   "preuve": "resultats_delta4.json",
+   "presente": true
+  },
+  {
+   "etage": "\u03945",
+   "quoi": "fond partag\u00e9 + grappes allum\u00e9es",
+   "perf": "fond + grappes exact \u00e0 2,2e-16",
+   "preuve": "resultats_delta5.json",
+   "presente": true
+  },
+  {
+   "etage": "\u0394-N\u0152UD",
+   "quoi": "3 n\u0153uds HTTP r\u00e9els",
+   "perf": "erreur EXACTEMENT 0 entre cluster et local",
+   "preuve": "cluster_log.txt",
+   "presente": true
+  },
+  {
+   "etage": "\u03948",
+   "quoi": "X \u00e0 la demande, %, \u03bc",
+   "perf": "X suit la demande ; arbitrage mesur\u00e9 sans effet notable",
+   "preuve": "resultats_delta8.json",
+   "presente": true
+  },
+  {
+   "etage": "\u03949",
+   "quoi": "ECC + r\u00e9partition",
+   "perf": "parit\u00e9 exactement 1/N apr\u00e8s passage \u00e0 l'octet",
+   "preuve": "resultats_delta9.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039410",
+   "quoi": "sym\u00e9trie U(1), blocs de charge",
+   "perf": "x5 m\u00e9moire, x18 temps, AUCUNE perte",
+   "preuve": "resultats_delta10.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039411",
+   "quoi": "c\u00f4ne de lumi\u00e8re, travail \u00e0 la demande",
+   "perf": "jusqu'\u00e0 99,0 % d'\u00e9nergie \u00e9conomis\u00e9e",
+   "preuve": "resultats_delta11b.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039413",
+   "quoi": "\u0394-FLOPS, blocs de rang faible",
+   "perf": "x64 m\u00e9moire et flops sur noyau structur\u00e9",
+   "preuve": "resultats_delta13.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039414",
+   "quoi": "fond infini pour les flops",
+   "perf": "op\u00e9rateur constant quelle que soit la taille",
+   "preuve": "resultats_delta14.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039415",
+   "quoi": "\u0394-OMNI, traitement par LOTS",
+   "perf": "9,27 Gflops, 7,1 M inconnues/s, constant \u00e0 10^18",
+   "preuve": "resultats_delta15.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039416",
+   "quoi": "m\u00e9moire pagin\u00e9e + anneau",
+   "perf": "d\u00e9duplication x50",
+   "preuve": "resultats_delta17.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039417",
+   "quoi": "cache pr\u00e9dictif",
+   "perf": "x3,03 apr\u00e8s trois corrections ; 99 % de succ\u00e8s",
+   "preuve": "resultats_delta17c.json",
+   "presente": true
+  },
+  {
+   "etage": "\u039418",
+   "quoi": "condensateurs + cryptographie",
+   "perf": "sceau 739 Mo/s ; parit\u00e9 valide SUR LE CHIFFR\u00c9",
+   "preuve": "bench18_log.txt",
+   "presente": true
+  },
+  {
+   "etage": "\u039419",
+   "quoi": "\u0394-X3D, 256 \u00e9tages",
+   "perf": "256 \u00e9tages co\u00fbtent autant qu'un seul (4,39 \u00b5s)",
+   "preuve": "bench19_log.txt",
+   "presente": true
+  },
+  {
+   "etage": "\u0394-UN",
+   "quoi": "la fusion",
+   "perf": "4,95 Gflops ; erreur 4,5e-13 ; cache x27",
+   "preuve": "resultats_un.json",
+   "presente": true
+  },
+  {
+   "etage": "\u0394-BTC",
+   "quoi": "conformit\u00e9 Bitcoin",
+   "perf": "6 \u00e9preuves / 6 ; 1 faille R\u00c9ELLE trouv\u00e9e dans \u039418",
+   "preuve": "resultats_btc.json",
+   "presente": true
+  },
+  {
+   "etage": "\u0394-BRIDGE",
+   "quoi": "registres, codecs, midstate",
+   "perf": "midstate x1,5 th\u00e9orique ; cha\u00eene sans confiance",
+   "preuve": "resultats_bridge.json",
+   "presente": true
+  },
+  {
+   "etage": "\u0394-FRACTAL",
+   "quoi": "le concept entier sur chaque grain",
+   "perf": "preuve en log2(N) : 1 Kio pour 2^64 grains",
+   "preuve": "resultats_fractal.json",
+   "presente": true
+  }
+ ],
+ "calcul": [
+  {
+   "blocs": 32,
+   "inconnues_s": 2101730.7465585284,
+   "octets_vifs": 114688
+  },
+  {
+   "blocs": 64,
+   "inconnues_s": 2867573.2150129178,
+   "octets_vifs": 147456
+  },
+  {
+   "blocs": 128,
+   "inconnues_s": 3755993.3930543666,
+   "octets_vifs": 212992
+  },
+  {
+   "blocs": 256,
+   "inconnues_s": 4323195.259337907,
+   "octets_vifs": 344064
+  },
+  {
+   "blocs": 512,
+   "inconnues_s": 4111004.911190293,
+   "octets_vifs": 606208
+  },
+  {
+   "blocs": 1024,
+   "inconnues_s": 3283397.001295234,
+   "octets_vifs": 1130496
+  },
+  {
+   "blocs": 2048,
+   "inconnues_s": 2993220.6311296914,
+   "octets_vifs": 2179072
+  },
+  {
+   "blocs": 4096,
+   "inconnues_s": 4009408.1850032005,
+   "octets_vifs": 4276224
+  },
+  {
+   "blocs": 8192,
+   "inconnues_s": 4118640.9900413197,
+   "octets_vifs": 8470528
+  }
+ ],
+ "hachage": [
+  {
+   "voies": 1,
+   "hash_s": 1325236.9161905313,
+   "gain": 1.0,
+   "rendement": 1.0
+  },
+  {
+   "voies": 2,
+   "hash_s": 2232150.9536903054,
+   "gain": 1.6843410611490885,
+   "rendement": 0.8421705305745443
+  },
+  {
+   "voies": 4,
+   "hash_s": 2142714.996645307,
+   "gain": 1.6168542925929523,
+   "rendement": 0.4042135731482381
+  },
+  {
+   "voies": 8,
+   "hash_s": 1952742.301921589,
+   "gain": 1.4735043055809656,
+   "rendement": 0.1841880381976207
+  }
+ ],
+ "hash_infini": {
+  "meilleur_MHs": 2.2321509536903053,
+  "facteur_manquant_une_machine": 89599674.99928705,
+  "facteur_manquant_reseau": 447998374996435.25,
+  "annees_pour_un_bloc": 8109300914.80207,
+  "infini_debit_atteint": false,
+  "infini_preuve_atteint": true,
+  "preuve_2_64_octets": 1024
+ }
+}

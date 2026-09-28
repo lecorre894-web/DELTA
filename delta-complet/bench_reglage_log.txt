@@ -1,0 +1,66 @@
+══════════════════════════════════════════════════════════════════════════
+1. LE BALAYAGE — granularité x profondeur, sur la charge du banc
+══════════════════════════════════════════════════════════════════════════
+      G      prof 1      prof 2      prof 4  blocs calculés
+      8       0.84s       1.51s       2.95s           3,472
+     16       1.03s       1.93s       3.26s           6,336
+     32       1.65s       2.61s       3.62s          11,200
+     64       1.88s       3.48s       4.48s          18,944
+    128       2.83s       3.26s       4.21s          28,544
+
+  MEILLEUR : granularité 8, profondeur 1 -> 0.84 s
+  (l'agent adaptatif faisait 4,54 s ; le « FIXE lot=64 » du banc
+   précédent, c'était G=64 profondeur 1 : 1.88 s)
+
+══════════════════════════════════════════════════════════════════════════
+2. LE GAGNANT TIENT-IL AILLEURS ? (c'est ça, la vraie question)
+══════════════════════════════════════════════════════════════════════════
+  charge                        G8p1     G16p1     G32p1     G64p1     G64p2    G128p1    meilleur
+  mixte (le banc actuel)       0.87s     1.06s     1.48s     2.27s     3.50s     2.77s        G8p1
+  balayage long                0.24s     0.18s     0.13s     0.10s     0.11s     0.07s      G128p1
+  dispersion                   2.39s     3.44s     5.05s     8.03s    13.37s    12.40s        G8p1
+  boucle serrée                0.03s     0.02s     0.02s     0.02s     0.02s     0.02s       G64p1
+
+  réglages gagnants distincts : 3  (G128p1, G64p1, G8p1)
+  Le gagnant CHANGE selon la charge : un réglage fixe ne peut pas
+  être optimal partout, et un agent retrouve un intérêt.
+
+══════════════════════════════════════════════════════════════════════════
+3. POURQUOI CE RÉGLAGE — où part le temps
+══════════════════════════════════════════════════════════════════════════
+  G=  8 :    3,472 blocs calculés pour 1 200 accès  ->    2.9 blocs par accès utile, 0.84 s
+  G= 64 :   18,944 blocs calculés pour 1 200 accès  ->   15.8 blocs par accès utile, 2.34 s
+  G=128 :   28,544 blocs calculés pour 1 200 accès  ->   23.8 blocs par accès utile, 3.15 s
+
+  Tout est là : plus la granularité est grosse, plus on calcule de
+  blocs que personne ne lira jamais. Le taux de cache reste à 1,000
+  dans tous les cas, donc le cache ne départage RIEN — seul compte le
+  travail fait pour rien. C'est la limite du banc, et elle explique
+  pourquoi le meilleur réglage est simplement « le plus petit grain ».
+
+══════════════════════════════════════════════════════════════════════════
+4. LE BANC DUR — un cache trop petit, et la donne change
+══════════════════════════════════════════════════════════════════════════
+  cache réduit à 16 Kio (il déborde vraiment)
+     réglage   secondes     taux        blocs
+        G8p1       0.64    1.000        2,400
+       G16p1       0.42    1.000        2,400
+       G32p1       0.31    1.000        2,400
+       G64p1       0.31    1.000        2,432
+       G64p2       0.29    1.000        2,496
+       G64p4       0.30    1.000        2,624
+      G128p1       0.26    1.000        2,432
+
+  MEILLEUR ICI : G128p1 (0.26 s, taux 1.000)
+  taux toujours identiques (1.000), et J'AI TROUVÉ POURQUOI :
+  ce n'est pas un défaut du banc, c'est le PRINCIPE MÊME de Δ19.
+  Dans la pile X3D, l'éviction devient DÉGRADATION : une ligne
+  froide descend d'étage et s'y range plus grossièrement, mais elle
+  reste au répertoire. Elle n'est donc jamais « manquée ».
+  CONSÉQUENCE, ET ELLE EXPLIQUE TOUTE LA NUIT : dans un système bâti
+  sur X3D, le taux de succès vaut structurellement 1,000 et ne peut
+  RIEN piloter. Voilà pourquoi l'agent V1, qui suivait le taux,
+  était condamné d'avance — et pourquoi V3, qui suit l'utilisation,
+  est le seul à regarder une grandeur qui bouge vraiment.
+
+→ resultats_reglage.json

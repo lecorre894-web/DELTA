@@ -1,0 +1,50 @@
+=== A. VALIDATION : X à la demande contre la vérité exacte 2^n ===
+faible   prof= 20 eps=0.001  X_pic=   3 mem=     2.3 Kio  fid VRAIE=0.99222234  fid estimée=0.98952963
+faible   prof= 20 eps=1e-06  X_pic=   5 mem=     5.4 Kio  fid VRAIE=0.99998571  fid estimée=0.99998331
+faible   prof= 20 eps=1e-10  X_pic=   7 mem=    13.8 Kio  fid VRAIE=0.99999907  fid estimée=1.00000000
+monstre  prof= 12 eps=0.001  X_pic=  97 mem=   789.8 Kio  fid VRAIE=0.97251879  fid estimée=0.97023050
+monstre  prof= 12 eps=1e-06  X_pic= 234 mem=  2560.4 Kio  fid VRAIE=0.99998595  fid estimée=0.99998560
+monstre  prof= 12 eps=1e-10  X_pic= 255 mem=  2728.6 Kio  fid VRAIE=1.00000000  fid estimée=1.00000000
+
+=== B. X FIXE contre X À LA DEMANDE (même circuit, fidélité visée identique) ===
+X fixe = 32                X_pic=   1 mem=     0.6 Kio  fid=0.000009  t=    4.3 ms
+X fixe = 64                X_pic=   1 mem=     0.6 Kio  fid=0.000009  t=    4.1 ms
+X à la demande eps=1e-4    X_pic= 160 mem=  1652.5 Kio  fid=0.997838  t=  141.1 ms
+X à la demande eps=1e-6    X_pic= 234 mem=  2560.4 Kio  fid=0.999986  t=  341.8 ms
+
+=== C. LES TROIS ARBITRAGES : plus petit budget qui finit sans alerte ===
+pourcent        : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+proportionnel   : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+merite          : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+
+=== D. ALERTE DE SATURATION (budget volontairement trop petit) ===
+ARRÊT ET ALERTE -> SATURATION couche 3, lien 6 : perte 5.044e-01 > tolérance 1.000e-06 avec X=1 (il en faudrait 16)
+
+=== E. SVD RANDOMISÉE (le hasard pour CHERCHER) ===
+alea=False X_pic= 212 mem=  8179.2 Kio fid estimée=0.999962 t=  0.44 s
+alea=True  X_pic= 126 mem=  4423.7 Kio fid estimée=0.999967 t=  0.37 s
+=== B (corrigé). X FIXE contre X À LA DEMANDE ===
+X fixe = 16        X_pic=  16 mem=    76.0 Kio fid=0.621783 t=   14.5 ms
+X fixe = 64        X_pic=  64 mem=   686.1 Kio fid=0.982360 t=  150.2 ms
+X fixe = 256       X_pic= 256 mem=  2736.6 Kio fid=1.000000 t=  617.8 ms
+demande eps=1e-4   X_pic= 160 mem=  1652.5 Kio fid=0.997838 t=  132.8 ms
+demande eps=1e-6   X_pic= 234 mem=  2560.4 Kio fid=0.999986 t=  383.8 ms
+
+=== C (corrigé). LES 3 ARBITRAGES — budget serré, mode AUDIT (on continue pour comparer) ===
+-- budget 64 Kio --
+   pourcent       fid globale=0.240187  fid qubits 100%=0.998037  X_pic= 32 mem=   40.2 Kio  alertes=2
+   proportionnel  fid globale=0.218003  fid qubits 100%=0.996660  X_pic= 24 mem=   65.9 Kio  alertes=5
+   merite         fid globale=0.133512  fid qubits 100%=0.993646  X_pic= 31 mem=   20.0 Kio  alertes=2
+-- budget 128 Kio --
+   pourcent       fid globale=0.174408  fid qubits 100%=0.996272  X_pic= 32 mem=   29.9 Kio  alertes=2
+   proportionnel  fid globale=0.194691  fid qubits 100%=0.994477  X_pic= 32 mem=   53.9 Kio  alertes=5
+   merite         fid globale=0.101020  fid qubits 100%=0.992766  X_pic= 32 mem=    7.1 Kio  alertes=2
+-- budget 256 Kio --
+   pourcent       fid globale=0.225131  fid qubits 100%=0.994386  X_pic= 51 mem=  262.8 Kio  alertes=1
+   proportionnel  fid globale=0.139102  fid qubits 100%=0.994298  X_pic= 38 mem=  133.3 Kio  alertes=5
+   merite         fid globale=0.191286  fid qubits 100%=0.994936  X_pic= 51 mem=  267.8 Kio  alertes=1
+
+=== C bis. Mode ARRÊT (règle de René) : plus petit budget qui finit ===
+   pourcent       finit à partir de   384 Kio, fidélité 0.985867
+   proportionnel  finit à partir de   384 Kio, fidélité 0.985867
+   merite         finit à partir de   384 Kio, fidélité 0.985867

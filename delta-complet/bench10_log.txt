@@ -1,0 +1,13 @@
+=== 1. VÉRITÉ EXACTE : symétrie contre simulation 2^n ===
+n=  8 prof=  4 fid VRAIE=1.000000000000  X_pic=  16  mem blocs=     3.4 Kio  mem sans blocs=    10.6 Kio  gain=x3.11  t=5 ms
+n= 12 prof=  8 fid VRAIE=0.999999999998  X_pic=  64  mem blocs=    41.3 Kio  mem sans blocs=   170.6 Kio  gain=x4.13  t=12 ms
+n= 16 prof= 10 fid VRAIE=0.999999999993  X_pic= 254  mem blocs=   554.9 Kio  mem sans blocs=  2714.6 Kio  gain=x4.89  t=31 ms
+
+=== 2. GAIN DE LA SYMÉTRIE À L ÉCHELLE (même circuit, même état) ===
+n=  16 | symétrie :    552.2 Kio,   0.04 s, X= 254 | sans symétrie :   2720.6 Kio,   0.46 s, X= 254 | gains mémoire x4.93, temps x10.96
+n=  32 | symétrie :  12005.3 Kio,   0.51 s, X= 479 | sans symétrie :  55498.3 Kio,   7.37 s, X= 479 | gains mémoire x4.62, temps x14.32
+n=  64 | symétrie :  30972.5 Kio,   1.23 s, X= 512 | sans symétrie : 144960.9 Kio,  18.25 s, X= 556 | gains mémoire x4.68, temps x14.83
+n= 128 | symétrie :  85514.4 Kio,   3.27 s, X= 512 | sans symétrie : 439860.8 Kio,  59.03 s, X= 798 | gains mémoire x5.14, temps x18.04
+
+=== 3. REFUS D UNE PORTE QUI VIOLE LA SYMÉTRIE ===
+REFUS -> la porte relie la charge 1 à la charge 0 : symétrie U(1) violée (élément 7.071e-01)

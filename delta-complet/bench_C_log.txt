@@ -1,0 +1,19 @@
+=== C1. vérité terrain n=18, circuit faible d=10 ===
+exact ε=0                      k_max= 18 mem=   4 Mio fid_est=1.00000 fid_VRAIE=1.00000 fid(qubits 100%)=1.000000 tronc=   0
+uniforme ε=1e-4                k_max=  2 mem=   576 o fid_est=0.99946 fid_VRAIE=0.99968 fid(qubits 100%)=0.999941 tronc=  89
+uniforme ε=1e-3                k_max=  2 mem=   576 o fid_est=0.99349 fid_VRAIE=0.99606 fid(qubits 100%)=0.999941 tronc= 101
+uniforme ε=1e-2                k_max=  2 mem=   576 o fid_est=0.86874 fid_VRAIE=0.87752 fid(qubits 100%)=0.994820 tronc=  99
+proportionné strict ε=1e-2     k_max= 18 mem=   4 Mio fid_est=0.98928 fid_VRAIE=0.98696 fid(qubits 100%)=1.000000 tronc=  11
+proportionné détaché ε=1e-2    k_max=  2 mem=   576 o fid_est=0.90784 fid_VRAIE=0.89633 fid(qubits 100%)=0.999243 tronc= 101
+proportionné détaché ε=1e-3    k_max=  2 mem=   576 o fid_est=0.99439 fid_VRAIE=0.99802 fid(qubits 100%)=0.999941 tronc=  99
+
+=== C2. grande taille, circuit faible d=10, ε=1e-3 uniforme ===
+n=   40 k_max=  2 mem=   1 Kio dense=10^13 o  fid_est=0.9823  t=0.0s 
+n=  100 k_max=  2 mem=   3 Kio dense=10^31 o  fid_est=0.9551  t=0.1s 
+n=  300 k_max=  2 mem=   9 Kio dense=10^92 o  fid_est=0.8688  t=0.5s 
+n= 1000 k_max=  2 mem=  31 Kio dense=10^302 o  fid_est=0.6170  t=3.0s 
+
+=== C3. même circuit, intrication plus forte (θ=0.6) ===
+ε=0.001  k_max= 18 mem=   4 Mio fid_est=0.9930 fid_VRAIE=0.9936
+ε=0.01   k_max=  5 mem=   960 o fid_est=0.8369 fid_VRAIE=0.8950
+ε=0.05   k_max=  3 mem=   608 o fid_est=0.4679 fid_VRAIE=0.5517

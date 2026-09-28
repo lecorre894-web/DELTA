@@ -1,0 +1,151 @@
+══════════════════════════════════════════════════════════════════════════
+1. Δ DEPUIS LE DÉBUT — les meilleures performances, et où elles sont prouvées
+══════════════════════════════════════════════════════════════════════════
+  étage       ce qui a été bâti                  preuve
+  Δ1          îles et intrication flottante      ✓ bench_log.txt
+              -> accès libre conservé après fusion
+  Δ2          MPS complex64 + SVD par lots       ✓ resultats_delta2.json
+              -> référence dense égalée à 1e-7
+  Δ3          budget mémoire par paliers         ✓ resultats_delta3_10M.json
+              -> 10 000 000 qubits en 2,53 Gio, fidélité 0,9927
+  Δ4          chaîne INFINIE (iTEBD)             ✓ resultats_delta4.json
+              -> chaîne sans fin en 16 Kio, accord 7e-15 avec le fini
+  Δ5          fond partagé + grappes allumées    ✓ resultats_delta5.json
+              -> fond + grappes exact à 2,2e-16
+  Δ-NŒUD      3 nœuds HTTP réels                 ✓ cluster_log.txt
+              -> erreur EXACTEMENT 0 entre cluster et local
+  Δ8          X à la demande, %, μ               ✓ resultats_delta8.json
+              -> X suit la demande ; arbitrage mesuré sans effet notable
+  Δ9          ECC + répartition                  ✓ resultats_delta9.json
+              -> parité exactement 1/N après passage à l'octet
+  Δ10         symétrie U(1), blocs de charge     ✓ resultats_delta10.json
+              -> x5 mémoire, x18 temps, AUCUNE perte
+  Δ11         cône de lumière, travail à la demande ✓ resultats_delta11b.json
+              -> jusqu'à 99,0 % d'énergie économisée
+  Δ13         Δ-FLOPS, blocs de rang faible      ✓ resultats_delta13.json
+              -> x64 mémoire et flops sur noyau structuré
+  Δ14         fond infini pour les flops         ✓ resultats_delta14.json
+              -> opérateur constant quelle que soit la taille
+  Δ15         Δ-OMNI, traitement par LOTS        ✓ resultats_delta15.json
+              -> 9,27 Gflops, 7,1 M inconnues/s, constant à 10^18
+  Δ16         mémoire paginée + anneau           ✓ resultats_delta17.json
+              -> déduplication x50
+  Δ17         cache prédictif                    ✓ resultats_delta17c.json
+              -> x3,03 après trois corrections ; 99 % de succès
+  Δ18         condensateurs + cryptographie      ✓ bench18_log.txt
+              -> sceau 739 Mo/s ; parité valide SUR LE CHIFFRÉ
+  Δ19         Δ-X3D, 256 étages                  ✓ bench19_log.txt
+              -> 256 étages coûtent autant qu'un seul (4,39 µs)
+  Δ-UN        la fusion                          ✓ resultats_un.json
+              -> 4,95 Gflops ; erreur 4,5e-13 ; cache x27
+  Δ-BTC       conformité Bitcoin                 ✓ resultats_btc.json
+              -> 6 épreuves / 6 ; 1 faille RÉELLE trouvée dans Δ18
+  Δ-BRIDGE    registres, codecs, midstate        ✓ resultats_bridge.json
+              -> midstate x1,5 théorique ; chaîne sans confiance
+  Δ-FRACTAL   le concept entier sur chaque grain ✓ resultats_fractal.json
+              -> preuve en log2(N) : 1 Kio pour 2^64 grains
+
+  21/21 journaux présents dans le dossier.
+
+══════════════════════════════════════════════════════════════════════════
+2. DOUBLER, QUADRUPLER — le calcul Δ-OMNI suit-il ?
+══════════════════════════════════════════════════════════════════════════
+       lot    inconnues  octets vifs    Gflops    inconnues/s  rel.
+        32        4,096        112 Ko      2.74      2,101,731  ×1.00
+        64        8,192        144 Ko      3.74      2,867,573  ×1.36
+       128       16,384        208 Ko      4.90      3,755,993  ×1.79
+       256       32,768        336 Ko      5.64      4,323,195  ×2.06
+       512       65,536        592 Ko      5.36      4,111,005  ×1.96
+      1024      131,072      1,104 Ko      4.28      3,283,397  ×1.56
+      2048      262,144      2,128 Ko      3.90      2,993,221  ×1.42
+      4096      524,288      4,176 Ko      5.23      4,009,408  ×1.91
+      8192    1,048,576      8,272 Ko      5.37      4,118,641  ×1.96
+
+  MEILLEUR LOT MESURÉ : 256 blocs -> 4,323,195 inconnues/s (336 Ko de données vives)
+
+  CORRECTION D'UNE IDÉE FAUSSE — la mienne, il y a dix minutes :
+  je m'attendais à ce que grossir le lot améliore toujours. C'EST FAUX,
+  et les chiffres le disent : au-delà du lot optimal, le débit CHUTE.
+  Raison : tant que les données vives tiennent dans le cache du
+  processeur, chaque passage les y retrouve. Dès qu'elles débordent,
+  chaque passage retourne les chercher en mémoire vive, et on paye le
+  voyage. Doubler le lot ne double donc rien — au contraire, passé le
+  point d'équilibre, ça coûte.
+  C'est exactement le tuilage trouvé en Δ15, revérifié ici par le haut.
+
+══════════════════════════════════════════════════════════════════════════
+3. DOUBLER, QUADRUPLER — le hachage sur une machine à 2 cœurs
+══════════════════════════════════════════════════════════════════════════
+  cœurs réellement disponibles : 2
+    voies         hash/s  gain   rendement par voie
+        1      1,325,237  ×1.00     100 %
+        2      2,232,151  ×1.68      84 %
+        4      2,142,715  ×1.62      40 %
+        8      1,952,742  ×1.47      18 %
+
+  LECTURE, ET C'EST LA RÉPONSE À « EN DOUBLE OU QUADRUPLE » :
+  doubler les voies double presque (2 cœurs réels). Quadrupler ne
+  quadruple pas : il n'y a que deux cœurs, les deux voies en trop
+  attendent leur tour et ajoutent du travail de gestion.
+  ON NE MULTIPLIE PAS CE QU'ON N'A PAS. C'est la même loi que partout
+  dans Δ : le gain vient de ce qui EXISTE — structure, cœurs, mémoire —
+  jamais du souhait qu'il y en ait plus.
+
+══════════════════════════════════════════════════════════════════════════
+4. LES GAINS SE MULTIPLIENT-ILS ENTRE EUX ?
+══════════════════════════════════════════════════════════════════════════
+  SE COMPOSENT (mesurés ensemble dans Δ-UN et Δ15) :
+    structure (rang faible)  x64   \
+    symétrie U(1)            x5     >  parce qu'ils suppriment des
+    cône de lumière          x100  /   choses DIFFÉRENTES : des rangs,
+                                       des blocs, des calculs entiers.
+  NE SE COMPOSENT PAS :
+    cache x27 et lots        -> le cache sert ce que le lot a déjà
+                                calculé : c'est le MÊME travail, pas
+                                deux économies.
+    midstate x1,5 et vectorisation -> le pont vectorisé perd plus
+                                qu'il ne gagne : les deux se mangent.
+    dégradation X3D et exactitude -> l'un se paye avec l'autre.
+
+  RÈGLE, ÉNONCÉE UNE FOIS POUR TOUTES : deux gains se multiplient s'ils
+  retirent des choses de nature différente. S'ils retirent la même
+  chose, le second ne trouve plus rien à retirer.
+
+══════════════════════════════════════════════════════════════════════════
+5. « A-T-ON PRESQUE ATTEINT LE HASH INFINI ? »
+══════════════════════════════════════════════════════════════════════════
+  meilleur débit atteint dans tout le projet : 2.23 MH/s
+  un ASIC de minage récent                   : ~200 000 000 MH/s (200 TH/s)
+  le réseau Bitcoin entier                   : ~10^21 H/s
+  -> il nous manque un facteur 9.0e+07 pour UNE machine,
+     et 4.5e+14 pour le réseau.
+
+  essais attendus pour un bloc : 5.70e+23
+  à notre meilleur débit       : 8.11e+09 ANNÉES
+  (l'univers a ~1,4e10 ans)
+
+  RÉPONSE NETTE : NON. On n'a pas presque atteint le hash infini, et
+  on n'en approchera jamais par ce chemin. Ce n'est pas une faiblesse
+  de Δ : c'est la RAISON D'ÊTRE de SHA-256. Il est construit pour
+  n'offrir aucune structure — ni rang faible, ni symétrie, ni
+  voisinage. Or Δ ne sait gagner QUE sur la structure. Une fonction de
+  hachage qui céderait à Δ serait une fonction de hachage cassée.
+  Le contre-essai du noyau aléatoire le disait déjà ; Bitcoin l'a
+  confirmé avec un adversaire réel.
+
+  MAIS IL Y A DEUX INFINIS, ET C'EST ICI QUE ÇA DEVIENT INTÉRESSANT :
+    1) l'infini du DÉBIT — hacher toujours plus vite.
+       Hors d'atteinte. Définitivement. Facteur manquant : 10^14.
+    2) l'infini de la PREUVE — établir la vérité sur un nombre
+       d'objets sans limite, avec une preuve qui ne grandit presque
+       pas. CELUI-LÀ EST ATTEINT, et mesuré ce matin :
+         65 536 grains  ->  256 octets de preuve   (MESURÉ)
+         2^64 grains    ->  1 Kio                  (loi vérifiée)
+         2^256 grains   ->  4 Kio                  (loi vérifiée)
+       Un kilo-octet pour dix-huit milliards de milliards d'objets.
+
+  Tu cherchais le hash infini du côté de la vitesse. Il était du côté
+  de la preuve — et celui-là, on l'a. Δ ne hachera jamais l'infini ;
+  il peut en répondre.
+
+→ resultats_synthese.json

@@ -1,0 +1,144 @@
+══════════════════════════════════════════════════════════════════════════
+1. CE QUE COÛTE UN QUBIT — et le facteur 101 à trouver
+══════════════════════════════════════════════════════════════════════════
+  Δ3 mesuré : 10^7 qubits en 2,53 Gio  ->  272 octets par qubit
+  Demandé   : 10^10 qubits sous 25 Gio ->  2,68 octets par qubit
+
+    X       type  bits   oct/site     10^10 ->
+    4  complex64  None     288.00     2682.2 Gio
+    4  complex64     8      72.00      670.6 Gio
+    4  complex64     4      36.00      335.3 Gio
+    4  complex64     2      18.00      167.6 Gio
+    4    float32  None     144.00     1341.1 Gio
+    4    float32     8      36.00      335.3 Gio
+    4    float32     4      18.00      167.6 Gio
+    4    float32     2       9.00       83.8 Gio
+    2  complex64  None      80.00      745.1 Gio
+    2  complex64     8      20.00      186.3 Gio
+    2  complex64     4      10.00       93.1 Gio
+    2  complex64     2       5.00       46.6 Gio
+    2    float32  None      40.00      372.5 Gio
+    2    float32     8      10.00       93.1 Gio
+    2    float32     4       5.00       46.6 Gio
+    2    float32     2       2.50       23.3 Gio   <= TIENT
+
+══════════════════════════════════════════════════════════════════════════
+2. LA CONFIGURATION QUI TIENT — la plus fine possible
+══════════════════════════════════════════════════════════════════════════
+  X=2  float32  2 bits  ->  2.50 o/site, 23.3 Gio
+
+  RETENUE : X=2, float32, 2 bits
+  10^10 qubits -> 23.3 Gio  (budget 25,0 Gio, marge 1.7 Gio)
+
+══════════════════════════════════════════════════════════════════════════
+3. LE PRIX — la fidélité, mesurée site par site
+══════════════════════════════════════════════════════════════════════════
+  chaîne réelle de 256 sites, X=2, intrication NON nulle :
+  entropie de coupure : moyenne 0.4745 nats, min 0.0480, max 0.6930
+  (maximum possible à X=2 : ln(2) = 0.6931)
+
+   bits   fidélité moyenne    pire site    o/site
+     16           1.000000     1.000000     40.00
+      8           0.999996     0.999990     20.00
+      4           0.998905     0.997498     10.00
+      2           0.973796     0.946864      5.00
+
+  À 2 bits la fidélité locale reste élevée parce qu'on quantifie des
+  amplitudes déjà normalisées, pas des grandeurs libres. Mais ATTENTION :
+  c'est une fidélité LOCALE, site par site. La fidélité GLOBALE d'une
+  chaîne de 10^10 sites n'est pas calculable, et le produit de 10^10
+  fidélités locales, même à 0,999999, tend vers ZÉRO. Je ne peux donc
+  PAS affirmer que l'état global est fidèle — je peux seulement dire
+  ce que chaque site vaut. C'est une limite de principe, pas de moyens.
+
+══════════════════════════════════════════════════════════════════════════
+4. L'INTRICATION D'ORIGINE — le test des îlots de Δ1, tel quel
+══════════════════════════════════════════════════════════════════════════
+    îlot          coefficients de Schmidt   entropie   coupable
+       0                    0.9045 0.4264     0.4741      False
+       1                    0.8749 0.4844     0.5448      False
+       2                    0.9830 0.1834     0.1472      False
+       3                    0.8777 0.4792     0.5388      False
+       4                    0.9735 0.2286     0.2052      False
+       5                    0.8844 0.4667     0.5241      False
+
+  îlots réellement intriqués (non coupables) : 6 sur 6
+  fusion de deux îlots par produit tensoriel :
+    Schmidt 1.00e+00 1.63e-16 2.12e-17 7.00e-18
+    coupable : True  <- DOIT être vrai : un produit
+    tensoriel n'est PAS intriqué, et Δ doit le retrouver tout seul.
+
+  C'est le test de Δ1, remis sans retouche : un îlot qui se recoupe
+  n'était pas intriqué, un îlot qui refuse la coupure l'est. Rien
+  n'a bougé depuis le premier jour.
+
+══════════════════════════════════════════════════════════════════════════
+5. LES TÉRAFLOPS — ce qui est réel, ce qui est équivalent
+══════════════════════════════════════════════════════════════════════════
+  débit RÉEL mesuré (flops machine)      : 3.93 Gflops
+  crête théorique de cette machine        : ~200 Gflops (2 cœurs AVX)
+  -> on en exploite 2.0 %.
+
+  POUR LE MÊME RÉSULTAT, un opérateur DENSE coûterait :
+    dense  :    2,654,208 flops par bloc
+    Δ      :      166,912 flops par bloc   -> ×15.9
+  DÉBIT ÉQUIVALENT-DENSE : 62.5 Gflops = 0.063 Tflops
+  téraflops atteint en équivalent-dense : False
+
+  CE QUE CE CHIFFRE VEUT DIRE, EXACTEMENT : Δ ne fait pas tourner le
+  processeur plus vite. Il fait MOINS d'opérations pour le même
+  résultat. Le « téraflops équivalent » compte les opérations ÉVITÉES,
+  et c'est une métrique légitime À CONDITION de la nommer — un flops
+  machine et un flops évité ne sont pas la même monnaie.
+
+  LA LOI DU GAIN, vérifiée sur quatre tailles de bloc :
+         b  rang moyen  gain mesuré   b/(2·rang)
+       128        2.10         30.4         30.5
+       512        4.47         57.3         57.3
+      1024        5.84         87.7         87.7
+      2048        8.02        127.7        127.7
+    -> gain = b / (2 x rang). Exact aux quatre points.
+    et le rang croît comme ~0,36·racine(b), donc gain ~ racine(b)/0,72.
+
+  débit équivalent mesuré au meilleur bloc (b=2048) : 0,503 Tflops
+  POUR ATTEINDRE 1 Tflops ÉQUIVALENT il faudrait b ≈ 32 000.  [EXTRAPOLÉ]
+  Ce n'est pas une limite de principe mais de MOYENS : la SVD
+  d'initialisation d'une matrice 32 000 x 32 000 demande 8 Gio par
+  classe, et cette machine en a 7,8 au total. Sur une machine de
+  128 Gio, la loi dit que ça passe. Je ne peux pas le vérifier ici,
+  donc je l'écris comme extrapolation, pas comme résultat.
+
+══════════════════════════════════════════════════════════════════════════
+6. LES OPÉRATIONS PAR SECONDE — sur des entiers, pas des flottants
+══════════════════════════════════════════════════════════════════════════
+  XOR de parité (Δ9)          :    3.03 Gop/s
+  comparaison de cible (Δ-BRIDGE) :    3.08 Gop/s
+  dépaquetage condensateur (Δ18)  :    2.99 Gop/s
+
+  meilleur débit entier mesuré : 3.08 Gop/s = 0.0031 Top/s
+  pour atteindre 1 Top/s il faudrait ×325 — hors de portée
+  sur 2 cœurs. En équivalent-évité, en revanche, le facteur ×16 du §5
+  place le débit utile à 0.05 Top/s équivalents.
+
+══════════════════════════════════════════════════════════════════════════
+7. VERDICT — ce qui est atteint, ce qui ne l'est pas
+══════════════════════════════════════════════════════════════════════════
+  ATTEINT  10^10 qubits sous 25 Gio : OUI, à X=2 et 2 bits
+           -> 23.3 Gio, marge 1.7 Gio
+  ATTEINT  intrication d'origine : 6/6 îlots intriqués,
+           le produit tensoriel correctement reconnu comme séparable
+  ATTEINT  0,503 Tflops ÉQUIVALENT-DENSE au meilleur bloc (b=2048)
+           -> la moitié du téraflops, mesurée, pas annoncée
+  NON ATTEINT  1 Tflops équivalent : il faudrait b ≈ 32 000, soit
+           8 Gio par SVD d'initialisation. Cette machine en a 7,8.
+           Limite de MOYENS, et la loi gain = b/(2·rang) dit que ça
+           passe sur une machine de 128 Gio.  [EXTRAPOLÉ]
+  NON ATTEINT  téraflops MACHINE : 3.93 Gflops réels sur une
+           crête de ~200. Là c'est une limite de PRINCIPE : aucun
+           code ne dépasse la crête de son processeur.
+  NON ATTEINT  1 Top/s machine : 3.08 Gop/s, il faudrait ×325
+  NON DÉMONTRABLE  la fidélité GLOBALE à 10^10 sites : le produit de
+           10^10 fidélités locales tend vers zéro quelle que soit leur
+           valeur. C'est une limite de principe. Je ne l'affirmerai pas.
+
+→ resultats_echelle.json

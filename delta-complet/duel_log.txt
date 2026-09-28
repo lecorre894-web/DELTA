@@ -1,0 +1,31 @@
+━━━ ÉPREUVE 1 — intrication faible (θ=0,6) ━━━  n=16, 10 couches, 75 portes à 2 qubits
+QPU simulé (p2=0,5 %) : fidélité = 0.8042 ± 0.0589   [attendu ≈ (1-p2)^portes = 0.6866]   temps physique estimé ≈ 0.60 µs par tir
+Δ χ=   2            : fidélité = 0.999907   estimée = 0.999920   temps =      6.5 ms   mémoire =      1.1 Kio
+Δ χ=   4            : fidélité = 1.000000   estimée = 1.000000   temps =      5.0 ms   mémoire =      4.3 Kio
+Δ χ=   8            : fidélité = 1.000000   estimée = 1.000000   temps =      6.7 ms   mémoire =     16.5 Kio
+
+━━━ ÉPREUVE 2 — GHZ, intrication totale ━━━  n=16, 15 couches, 15 portes à 2 qubits
+QPU simulé (p2=0,5 %) : fidélité = 0.9500 ± 0.0345   [attendu ≈ (1-p2)^portes = 0.9276]   temps physique estimé ≈ 0.90 µs par tir
+Δ χ=   1            : fidélité = 0.500000   estimée = 0.500000   temps =      5.0 ms   mémoire =      0.3 Kio
+Δ χ=   2            : fidélité = 1.000000   estimée = 1.000000   temps =      4.9 ms   mémoire =      1.1 Kio
+
+━━━ ÉPREUVE 3 — LE MONSTRE : circuit aléatoire de Haar, profondeur 8 ━━━  n=16, 8 couches, 60 portes à 2 qubits
+QPU simulé (p2=0,5 %) : fidélité = 0.8376 ± 0.0562   [attendu ≈ (1-p2)^portes = 0.7403]   temps physique estimé ≈ 0.48 µs par tir
+Δ χ=   4            : fidélité = 0.277002   estimée = 0.232585   temps =      3.8 ms   mémoire =      4.3 Kio
+Δ χ=  16            : fidélité = 0.955196   estimée = 0.949389   temps =     10.8 ms   mémoire =     65.1 Kio
+Δ χ=  64            : fidélité = 0.999959   estimée = 0.999959   temps =    242.5 ms   mémoire =   1028.2 Kio
+Δ χ= 256            : fidélité = 1.000000   estimée = 1.000000   temps =   6547.7 ms   mémoire =  16401.0 Kio
+
+━━━ ÉPREUVE 3 — LE MONSTRE : circuit aléatoire de Haar, profondeur 16 ━━━  n=16, 16 couches, 120 portes à 2 qubits
+QPU simulé (p2=0,5 %) : fidélité = 0.6842 ± 0.0723   [attendu ≈ (1-p2)^portes = 0.5480]   temps physique estimé ≈ 0.96 µs par tir
+Δ χ=   4            : fidélité = 0.010460   estimée = 0.003155   temps =      6.8 ms   mémoire =      4.3 Kio
+Δ χ=  16            : fidélité = 0.287255   estimée = 0.229878   temps =     24.5 ms   mémoire =     65.1 Kio
+Δ χ=  64            : fidélité = 0.871100   estimée = 0.867669   temps =    515.1 ms   mémoire =   1028.2 Kio
+Δ χ= 256            : fidélité = 1.000000   estimée = 1.000000   temps =  13311.0 ms   mémoire =  16401.0 Kio
+
+━━━ ÉPREUVE 3 — LE MONSTRE : circuit aléatoire de Haar, profondeur 24 ━━━  n=16, 24 couches, 180 portes à 2 qubits
+QPU simulé (p2=0,5 %) : fidélité = 0.4836 ± 0.0780   [attendu ≈ (1-p2)^portes = 0.4057]   temps physique estimé ≈ 1.44 µs par tir
+Δ χ=   4            : fidélité = 0.000352   estimée = 0.000037   temps =     12.1 ms   mémoire =      4.3 Kio
+Δ χ=  16            : fidélité = 0.043514   estimée = 0.026240   temps =     42.2 ms   mémoire =     65.1 Kio
+Δ χ=  64            : fidélité = 0.488526   estimée = 0.481921   temps =    808.2 ms   mémoire =   1028.2 Kio
+Δ χ= 256            : fidélité = 1.000000   estimée = 1.000000   temps =  21125.2 ms   mémoire =  16401.0 Kio

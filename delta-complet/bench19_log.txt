@@ -1,0 +1,35 @@
+=== 1. LE NOMBRE D ÉTAGES COÛTE-T-IL EN LATENCE ? ===
+   3 étages | capacité totale    488.0 Kio | occupé    488.0 Kio |   0.0 % de succès | 132.06 µs/accès |  0.16 s
+  16 étages | capacité totale     17.3 Mio | occupé      1.1 Mio |  66.7 % de succès | 256.50 µs/accès |  0.31 s
+  64 étages | capacité totale    777.9 Gio | occupé      1.1 Mio |  66.7 % de succès | 233.31 µs/accès |  0.28 s
+ 256 étages | capacité totale 10^6 Yio | occupé      1.1 Mio |  66.7 % de succès | 263.48 µs/accès |  0.32 s
+
+=== 2. L ÉVICTION DEVIENT DÉGRADATION : rien n est perdu ===
+Δ-X3D   :   1.0 % de succès | erreur sur les plus vieilles lignes 7.57e-05 (min 6.0e-05, max 9.5e-05) | 9773 dégradations
+classique :   0.0 % de succès | 1116 lignes DÉFINITIVEMENT perdues
+mémoire Δ      2.5 Mio contre classique      1.3 Mio
+
+=== 3. OÙ VIVENT LES DONNÉES (profil de la pile 3D) ===
+  étage   0 : 16 bits/chiffre,    16 lignes,     64.0 Kio
+  étage   1 : 16 bits/chiffre,    19 lignes,     76.0 Kio
+  étage   2 : 16 bits/chiffre,    23 lignes,     92.0 Kio
+  étage   3 : 16 bits/chiffre,    27 lignes,    108.0 Kio
+  étage   4 :  8 bits/chiffre,    66 lignes,    132.0 Kio
+  étage   5 :  8 bits/chiffre,    79 lignes,    158.0 Kio
+  étage   6 :  8 bits/chiffre,    95 lignes,    190.0 Kio
+  étage   7 :  8 bits/chiffre,   114 lignes,    228.0 Kio
+  étage   8 :  8 bits/chiffre,   137 lignes,    274.0 Kio
+  étage   9 :  8 bits/chiffre,   165 lignes,    330.0 Kio
+  étage  10 :  8 bits/chiffre,   198 lignes,    396.0 Kio
+  étage  11 :  8 bits/chiffre,   237 lignes,    474.0 Kio
+  ... 13 étages occupés au total
+
+=== 4. LE % PROTÈGE LES LIGNES QUI COMPTENT ===
+après 1200 lignes, les lignes à 100 % sont aux étages [0, 0, 0, 0, 0, 0] (0 = le plus rapide)
+les lignes ordinaires du même âge sont aux étages [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
+
+=== 5. CAPACITÉ APPARENTE : jusqu où va la pile ===
+  64 étages, facteur 1.3 -> capacité totale     15.6 Tio
+ 128 étages, facteur 1.3 -> capacité totale    291.3 Eio
+ 256 étages, facteur 1.3 -> capacité totale 10^11 Yio
+ 256 étages, facteur 1.5 -> capacité totale 10^27 Yio

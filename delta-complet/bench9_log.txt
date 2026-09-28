@@ -1,0 +1,45 @@
+=== A. VALIDATION : X à la demande contre la vérité exacte 2^n ===
+faible   prof= 20 eps=0.001  X_pic=   3 mem=     2.3 Kio  fid VRAIE=0.99222234  fid estimée=0.98952963
+faible   prof= 20 eps=1e-06  X_pic=   5 mem=     5.4 Kio  fid VRAIE=0.99998571  fid estimée=0.99998331
+faible   prof= 20 eps=1e-10  X_pic=   7 mem=    13.8 Kio  fid VRAIE=0.99999907  fid estimée=1.00000000
+monstre  prof= 12 eps=0.001  X_pic=  97 mem=   789.8 Kio  fid VRAIE=0.97251879  fid estimée=0.97023050
+monstre  prof= 12 eps=1e-06  X_pic= 234 mem=  2560.4 Kio  fid VRAIE=0.99998595  fid estimée=0.99998560
+monstre  prof= 12 eps=1e-10  X_pic= 255 mem=  2728.6 Kio  fid VRAIE=1.00000000  fid estimée=1.00000000
+
+=== B. X FIXE contre X À LA DEMANDE (même circuit, fidélité visée identique) ===
+X fixe = 32                X_pic=   1 mem=     0.6 Kio  fid=0.000009  t=    4.4 ms
+X fixe = 64                X_pic=   1 mem=     0.6 Kio  fid=0.000009  t=    3.9 ms
+X à la demande eps=1e-4    X_pic= 160 mem=  1652.5 Kio  fid=0.997838  t=  115.8 ms
+X à la demande eps=1e-6    X_pic= 234 mem=  2560.4 Kio  fid=0.999986  t=  276.3 ms
+
+=== C. LES TROIS ARBITRAGES : plus petit budget qui finit sans alerte ===
+pourcent        : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+proportionnel   : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+merite          : finit à partir de   512 Kio de budget | fidélité=0.985868 X_pic=51 mem réelle=364 Kio
+
+=== D. ALERTE DE SATURATION (budget volontairement trop petit) ===
+ARRÊT ET ALERTE -> SATURATION couche 3, lien 6 : perte 5.044e-01 > tolérance 1.000e-06 avec X=1 (il en faudrait 16)
+
+=== E. SVD RANDOMISÉE (le hasard pour CHERCHER) ===
+alea=False X_pic= 212 mem=  8179.2 Kio fid estimée=0.999962 t=  0.39 s
+alea=True  X_pic= 126 mem=  4423.7 Kio fid estimée=0.999967 t=  0.40 s
+=== 1. SVD RANDOMISÉE GARDÉE (le garde-fou rattrape les tirages ratés) ===
+SVD exacte                       fid=0.99998595 t=  337.5 ms  décompositions: {'exacte': 90, 'aleatoire': 0, 'rattrapee': 0}
+randomisée, garde 1e-10          fid=0.99998595 t=  356.9 ms  décompositions: {'exacte': 82, 'aleatoire': 0, 'rattrapee': 8}
+randomisée, garde 1e-6           fid=0.99998497 t=  413.2 ms  décompositions: {'exacte': 82, 'aleatoire': 3, 'rattrapee': 5}
+randomisée, garde relâchée 1e-2  fid=0.99994353 t=  389.4 ms  décompositions: {'exacte': 82, 'aleatoire': 8, 'rattrapee': 0}
+
+=== 2. REPRISE SUR SATURATION (au lieu d abandonner) ===
+politique=arret    : FINI  fid=0.99998595  X_pic=234  reprises=0   (534 ms)
+politique=reprise  : FINI  fid=0.99998595  X_pic=234  reprises=0   (465 ms)
+
+=== 3. ECC DISTRIBUÉ : 4 nœuds + parité, on tue un nœud et on reconstruit ===
+état réparti : 40874.0 Kio sur 4 nœuds + parité 638.7 Kio (surcoût 1.6 %)
+vérification CRC de chaque nœud : True
+nœud 2 corrompu d un seul octet -> CRC détecte : True
+nœud 1 perdu puis reconstruit : CRC valide=True, identique au bit près=True
+Traceback (most recent call last):
+  File "/home/claude/delta1/bench9.py", line 50, in <module>
+    for f in noeuds[k]['formes']:
+             ~~~~~~~~~^^^^^^^^^^
+KeyError: 'formes'

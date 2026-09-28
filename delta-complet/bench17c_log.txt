@@ -1,0 +1,8 @@
+=== MÉMOIRE LENTE D ENTRÉE-SORTIE (latence 300 µs, cas disque/réseau) ===
+LRU sans prédiction        :  0.27 s |  451.81 µs/accès |   0.0 % de succès
+Δ-CACHE profondeur 2       :  0.25 s |  398.89 µs/accès |  49.8 % de succès
+Δ-CACHE profondeur 4       :  0.15 s |  238.02 µs/accès |  82.8 % de succès
+Δ-CACHE profondeur 8       :  0.10 s |  159.66 µs/accès |  93.3 % de succès
+Δ-CACHE profondeur 16      :  0.08 s |  128.27 µs/accès |  99.0 % de succès
+
+gain du préchargement sur une source lente : x3.30 en temps total, latence 451.8 -> 128.3 µs

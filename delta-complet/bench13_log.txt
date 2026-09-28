@@ -1,0 +1,26 @@
+=== 1. X À LA DEMANDE SUR DES DONNÉES (rang des blocs) ===
+dense 2048x2048 :   32.0 Mio, matvec   1.47 ms, 8.4 Mflop
+Δ eps=0.0001 :  512.0 Kio (x 64.0 moins), rangs 2-2, matvec   0.25 ms,   0.13 Mflop (x 64.0 moins), erreur relative 7.80e-07
+Δ eps=1e-08  :  768.0 Kio (x 42.7 moins), rangs 3-3, matvec   0.23 ms,   0.20 Mflop (x 42.7 moins), erreur relative 2.38e-09
+Δ eps=1e-12  :    1.0 Mio (x 31.3 moins), rangs 4-5, matvec   0.26 ms,   0.27 Mflop (x 31.3 moins), erreur relative 1.66e-13
+
+=== 2. % = PRÉCISION PAR BLOC (float64 / float32 / float16) ===
+tout en float64                                      :  768.0 Kio, erreur 2.38e-09
+% par bloc (diag 100 %, voisins 50 %, loin 10 %)     :  306.0 Kio, erreur 3.07e-04
+
+=== 3. CÔNE : ne calculer QUE les sorties demandées ===
+1 bloc(s) de sortie sur 8 :  0.02 Mflop (x 8.0 moins),  0.11 ms, erreur sur la part demandée 1.95e-11
+2 bloc(s) de sortie sur 8 :  0.05 Mflop (x 4.0 moins),  0.12 ms, erreur sur la part demandée 2.99e-11
+4 bloc(s) de sortie sur 8 :  0.10 Mflop (x 2.0 moins),  0.21 ms, erreur sur la part demandée 8.94e-11
+
+=== 4. SYMÉTRIE : blocs nuls par construction ===
+sans détection des blocs nuls :  528.0 Kio, 0.14 Mflop
+avec détection (30 blocs nuls ignorés) :  408.0 Kio, 0.10 Mflop -> x1.3 de flops en moins, écart sur le résultat 0.0e+00
+
+=== 5. ECC : empreinte par bloc, parité entre nœuds ===
+toutes les empreintes valides : True
+un bloc altéré -> détecté : True
+répartition sur 4 nœuds : [16, 16, 16, 16] blocs, parité    8.0 Mio
+
+=== 6. LA LIMITE : données SANS structure (bruit pur) ===
+matrice aléatoire 1024 :    8.0 Mio contre    8.0 Mio dense, rangs 256-256, flops 2.10 Mflop contre 2.10 -> AUCUN gain, et c est normal : sans structure, rien à compresser.

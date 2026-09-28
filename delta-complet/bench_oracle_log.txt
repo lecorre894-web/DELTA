@@ -1,0 +1,92 @@
+══════════════════════════════════════════════════════════════════════════
+1. ÉTAT DES LIEUX — où en sont les agents, avec et sans Δ
+══════════════════════════════════════════════════════════════════════════
+  SANS Δ (dans l'arène, modèle de coût pur) : regret vs oracle fixe
+    Δ-HYSTERESIS           52.5%     17.5%     14.9%     37.1%     17.1%     21.4%   pire    52.5%
+    GLOUTON               598.2%    489.1%     14.9%     37.1%    422.5%    324.7%   pire   598.2%
+    BANDIT-UCB            186.0%    103.8%     89.1%    561.3%    118.0%     94.1%   pire   561.3%
+    Δ-REGIME                5.8%      1.8%     14.9%     37.1%     21.4%     59.1%   pire    59.1%
+    Δ-REGIME rapide         5.8%      0.4%     14.9%     55.6%      1.8%     20.0%   pire    55.6%
+
+  AVEC Δ (dans le système réel, bench_systeme) : l'agent fait 4,54 s
+  contre 3,17 s pour l'oracle fixe, soit 43 % de regret. Le système
+  réel est plus dur que l'arène : chaque décision y a un coût caché
+  que le modèle ne facture pas.
+
+══════════════════════════════════════════════════════════════════════════
+2. DÉPASSER L'ORACLE — c'est possible, et voici où
+══════════════════════════════════════════════════════════════════════════
+  L'oracle est le meilleur réglage IMMOBILE. Sur une charge qui
+  alterne, aucun réglage immobile ne peut être bon aux deux moments :
+  c'est là, et seulement là, qu'un agent peut passer dessous.
+
+  charge          oracle (ms)   lot    Δ-REGIME    regret   verdict
+  sequentielle            5.1   256         5.4      5.8%   en dessous
+  dispersee             581.1    16       583.6      0.4%   à égalité
+  boucle                  0.4    64         0.4     14.9%   en dessous
+  zipf                    1.0   256         1.5     55.6%   en dessous
+  alternance            309.9    16       315.4      1.8%   à égalité
+  adverse               307.0    16       368.6     20.0%   en dessous
+
+  charges où l'agent BAT l'oracle : 0 sur 6
+
+══════════════════════════════════════════════════════════════════════════
+3. QUEL OUTIL EST DÉSIGNÉ — on retire chaque pièce, une par une
+══════════════════════════════════════════════════════════════════════════
+  Seule façon honnête de savoir ce qui produit le gain : le débrancher.
+
+  variante                      pire regret     moyen  changements
+  complet (f=100, d=100)              59.1%     23.3%           51
+  SANS détecteur de régime            52.3%     39.3%            0
+  réaction rapide (f=24, d=24)        55.6%     16.4%          184
+  réaction très rapide (f=12, d=8)        55.6%     13.8%          329
+  sans amortisseur (d=0)              55.6%     15.6%          328
+  fenêtre longue (f=400)              58.4%     24.2%           11
+
+  LECTURE : l'écart entre « complet » et « sans détecteur de régime »
+  mesure ce que le détecteur apporte à lui seul. Les autres lignes
+  disent si les réglages comptent ou si c'est du décor.
+  Retirer le DÉTECTEUR DE RÉGIME : le regret moyen passe de 23.3 % à 39.3 %,
+  soit +16.0 points. Mais le PIRE cas, lui, s'améliore : 59.1 % -> 52.3 %.
+  TENSION RÉELLE, ET IL FAUT LA NOMMER : le détecteur fait gagner
+  beaucoup en moyenne et perdre un peu au pire cas. Il rend l'agent
+  meilleur la plupart du temps et un peu plus fragile sur la charge
+  adverse, qui est justement faite pour le prendre en défaut.
+
+  OUTIL DÉSIGNÉ pour le regret MOYEN : « réaction très rapide (f=12, d=8) » (13.8 %)
+  OUTIL DÉSIGNÉ pour le PIRE cas      : « SANS détecteur de régime » (52.3 %)
+
+══════════════════════════════════════════════════════════════════════════
+4. CONTRE-ESSAI — une charge SANS régime stable à reconnaître
+══════════════════════════════════════════════════════════════════════════
+  PREMIER ESSAI RATÉ, ET JE LE LAISSE : j'avais pris une charge
+  purement aléatoire en croyant qu'elle n'offrait rien à détecter.
+  Faux — « dispersion » EST un régime, parfaitement reconnaissable,
+  et le détecteur y gagne massivement (+0,4 % contre +52,0 % sans lui).
+  Ce n'était donc pas un contre-essai mais une confirmation de plus.
+
+    charge « dispersion pure » : oracle 581.8 ms | avec détecteur +0.4 % | sans +52.0 %
+
+  LE VRAI CONTRE-ESSAI — le régime bascule à CHAQUE accès, donc
+  aucune fenêtre ne peut en isoler un :
+    oracle fixe         :     327.4 ms  (lot 16)
+    avec détecteur      :     328.9 ms  (+0.4 %)  1 changements
+    sans détecteur      :     553.3 ms  (+69.0 %)
+
+  apport du détecteur ici : +68.5 points. ENCORE RATÉ.
+  DEUXIÈME ÉCHEC, ET J'ARRÊTE DE BRICOLER : une alternance stricte
+  un-sur-deux est, elle aussi, un régime parfaitement STABLE —
+  statistiquement. La fenêtre y lit « moitié suite, moitié saut »
+  à chaque fois, et cette réponse constante suffit à choisir le bon
+  lot. Je n'ai donc PAS réussi à mettre le détecteur en défaut dans
+  ce modèle, et je préfère l'écrire plutôt que de tordre la charge
+  jusqu'à obtenir le résultat que je cherchais.
+
+  CE QUE ÇA VEUT DIRE, EXACTEMENT : dans ce modèle de coût, le
+  détecteur n'a que trois réponses possibles et une statistique
+  stable suffit à trancher — il est donc difficile à piéger PAR
+  CONSTRUCTION. Cela ne dit RIEN de sa robustesse ailleurs : dans le
+  système réel, le même principe se fait battre par un réglage fixe
+  de 43 %. Un agent robuste dans un modèle n'est pas un agent robuste.
+
+→ resultats_oracle.json

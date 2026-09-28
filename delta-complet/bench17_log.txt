@@ -1,0 +1,17 @@
+séquentiel                     | LRU :   0.0 % de succès,   75.04 µs/accès,  0.11 s | Δ-CACHE :  95.2 %,  144.31 µs/accès,  0.23 s -> x0.49
+pas de 3                       | LRU :   0.0 % de succès,   62.30 µs/accès,  0.09 s | Δ-CACHE :  93.9 %,  167.96 µs/accès,  0.27 s -> x0.35
+boucle courte (réutilisation)  | LRU :  95.7 % de succès,    2.64 µs/accès,  0.00 s | Δ-CACHE :  99.7 %,    6.88 µs/accès,  0.01 s -> x0.33
+irrégulier mais répété         | LRU :  91.5 % de succès,    4.94 µs/accès,  0.01 s | Δ-CACHE :  91.5 %,    7.31 µs/accès,  0.01 s -> x0.60
+aléatoire pur                  | LRU :   6.0 % de succès,   78.41 µs/accès,  0.12 s | Δ-CACHE :   6.0 %,  168.99 µs/accès,  0.26 s -> x0.45
+
+=== DÉTAIL DES LATENCES Δ-CACHE (flux séquentiel) ===
+succès : 142.07 µs | échec :  637.98 µs | moyenne : 164.55 µs | taux 95.5 % | préchargements 1498 | mémoire     8.0 Mio
+sans prédiction : 0.0 % de succès, 76.95 µs/accès, 0.12 s
+
+=== PRIORITÉ % : les lignes à 100 % survivent à la pression ===
+cache de     1.0 Mio, 400 lignes parcourues : lignes à 100 % encore présentes : [0, 1, 2, 3, 4, 5, 6, 7]
+LRU dans les mêmes conditions : lignes 0-7 présentes : []
+
+=== ECC SUR LE CACHE ===
+lignes valides : True
+une ligne altérée -> détectée : True

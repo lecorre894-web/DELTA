@@ -1,0 +1,7 @@
+=== LE PRÉCHARGEMENT PAIE QUAND LE CONSOMMATEUR TRAVAILLE ENTRE DEUX ACCÈS ===
+intensité = nombre de passes de calcul par ligne lue
+
+intensité 0 | LRU  0.09 s ( 72.52 µs/accès,  0.0 % succès) | Δ-CACHE  0.17 s (136.17 µs/accès, 98.3 % succès) -> x0.51 | écart résultats 0.0e+00
+intensité 1 | LRU  0.08 s ( 58.39 µs/accès,  0.0 % succès) | Δ-CACHE  0.22 s ( 32.00 µs/accès, 99.7 % succès) -> x0.36 | écart résultats 0.0e+00
+intensité 3 | LRU  0.11 s ( 72.50 µs/accès,  0.0 % succès) | Δ-CACHE  0.30 s (  3.13 µs/accès, 99.8 % succès) -> x0.39 | écart résultats 0.0e+00
+intensité 8 | LRU  0.15 s ( 69.75 µs/accès,  0.0 % succès) | Δ-CACHE  0.36 s (  3.70 µs/accès, 99.8 % succès) -> x0.42 | écart résultats 0.0e+00

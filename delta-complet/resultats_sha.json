@@ -1,0 +1,48 @@
+{
+ "constantes": {
+  "conformes": true
+ },
+ "vecteurs": {
+  "moteur_conforme": true,
+  "memoire_juste": 4,
+  "total": 5
+ },
+ "aleatoire": {
+  "conformes": 5000,
+  "total": 5000,
+  "pieges": true
+ },
+ "reprise": {
+  "octets_etat": 54,
+  "conforme": true,
+  "hashlib_serialisable": false
+ },
+ "hmac": {
+  "conforme": true
+ },
+ "bitcoin": {
+  "blocs_conformes": true,
+  "midstate": true
+ },
+ "arbre": {
+  "feuilles": 49,
+  "etages": 7,
+  "preuve_octets": 192,
+  "acceptee": true,
+  "falsifiee_rejetee": true
+ },
+ "prix": {
+  "moteur_Mo_s": 0.41740686029441393,
+  "hashlib_Mo_s": 411.0934253341477,
+  "rapport": 984.8746257888212
+ },
+ "verdict": {
+  "constantes recalcul\u00e9es": true,
+  "vecteurs officiels": true,
+  "5 000 messages al\u00e9atoires + longueurs pi\u00e8ges": true,
+  "\u00e9tat sortable et reprise": true,
+  "HMAC": true,
+  "4 blocs Bitcoin + midstate": true,
+  "arbre : preuve accept\u00e9e, falsifi\u00e9e rejet\u00e9e": true
+ }
+}

@@ -1,0 +1,29 @@
+=== 1. DÉDUPLICATION : un fond répété + quelques pages allumées ===
+2000 pages écrites | pages réellement stockées : 41 | facteur de déduplication x48.8
+mémoire brute    250.0 Mio -> Δ      5.0 Mio  (x50 moins)
+
+=== 2. X + % : compression et précision par page ===
+eps=1e-12, 100 %             :     25.0 Mio | rang moyen 128.0 | écart page/original 7.9e-02
+eps=1e-6, 100 %              :     25.0 Mio | rang moyen 128.0 | écart page/original 8.1e-02
+eps=1e-6, 50 % (float32)     :     12.5 Mio | rang moyen 128.0 | écart page/original 8.1e-02
+eps=1e-4, 10 % (float16)     :      6.2 Mio | rang moyen 128.0 | écart page/original 9.4e-02
+
+=== 3. CÔNE : on ne matérialise que ce qu on lit ===
+2000 pages en mémoire, 20 matérialisées (1.0 %) en 0.2 ms
+
+=== 4. TAMPONS : anneau avec préchargement contre tout charger ===
+sans tampon  :    512.0 Mio traités en  0.60 s ->  0.89 Go/s
+anneau (3)   :    512.0 Mio traités en  0.56 s ->  0.96 Go/s | mémoire vive du tampon      3.0 Mio | écart des résultats 0.0e+00
+
+=== 5. TAILLE DE TUILE : trouver l optimum (comme le lot de 512) ===
+tuile     16 Kio :  0.27 Go/s |     16232 tuiles/s | mémoire tampon     48.0 Kio
+tuile     64 Kio :  0.48 Go/s |      7367 tuiles/s | mémoire tampon    192.0 Kio
+tuile    256 Kio :  1.04 Go/s |      3980 tuiles/s | mémoire tampon    768.0 Kio
+tuile   1024 Kio :  0.88 Go/s |       838 tuiles/s | mémoire tampon      2.0 Mio
+tuile   4096 Kio :  0.81 Go/s |       193 tuiles/s | mémoire tampon      8.0 Mio
+tuile  16384 Kio :  0.51 Go/s |        30 tuiles/s | mémoire tampon     32.0 Mio
+
+=== 6. ECC SUR LA MÉMOIRE ===
+toutes les pages valides : True
+une page altérée -> détectée : True
+8 nœuds :      5.0 Mio de pages, parité    640.5 Kio -> surcoût 12.5 %

@@ -1,0 +1,4 @@
+1 intrication faible               n=1000 χ=  4 portes2=  4995 | Δ fid estimée=0.999999 en    0.1 s,     266 Kio | QPU fid attendue=1.34e-11
+2 GHZ                              n=1000 χ=  2 portes2=   999 | Δ fid estimée=1.000000 en    1.7 s,      70 Kio | QPU fid attendue=6.69e-03
+3 monstre profondeur 8             n=1000 χ= 64 portes2=  3996 | Δ fid estimée=0.988601 en   22.1 s,   64250 Kio | QPU fid attendue=2.00e-09
+3 monstre profondeur 24            n=1000 χ= 64 portes2= 11988 | Δ fid estimée=0.000000 en   79.7 s,   64250 Kio | QPU fid attendue=8.00e-27

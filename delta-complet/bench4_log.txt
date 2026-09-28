@@ -1,0 +1,11 @@
+=== θ=0.6 profondeur=10 ===
+CHAÎNE INFINIE  χ=16 : <Z> = +0.85995244   mémoire = 16640 o   temps = 5.2 ms   fidélité/site = 1.000000000
+chaîne finie n=  100   : <Z> centre = +0.85995244   écart = 6.7e-15   mémoire = 813 Kio   temps = 0.09 s
+chaîne finie n= 1000   : <Z> centre = +0.85995244   écart = 6.7e-15   mémoire = 8125 Kio   temps = 0.92 s
+chaîne finie n= 4000   : <Z> centre = +0.85995244   écart = 6.7e-15   mémoire = 32500 Kio   temps = 3.74 s
+
+=== θ=0.6 profondeur=20 ===
+CHAÎNE INFINIE  χ=16 : <Z> = +0.54265124   mémoire = 16640 o   temps = 6.5 ms   fidélité/site = 1.000000000
+chaîne finie n=  100   : <Z> centre = +0.54265124   écart = 4.8e-11   mémoire = 813 Kio   temps = 0.14 s
+chaîne finie n= 1000   : <Z> centre = +0.54265124   écart = 4.8e-11   mémoire = 8125 Kio   temps = 1.29 s
+chaîne finie n= 4000   : <Z> centre = +0.54265124   écart = 4.8e-11   mémoire = 32500 Kio   temps = 6.91 s

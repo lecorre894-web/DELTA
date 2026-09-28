@@ -1,0 +1,96 @@
+{
+ "conformite": {
+  "erreur_lot": 4.5337476843849435e-13,
+  "erreur_cache": 4.116172817839779e-07
+ },
+ "comparaison": {
+  "oracle": 0.8405962969999337,
+  "pire": 7.751431920000073,
+  "agent": 5.450289325999961,
+  "verdict": "L'AGENT est entre le meilleur et le pire fixe : il \u00e9vite le mauvais choix sans atteindre le meilleur."
+ },
+ "cout_agent": {
+  "reveils": 18,
+  "decisions": 7,
+  "part_pct": 0.05336813788642568,
+  "trace": [
+   [
+    "64",
+    "bits",
+    "16",
+    "4",
+    "diversit\u00e9 1.5/32"
+   ],
+   [
+    "64",
+    "lot",
+    "256",
+    "64",
+    "utilisation 21 %"
+   ],
+   [
+    "256",
+    "lot",
+    "64",
+    "128",
+    "utilisation 6400 %"
+   ],
+   [
+    "448",
+    "lot",
+    "128",
+    "64",
+    "utilisation 1 %"
+   ],
+   [
+    "640",
+    "lot",
+    "64",
+    "32",
+    "utilisation 3 %"
+   ],
+   [
+    "832",
+    "lot",
+    "32",
+    "16",
+    "utilisation 9 %"
+   ],
+   [
+    "1024",
+    "lot",
+    "16",
+    "32",
+    "utilisation 3400 %"
+   ]
+  ]
+ },
+ "adaptation": {
+  "lots": 6,
+  "bits": 1
+ },
+ "integrite": {
+  "sceaux": true,
+  "reconstruction": true,
+  "preuve": true,
+  "preuve_falsifiee": false,
+  "mutation_rejetee": true
+ },
+ "contre_essai": {
+  "diversite_bruit": 31.999628471217076,
+  "diversite_structure": 2.9970614956260433
+ },
+ "reproductible": {
+  "empreinte": "c829bca648ae96ac5e7a4be14c317b74f32184f126901f2e514aa5fdfd9cd281",
+  "identique": true
+ },
+ "verdict": {
+  "le syst\u00e8me rend le bon r\u00e9sultat": true,
+  "une ligne relue depuis le cache est juste": true,
+  "l'agent n'est pas pire que le pire r\u00e9glage fixe": true,
+  "l'agent co\u00fbte moins de 5 % du temps total": true,
+  "int\u00e9grit\u00e9 : reconstruction, preuve, mutation rejet\u00e9e": true,
+  "sur du bruit, rien n'est promis": true,
+  "reproductible": true
+ }
+}

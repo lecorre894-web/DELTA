@@ -1,0 +1,236 @@
+{
+ "cout": [
+  {
+   "X": 4,
+   "type": "complex64",
+   "bits": null,
+   "octets": 288,
+   "gio": 2682.209014892578
+  },
+  {
+   "X": 4,
+   "type": "complex64",
+   "bits": 8,
+   "octets": 72.0,
+   "gio": 670.5522537231445
+  },
+  {
+   "X": 4,
+   "type": "complex64",
+   "bits": 4,
+   "octets": 36.0,
+   "gio": 335.27612686157227
+  },
+  {
+   "X": 4,
+   "type": "complex64",
+   "bits": 2,
+   "octets": 18.0,
+   "gio": 167.63806343078613
+  },
+  {
+   "X": 4,
+   "type": "float32",
+   "bits": null,
+   "octets": 144,
+   "gio": 1341.104507446289
+  },
+  {
+   "X": 4,
+   "type": "float32",
+   "bits": 8,
+   "octets": 36.0,
+   "gio": 335.27612686157227
+  },
+  {
+   "X": 4,
+   "type": "float32",
+   "bits": 4,
+   "octets": 18.0,
+   "gio": 167.63806343078613
+  },
+  {
+   "X": 4,
+   "type": "float32",
+   "bits": 2,
+   "octets": 9.0,
+   "gio": 83.81903171539307
+  },
+  {
+   "X": 2,
+   "type": "complex64",
+   "bits": null,
+   "octets": 80,
+   "gio": 745.0580596923828
+  },
+  {
+   "X": 2,
+   "type": "complex64",
+   "bits": 8,
+   "octets": 20.0,
+   "gio": 186.2645149230957
+  },
+  {
+   "X": 2,
+   "type": "complex64",
+   "bits": 4,
+   "octets": 10.0,
+   "gio": 93.13225746154785
+  },
+  {
+   "X": 2,
+   "type": "complex64",
+   "bits": 2,
+   "octets": 5.0,
+   "gio": 46.566128730773926
+  },
+  {
+   "X": 2,
+   "type": "float32",
+   "bits": null,
+   "octets": 40,
+   "gio": 372.5290298461914
+  },
+  {
+   "X": 2,
+   "type": "float32",
+   "bits": 8,
+   "octets": 10.0,
+   "gio": 93.13225746154785
+  },
+  {
+   "X": 2,
+   "type": "float32",
+   "bits": 4,
+   "octets": 5.0,
+   "gio": 46.566128730773926
+  },
+  {
+   "X": 2,
+   "type": "float32",
+   "bits": 2,
+   "octets": 2.5,
+   "gio": 23.283064365386963
+  }
+ ],
+ "retenue": {
+  "X": 2,
+  "dtype": "float32",
+  "bits": 2,
+  "octets_site": 2.5,
+  "total_gio": 23.283064365386963
+ },
+ "fidelite": [
+  {
+   "bits": 16,
+   "moy": 1.0000000158324838,
+   "pire": 0.9999998211860657,
+   "octets": 40.0
+  },
+  {
+   "bits": 8,
+   "moy": 0.9999959766864777,
+   "pire": 0.9999896287918091,
+   "octets": 20.0
+  },
+  {
+   "bits": 4,
+   "moy": 0.9989048726856709,
+   "pire": 0.9974978566169739,
+   "octets": 10.0
+  },
+  {
+   "bits": 2,
+   "moy": 0.9737957259640098,
+   "pire": 0.9468640089035034,
+   "octets": 5.0
+  }
+ ],
+ "intrication": {
+  "ilots": [
+   {
+    "schmidt": [
+     0.9045446121091506,
+     0.4263789918655773
+    ],
+    "entropie": 0.47411052812644694,
+    "coupable": false
+   },
+   {
+    "schmidt": [
+     0.8748617304471894,
+     0.48437274138719744
+    ],
+    "entropie": 0.5447951549073559,
+    "coupable": false
+   },
+   {
+    "schmidt": [
+     0.9830342788308533,
+     0.18342193610226717
+    ],
+    "entropie": 0.14718803864898466,
+    "coupable": false
+   },
+   {
+    "schmidt": [
+     0.8777187767670634,
+     0.4791761147120439
+    ],
+    "entropie": 0.5388043665902903,
+    "coupable": false
+   },
+   {
+    "schmidt": [
+     0.9735131116017649,
+     0.2286311910904747
+    ],
+    "entropie": 0.2051520763726793,
+    "coupable": false
+   },
+   {
+    "schmidt": [
+     0.8844057359683429,
+     0.4667188598999336
+    ],
+    "entropie": 0.5241432305457583,
+    "coupable": false
+   }
+  ],
+  "fusion": {
+   "schmidt": [
+    0.9999999999999998,
+    1.625483240840405e-16,
+    2.1205364539171476e-17,
+    6.997875734867133e-18
+   ],
+   "coupable": true
+  },
+  "intriques": 6
+ },
+ "flops": {
+  "reel_gflops": 3.930685872242136,
+  "gain_dense": 15.901840490797547,
+  "equivalent_gflops": 62.505139759825866,
+  "tflops": false,
+  "loi": "gain = b/(2*rang)",
+  "mesure_b2048_tflops": 0.503,
+  "b_pour_1_tflops": 32000,
+  "statut": "EXTRAPOLE"
+ },
+ "ops": {
+  "xor_gops": 3.0321059848132585,
+  "cmp_gops": 3.0806271756629844,
+  "pack_gops": 2.990183153951757,
+  "meilleur_gops": 3.0806271756629844,
+  "equivalent_tops": 0.04898764195900893
+ },
+ "verdict": {
+  "qubits_25gio": true,
+  "intrication": true,
+  "tflops_equivalent": false,
+  "tflops_machine": false,
+  "tops_machine": false,
+  "fidelite_globale": "non d\u00e9montrable"
+ }
+}

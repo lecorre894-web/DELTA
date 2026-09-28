@@ -1,0 +1,46 @@
+[
+ {
+  "epreuve": "1 intrication faible",
+  "n": 1000,
+  "chi": 4,
+  "portes2": 4995,
+  "delta_fid_est": 0.9999992075296059,
+  "t": 0.12443232536315918,
+  "mem": 272016,
+  "qpu_fid_attendue": 1.337483167056876e-11,
+  "qpu_t_phys": 6e-07
+ },
+ {
+  "epreuve": "2 GHZ",
+  "n": 1000,
+  "chi": 2,
+  "portes2": 999,
+  "delta_fid_est": 1.0,
+  "t": 1.7476882934570312,
+  "mem": 72008,
+  "qpu_fid_attendue": 0.006687405606866296,
+  "qpu_t_phys": 5.993999999999999e-05
+ },
+ {
+  "epreuve": "3 monstre profondeur 8",
+  "n": 1000,
+  "chi": 64,
+  "portes2": 3996,
+  "delta_fid_est": 0.9886011437559032,
+  "t": 22.11816668510437,
+  "mem": 65792256,
+  "qpu_fid_attendue": 2.0000030590093335e-09,
+  "qpu_t_phys": 4.8e-07
+ },
+ {
+  "epreuve": "3 monstre profondeur 24",
+  "n": 1000,
+  "chi": 64,
+  "portes2": 11988,
+  "delta_fid_est": 6.3112834158825834e-114,
+  "t": 79.74340724945068,
+  "mem": 65792256,
+  "qpu_fid_attendue": 8.000036708168146e-27,
+  "qpu_t_phys": 1.4399999999999998e-06
+ }
+]

@@ -1,0 +1,16 @@
+=== 1. PUISSANCE CRÊTE DE CETTE MACHINE (2 cœurs, complex128) ===
+produit matriciel 1024x1024 :  109.61 Gflops   (78 ms)
+SVD 512x512                 :   21.23 Gflops   (139 ms)
+
+=== 2. FLOPS SOUTENUS PAR Δ (moteur symétrique Δ10) ===
+n=  32 :     2.43 Gflop exécutés en   0.41 s ->   5.87 Gflops (  5.4 % de la crête) | évités par la symétrie :     45.05 Gflop (x19.57)
+n=  64 :     6.04 Gflop exécutés en   1.11 s ->   5.43 Gflops (  5.0 % de la crête) | évités par la symétrie :    113.26 Gflop (x19.74)
+n= 128 :    19.34 Gflop exécutés en   2.93 s ->   6.61 Gflops (  6.0 % de la crête) | évités par la symétrie :    390.67 Gflop (x21.20)
+
+=== 3. FLOPS ÉVITÉS PAR TOUTE L ARCHITECTURE (référence : vecteur d état 2^n) ===
+n=  32 : 2^n exigerait 10^13.4 flop | Δ en a exécuté 2.43 Gflop -> rapport 10^4.0
+n=  64 : 2^n exigerait 10^23.3 flop | Δ en a exécuté 6.04 Gflop -> rapport 10^13.6
+n= 128 : 2^n exigerait 10^42.9 flop | Δ en a exécuté 19.34 Gflop -> rapport 10^32.6
+
+=== 4. FLOPS ÉVITÉS PAR LE TRAVAIL À LA DEMANDE (Δ11) ===
+registre de 4000 qubits : tout=    2.79 Mflop en   67.9 ms | cône= 0.058 Mflop en   1.9 ms | flops évités x48

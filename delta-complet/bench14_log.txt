@@ -1,0 +1,18 @@
+=== 1. CONTRÔLE : fond + grappes contre opérateur explicite (n = 4096) ===
+erreur relative max sur 5 blocs de sortie : 2.94e-12
+mémoire : fond   588.0 Kio + 2 grappes   256.0 Kio | opérateur explicite :   128.0 Mio  -> x155 moins
+portée retenue : 32 classes de distance, rangs 2-128
+
+=== 2. COÛT D UNE QUESTION LOCALE : constant quelle que soit la taille ===
+n=          10,000 | mémoire   716.0 Kio |   512.0 µs par question |   183.3 kflop |  0.36 Gflops |      1953 questions/s | opérateur explicite : 10^9 o
+n=       1,000,000 | mémoire   716.0 Kio |  1092.7 µs par question |   183.3 kflop |  0.17 Gflops |       915 questions/s | opérateur explicite : 10^13 o
+n=   1,000,000,000 | mémoire   716.0 Kio |  1413.4 µs par question |   183.3 kflop |  0.13 Gflops |       708 questions/s | opérateur explicite : 10^19 o
+n=1,000,000,000,000 | mémoire   716.0 Kio |  1150.4 µs par question |   183.3 kflop |  0.16 Gflops |       869 questions/s | opérateur explicite : 10^25 o
+n=1,000,000,000,000,000 | mémoire   716.0 Kio |  1033.2 µs par question |   183.3 kflop |  0.18 Gflops |       968 questions/s | opérateur explicite : 10^31 o
+
+=== 3. DÉBIT SOUTENU : beaucoup de blocs de sortie d affilée ===
+2000 blocs de sortie (256,000 inconnues calculées) en 1.81 s
+  -> 0.17 Gflops soutenus | 1,106 blocs/s | 141,531 inconnues/s | mémoire totale     1.6 Mio (8 grappes allumées)
+
+=== 4. NŒUDS + ECC ===
+répartition sur 4 nœuds : [19, 18, 18, 18] éléments | parité   592.0 Kio (36.7 % de surcoût)

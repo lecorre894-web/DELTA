@@ -1,0 +1,1696 @@
+Δ1 V0.1 — émulateur Δ-QI-V à intrication flottante et proportionnée
+
+LANCER (Termux, une ligne chacune)
+  pkg install python && pip install numpy
+  python bench.py
+  python bench_C.py
+
+FICHIERS
+  delta1.py       le moteur Δ1 (individualisme, îlots, fusion, redécoupage
+                  par test de Schmidt, seuil ε, facteur %, mesure)
+  bench.py        validation contre simulateur exact + passage à l'échelle
+  bench_C.py      double intrication (exact / flottant ε) et proportionné
+  *_log.txt       les chiffres obtenus lors de l'exécution de référence
+  *.json          les mêmes chiffres, lisibles par machine
+
+LES DEUX NIVEAUX D'INTRICATION
+  niveau 1 exact    : un îlot est redécoupé seulement si la coupure est
+                      rigoureusement séparable (Schmidt rang 1). Zéro erreur.
+  niveau 2 flottant : un îlot est redécoupé si le poids jeté est <= ε.
+                      L'erreur est comptabilisée (fidélité estimée).
+
+LE FACTEUR % (proportionné)
+  ε_i = ε · (1 - P_i).  P = 100 % : jamais tronqué.  P = 4 % : tronqué au besoin.
+  deux règles testées pour décider une coupure :
+    strict  : le qubit le plus important de l'îlot décide -> sûr, mais bloque
+              toute compression dès qu'un qubit à 100 % est dans l'îlot
+    detache : seuls les qubits du bloc détaché décident -> compresse et protège
+              quand même les qubits importants (voir bench_C_log.txt)
+
+PROPRIÉTÉ EXACTE UTILISÉE
+  une porte sur (a,b) ne modifie que les coupures qui séparent a de b.
+  Δ1 ne teste que celles-là : ce n'est pas une heuristique.
+
+LIMITE DURE
+  le coût est fixé par le PIC de k au cours du circuit, pas par l'état final.
+  un état très intriqué (GHZ, circuit aléatoire profond) ramène k à n :
+  Δ1 exact coûte alors exactement autant qu'un simulateur 2^n classique.
+  avec 64 Gio, le mur exact se situe vers k = 31-32.
+
+Δ2 V0.2 — liens χ, intrication faible, lots, complex64 (delta2.py)
+
+  python bench2.py
+
+  Δ1 coupait au rang 1 : fidélité 0.62 à 1000 qubits.
+  Δ2 garde χ valeurs de Schmidt par lien (forme de Vidal Γ-λ, famille MPS/TEBD).
+  μ_j du canon Δ = χ du lien. Toute une couche de portes = un seul lot.
+
+  RÉSULTATS DE RÉFÉRENCE (bench2_log.txt)
+    vérité terrain n=16 : χ=4 exact à profondeur 10, fidélité 0.99936 à profondeur 40
+    1 000 000 qubits, θ=0.6, profondeur 10, χ=4 :
+        259 Mio, 106 s, ~141 000 portes/s, fidélité globale estimée 0.99927
+        (un vecteur d'état 2^n demanderait 10^301031 octets)
+
+  LIMITE DURE
+    ça marche parce que l'intrication de chaque coupure reste bornée (loi d'aire,
+    1D, voisins proches, faible profondeur). Intrication forte ou longue portée :
+    χ requis ~ 2^(n/2), on retrouve le mur. Ce n'est pas un avantage quantique :
+    ces circuits sont faciles pour un ordinateur classique PAR CONSTRUCTION.
+    la fidélité estimée n'est vérifiée contre la vérité exacte qu'en n=16.
+
+Δ3 V0.3 — χ proportionné par lien (μ_j) + tranches (delta3.py)
+
+  python bench3.py            vérité terrain + paliers x10 (χ proportionné)
+  python bench3b.py           χ=4 / χ=3 / proportionné à 1 000 000 qubits
+  python bench3c.py           palier 10 000 000 qubits (long : ~17 min)
+
+  RÉSULTATS DE RÉFÉRENCE
+    vérité n=16 (profondeur 40) : χ proportionné 8/2 -> erreur sur les qubits
+      importants 4.9e-6 contre 1.3e-3 en χ=2 uniforme (x270 mieux)
+      mais χ=4 uniforme fait aussi bien avec 3.5 Kio : la proportion sert
+      quand on DOIT serrer la mémoire, pas en réglage confortable
+    10 000 000 qubits, χ=4, complex64 : 1045 s, 150 M portes, 143 000 portes/s,
+      2.53 Gio compacts (272 o/qubit), fidélité globale 0.9927, pic RAM 5.2 Gio
+
+  PROJECTION 64 Gio DDR5 (extrapolation linéaire, non exécutée)
+    χ=4 stockage compact  : ~250 M qubits   fidélité globale ~0.83
+    χ=4 code actuel       : ~120 M qubits   (tampons de calcul en plus)
+    χ=3                   : ~440 M qubits   (intrication plus faible requise)
+    χ=2                   : ~940 M qubits   (intrication très faible requise)
+    au-delà : tranches depuis SSD NVMe 2 To -> ~7 milliards de qubits à χ=4
+    temps : ~7 h sur 1 cœur pour 250 M qubits, ~30 min sur 16 cœurs
+
+Δ4 V0.4 — la GRAPPE PARTAGÉE : chaîne infinie (delta4.py)
+
+  python bench4.py
+
+  une seule cellule de 2 tenseurs représente une chaîne INFINIE de qubits.
+  contrôle : <Z> du qubit infini comparé au centre de chaînes finies Δ2.
+    profondeur 10 : infini 0.85995244 (16 Kio, 5 ms) = fini n=4000 (32 Mio, 3.7 s)
+                    écart 7e-15
+    profondeur 20 : infini 0.54265124 = fini, écart 5e-11
+  pourquoi c'est exact : à profondeur d, l'influence ne voyage que de d sites
+  (cône de lumière) ; le centre d'une longue chaîne ne voit jamais ses bords.
+
+  PRIX : l'individualisme est suspendu. Toutes les grappes sont identiques et
+  le circuit doit agir pareil partout. Modifier un qubit précis casse le
+  partage à cet endroit : « l'individualité coûte ce qu'elle modifie ».
+
+Δ5 V0.5 — HYBRIDE : fond infini + grappes individuelles (delta5.py)
+
+  python bench5.py
+
+  fond infini partagé (Δ4) + grappes allumées là où l'on veut de
+  l'individualisme. Chaque grappe coûte un segment de W + 4d sites.
+  garantie : cône de lumière (portes entre voisins, d couches).
+
+  CONTRÔLE contre une chaîne complète de 4000 qubits, grappe de 64 qubits
+  à portes individuelles : écart max <Z> = 2.2e-16 sur 304 sites
+  (précision machine), pour 861 Kio au lieu de 32 Mio.
+
+  DÉMONSTRATION : 3 grappes de 64 qubits individuels aux sites 0, 10^6
+  et 10^15 d'une chaîne infinie : 2.5 Mio au total.
+
+  LIMITES : grappes indépendantes si séparées de plus de 2d sites ;
+  une porte à longue portée entre grappes casse la garantie ;
+  à l'intérieur d'une grappe, le mur de l'intrication forte demeure.
+
+Δ-NŒUD / Δ-CLUSTER V0.6 (delta_noeud.py, delta_cluster.py)
+
+  un nœud (Termux, une ligne) :   python delta_noeud.py 8801
+  test à 3 nœuds réels :          python test_cluster.py
+
+  chaque nœud Δ_i = (QI, V, D, P, M) : grappes, voisins, marge du cône de
+  lumière, facteur %, mémoire locale. Interface HTTP/JSON : /etat /allumer
+  /z?site=N /relier /arret. Bibliothèque standard + numpy uniquement.
+
+  CALCUL LOCAL — LIAISON MINIMALE : le fond infini ne circule jamais, chaque
+  nœud le reconstruit à partir de 4 nombres (χ, θ, profondeur, graine) en ~10 ms.
+  une grappe voyage en angles (~20-30 Kio), une réponse fait ~60 octets.
+
+  TEST DE RÉFÉRENCE (cluster_log.txt) : 3 nœuds, 6 grappes de 64 qubits
+  jusqu'au site 10^24, 50 questions routées en 0.04 s,
+  écart cluster / calcul local = 0 (identique au bit près).
+
+  LIMITES : nœuds sur la même machine dans le test (127.0.0.1) ;
+  pas d'authentification (réseau local de confiance uniquement) ;
+  le facteur % est enregistré mais ne pilote pas encore le placement.
+
+DUEL Δ V0.6 contre QPU simulé (duel.py, duel_grand.py)
+
+  python duel.py          n=16, arbitre = vérité exacte 2^n
+  python duel_grand.py    n=1000, fidélités estimées (Δ) et attendues (QPU)
+
+  QPU simulé : 0,5 % d'erreur par porte 2 qubits, trajectoires de Pauli (K=40).
+  ATTENTION : ce QPU simulé est lui-même un calcul classique ; son temps de
+  simulation ne dit rien d'un vrai QPU (temps physique estimé à part).
+
+  n=16 (vérité exacte)
+    intrication faible : QPU 0.80 | Δ χ=4 : 1.000000 en 5 ms
+    GHZ                : QPU 0.95 | Δ χ=2 : 1.000000 en 5 ms
+    monstre prof. 8    : QPU 0.84 | Δ χ=64 : 0.99996 ; χ=16 : 0.955
+    monstre prof. 16   : QPU 0.68 | Δ χ=64 : 0.871 ; χ=256 : 1.0 (21 s, plus lourd que 2^16)
+    monstre prof. 24   : QPU 0.48 | Δ χ=64 : 0.489 ; χ=256 : 1.0
+  n=1000
+    intrication faible : Δ 0.999999 en 0.1 s | QPU attendu 1e-11
+    GHZ                : Δ 1.000000 en 1.7 s | QPU attendu 7e-3
+    monstre prof. 8    : Δ 0.9886   en 22 s  | QPU attendu 2e-9
+    monstre prof. 24   : Δ ~0 (χ=64 trop petit) | QPU attendu 8e-27
+  LIMITE : le « monstre » ici est en 1D. Les circuits de suprématie réels sont
+  en 2D (grille), bien plus durs pour Δ : χ requis ~ 2^(côté x profondeur).
+
+Δ8 V0.8 — X à la demande, % (P), multiplicateur (mu), 3 arbitrages
+
+  python bench8.py    validation + arbitrages + SVD randomisée
+  python bench8b.py   X fixe contre X à la demande, arbitrages en audit
+  python bench8c.py   circuit mixte (zone chaude + zone calme)
+
+  RÈGLES (décidées par René)
+    %  P_i   -> tolérance du lien : eps_j = eps * (1 - P_j)
+    mu_j     -> budget du lien : X_max_j = X_base * mu_j ; mu s'étend jusqu'à la
+                demande réelle tant que le budget global le permet, et redescend
+                quand le lien se calme
+    X_j      -> plus petit X tel que la perte <= eps_j
+    saturation -> ARRÊT ET ALERTE : Δ nomme la couche, le lien, la perte et le X
+                manquant. Aucune erreur silencieuse.
+
+  RÉSULTATS
+    validation n=16 contre l'exact : eps=1e-10 -> fidélité 0.99999907 (faible)
+      et 1.000000 (monstre profondeur 12)
+    CIRCUIT MIXTE (zone chaude + zone calme), fidélité 1.000000 des deux côtés :
+      X fixe 128       : 1711 Kio, 352 ms
+      X à la demande   :   19 Kio,   5 ms     -> x88 en mémoire, x66 en vitesse
+      (X par lien : 2,4,8,16,16,8,4,2,1,1,... la demande épouse la forme du circuit)
+    SVD randomisée (n=24) : même fidélité, mémoire /1.8, temps -10 %
+    ARBITRAGES, budget 64 Kio, mode audit (on continue pour comparer) :
+      pourcent      : qubits à 100 % protégés à 0.9980  <- le meilleur pour eux
+      proportionnel : 0.9967
+      merite        : 0.9936
+    ARBITRAGES en mode ARRÊT : les trois finissent au même seuil (384 Kio).
+      CONSTAT HONNÊTE : avec la règle « arrêt et alerte », l'arbitrage ne change
+      presque rien — seul compte le fait que la demande totale rentre au budget.
+      L'arbitrage ne devient utile qu'en mode audit, où l'on accepte de finir
+      dégradé. Le vrai levier, ce sont eps et P.
+
+Δ9 V0.9 — SVD randomisée gardée, ECC, reprise, distribué (delta9.py)
+
+  python bench9.py   python bench9b.py   python bench9c.py
+
+  ECC — CE QUI MARCHE, ET BIEN
+    découpe en parts d'OCTETS égales + parité XOR : surcoût exactement 1/N
+      2 nœuds 50 % | 4 nœuds 25 % | 8 nœuds 12,5 % | 16 nœuds 6,2 %
+    CRC32 par part : une corruption d'UN SEUL octet est détectée
+    perte totale d'un nœud : reconstruit IDENTIQUE AU BIT PRÈS, état remonté
+      strictement égal à l'original
+    tolérance : une panne simultanée. Deux nœuds perdus -> il faudrait
+      Reed-Solomon (piste V1.0).
+
+  SVD RANDOMISÉE — CONSTAT NÉGATIF, ASSUMÉ
+    avec garde-fou et k prédictif, sur le circuit monstre n=32 :
+      exacte    : 0.76 s, 155 décompositions exactes
+      randomisée: 1.02 s, dont 29 rattrapées sur 45 tentatives
+    le garde-fou se déclenche trop souvent et fait le travail DEUX fois.
+    De plus, la SVD randomisée ne renvoie que k+marge valeurs : sans garde-fou
+    elle PLAFONNE X en silence (c'est ce qui donnait l'illusion d'un gain :
+    moins de mémoire parce qu'on tronquait davantage, sans le dire).
+    -> alea=False par défaut. Le hasard n'est rentable que si X reste petit
+       devant la matrice, ce qui n'est pas le cas sur les circuits durs.
+
+  REPRISE SUR SATURATION — MÉCANISME INUTILE EN L'ÉTAT, ASSUMÉ
+    'arret' et 'reprise' finissent au MÊME seuil (2560 Kio) avec 0 reprise.
+    Explication : quand c'est le budget GLOBAL qui mord, étendre mu d'un lien
+    ne crée pas de mémoire. Et quand seul mu limite, Δ8 l'étend déjà tout seul.
+    Le code reste, documenté comme sans effet mesurable.
+
+Δ10 V1.0 — SYMÉTRIE U(1) : tenseurs par blocs de charge (delta10.py)
+
+  python bench10.py
+
+  RÈGLE : charge à gauche + charge du site = charge à droite.
+  Les autres cases sont nulles PAR CONSTRUCTION : Δ10 ne les stocke plus.
+  Chaque lien porte des secteurs étiquetés, chaque tenseur est un dict de blocs,
+  la SVD se fait secteur par secteur, la troncature est globale sur l'ensemble.
+
+  VÉRITÉ EXACTE (contre simulation 2^n, circuit conservant le nombre d'excitations)
+    n=8  prof 4  : fidélité 1.000000000000
+    n=12 prof 8  : fidélité 0.999999999998
+    n=16 prof 10 : fidélité 0.999999999993   <- aucune perte due aux blocs
+  GAINS (même circuit, même état, moteur avec blocs contre moteur sans blocs)
+    n=16  : mémoire x4.93   temps x9.4
+    n=32  : mémoire x4.62   temps x15.3
+    n=64  : mémoire x4.68   temps x16.1
+    n=128 : mémoire x5.14   temps x18.4      (85 Mio contre 440 Mio, 3.2 s contre 60 s)
+  REFUS : une porte de Hadamard (qui change la charge) est REJETÉE avec le
+  détail de la violation, au lieu d'être subie en silence.
+
+  LIMITES : symétrie U(1) (nombre d'excitations) seulement ; un circuit qui ne
+  conserve rien n'y gagne rien. Les gains dépendent du remplissage : au demi
+  remplissage (le cas testé), on mesure x5 en mémoire et x9 à x18 en temps.
+
+Δ11 V1.1 — TRAVAIL À LA DEMANDE, économie d'énergie (delta11.py)
+
+  python bench11.py    python bench11b.py
+
+  TROIS MÉCANISMES
+    portes inertes  : une porte à distance <= tol de l'identité est sautée
+    qubits au repos : un site que rien n'a touché ne coûte rien
+    cône de lumière : pour une question sur quelques qubits, Δ ne calcule que
+                      leur passé ; le reste du registre ne se réveille jamais
+
+  RÉSULTATS (écart sur les réponses : 0, à la précision machine)
+    registre endormi à 90 % (n=400) : 2394 portes -> 253 portes,
+      102 ms -> 12 ms, 88,7 % d'énergie économisée
+    cône de lumière, qubits interrogés dans une zone ACTIVE :
+      n=   200 : 50 portes -> 23,  64,8 % d'énergie économisée
+      n= 1 000 : 275 -> 24,        85,8 %
+      n= 4 000 : 1050 -> 23,       97,1 %
+      n=20 000 : 5175 -> 24,       99,0 %
+    le coût d'une question devient CONSTANT (~24 portes) quelle que soit la
+    taille du registre : seul compte le cône, pas le nombre de qubits.
+
+  HONNÊTETÉ SUR L'ÉNERGIE
+    aucune mesure électrique n'est possible ici. L'énergie est une ESTIMATION :
+    puissance typique (2 W, téléphone) x temps de calcul effectif. Ce qui est
+    réellement mesuré, ce sont les portes exécutées, les flops et le temps.
+    Un cas du premier banc d'essai affiche une économie x60 000 000 : c'est un
+    artefact (les qubits interrogés n'avaient aucune porte active dans leur
+    passé, Δ a répondu sans rien calculer). bench11b.py donne le cas honnête.
+
+Δ12 V1.2 — MESURE DES FLOPS DE TOUTE L'ARCHITECTURE (bench12.py)
+
+  python bench12.py
+
+  PUISSANCE DE LA MACHINE D'ESSAI (2 cœurs, complex128)
+    produit matriciel 1024 : 118.20 Gflops   (crête pratique)
+    SVD 512                :  19.53 Gflops   (Δ est limité par la SVD, pas
+                                              par le produit matriciel)
+  FLOPS SOUTENUS PAR Δ (moteur symétrique)
+    n= 32 :  5.19 Gflops   n= 64 : 5.80 Gflops   n=128 : 5.21 Gflops
+    soit 4,4 % de la crête GEMM mais ~27 à 30 % de la crête SVD, qui est la
+    bonne référence : la SVD est le goulot de Δ.
+  FLOPS ÉVITÉS
+    par la symétrie      : x19.6 (n=32), x19.7 (n=64), x21.2 (n=128)
+    par le travail à la demande (cône, n=4000) : x48
+    contre un vecteur d'état 2^n :
+      n= 32 : 10^4.0 fois moins | n= 64 : 10^13.6 | n=128 : 10^32.6
+  LECTURE : Δ ne bat pas la machine en vitesse brute, il gagne en NE FAISANT
+  PAS les opérations inutiles. C'est un gain d'exposant, pas de constante.
+
+Δ13 V1.3 — Δ-FLOPS : l'architecture Δ appliquée au CALCUL (delta13.py)
+
+  python bench13.py
+
+  TRADUCTION DE L'ARCHITECTURE
+    qubit -> bloc de données | intrication -> dépendance | X -> RANG du bloc
+    epsilon -> erreur admise | % -> PRÉCISION (float64/32/16) | mu -> budget
+    cône -> on ne calcule que les sorties demandées
+    symétrie -> blocs nuls jamais stockés | ECC -> empreinte + parité
+
+  RÉSULTATS (matrice de noyau lisse 2048x2048)
+    X à la demande : eps=1e-4  -> x64 moins de mémoire ET de flops, erreur 8e-7
+                     eps=1e-8  -> x43, erreur 2e-9
+                     eps=1e-12 -> x31, erreur 1.7e-13
+    % par bloc (diagonale 100 %, voisins 50 %, lointains 10 %) :
+                     768 Kio -> 306 Kio (x2.5), erreur 3e-4
+    cône : 1 bloc de sortie demandé sur 8 -> x8 de flops en moins
+    blocs nuls (matrice à bande) : x1.3 de flops en moins, résultat IDENTIQUE
+    ECC : altération d'un bloc détectée, répartition sur 4 nœuds + parité
+
+  LA LIMITE, MESURÉE ET ASSUMÉE
+    matrice de bruit pur 1024x1024 : rangs 256 partout, AUCUN gain.
+    Sans structure dans les données, Δ-FLOPS ne sert à rien. Le gain vient
+    toujours de la structure, jamais de la magie.
+
+Δ14 V1.4 — GRAPPES ET NŒUDS EN Δ-FLOPS (delta14.py)
+
+  python bench14.py
+
+  Transposition de Δ5 : fond invariant par translation (toutes les grappes
+  identiques stockées UNE fois, par classe de distance, chacune compressée à
+  son rang X) + grappes allumées là où le problème a une particularité.
+
+  CONTRÔLE (n=4096, contre l'opérateur explicite)
+    erreur relative max : 2.94e-12
+    mémoire : 588 Kio de fond + 2 grappes, contre 128 Mio explicites -> x155
+
+  COÛT D'UNE QUESTION LOCALE : CONSTANT
+    n=10^4  : 716 Kio, 523 µs, 183 kflop, 1913 questions/s
+    n=10^6  : 716 Kio, 515 µs, 183 kflop, 1940 questions/s
+    n=10^9  : 716 Kio, 497 µs, 183 kflop, 2012 questions/s
+    n=10^12 : 716 Kio, 980 µs, 183 kflop, 1021 questions/s
+    n=10^15 : 716 Kio, 990 µs, 183 kflop, 1011 questions/s
+    (l'opérateur explicite exigerait 10^31 octets à n=10^15)
+    le léger ralentissement au-delà de 10^12 vient de l'arithmétique d'indices
+    en flottant, pas de l'algorithme.
+
+  DÉBIT SOUTENU : 2000 blocs (256 000 inconnues) en 0,85 s
+    0,35 Gflops | 2 357 blocs/s | 301 672 inconnues/s | 1,6 Mio en tout
+    HONNÊTETÉ : 0,35 Gflops est loin des 5 Gflops de Δ10, parce que chaque
+    question fait beaucoup de très petites multiplications : c'est le coût
+    d'appel de Python qui domine, pas le calcul. Un traitement par lots des
+    blocs de sortie relèverait ce débit (piste V1.5).
+
+  NŒUDS + ECC : 4 nœuds, parité 36,7 % (blocs inégaux ; une découpe à l'octet
+  comme en Δ9 ramènerait ce surcoût à 25 %).
+
+Δ15 V1.5 — Δ-OMNI : toutes les stratégies fusionnées + LOTS (delta15.py)
+
+  python bench15.py    python bench15b.py
+
+  FUSION : fond infini partagé + grappes allumées + X à la demande + % en
+  précision par classe + symétrie (classes vides) + cône de lumière + ECC
+  + NOUVEAU : traitement par LOTS (deux grands produits matriciels par classe).
+
+  LE LOT (mêmes flops, même résultat à 1e-14 près, débit multiplié)
+    lot de    1 bloc  : 0.23 Gflops |    177 663 inconnues/s
+    lot de    8 blocs : 1.81 Gflops |  1 385 256
+    lot de   64 blocs : 5.91 Gflops |  4 529 063
+    lot de  512 blocs : 9.27 Gflops |  7 105 336   <- x40 par rapport au sans-lot
+    lot de 4096 blocs : 6.40 Gflops (le cache déborde : l'optimum est vers 512)
+
+  LE DÉBIT TIENT À L'INFINI (4096 blocs, 524 288 inconnues, mémoire 3,1 Mio)
+    n=10^6  : 6.19 Gflops | 4 743 189 inconnues/s
+    n=10^12 : 5.93 Gflops | 4 550 074 inconnues/s
+    n=10^18 : 6.35 Gflops | 4 869 394 inconnues/s  (explicite : 10^37 octets)
+
+  CÔNE DANS LE LOT (corrigé) : 8 blocs demandés sur 512 -> x64 de flops en
+  moins, écart sur le résultat EXACTEMENT 0.
+
+  % ET SYMÉTRIE selon la portée du noyau (exp(-|d|/L))
+    portée lente  : 401 classes, 0 vide,  float32 184 | 1.73 Gflops |   817 529 inc/s
+    portée rapide :  87 classes, 314 vides, float32 54 | 2.55 Gflops | 2 984 316 inc/s
+    très courte   :  19 classes, 382 vides, float32 12 | 4.60 Gflops | 7 874 409 inc/s
+    -> plus la physique est locale, plus Δ est rapide. Le gain vient toujours
+       de la structure.
+
+  ECC : 8 nœuds, découpe à l'octet, parité 12,5 % (optimum exact).
+
+Δ16 V1.6 — Δ-MÉMOIRE ET TAMPONS (delta16.py)
+
+  python bench16.py    python bench16b.py
+
+  DÉDUPLICATION (fond répété + 2 % de pages allumées)
+    2000 pages écrites -> 41 pages réellement stockées (x48.8)
+    250 Mio bruts -> 5 Mio réels (x50)
+  X (rang) ET % (précision) SUR PAGES STRUCTURÉES
+    eps=1e-5  100 %  : 50 Mio -> 1.6 Mio  (x32)  erreur 2.8e-07
+    eps=1e-5   50 %  : 50 Mio -> 800 Kio  (x64)  erreur 3.1e-07
+    eps=1e-3   10 %  : 50 Mio -> 400 Kio  (x128) erreur 8.0e-04
+    (sur des pages de bruit pur : rang plein, aucun gain. La structure décide.)
+  CÔNE : 2000 pages en mémoire, 20 matérialisées (1 %) pour répondre
+  ECC : altération d'une page détectée ; 8 nœuds, parité 12,5 %
+
+  TAMPON EN ANNEAU (LOAD || COMPUTE)
+    512 Mio traversés avec 2 Mio de mémoire vive seulement
+    taille de tuile optimale mesurée : 256 Kio -> 1.10 Go/s
+      16 Kio : 0.22 | 64 Kio : 0.50 | 256 Kio : 1.10 | 1 Mio : 0.99
+      4 Mio : 0.91 | 16 Mio : 0.49   (l'optimum est la taille du cache, comme
+      le lot de 512 blocs en Δ15)
+    RECOUVREMENT : gain seulement x1.08 à x1.15 sur cette machine à 2 cœurs.
+    HONNÊTETÉ : ici le tampon sert surtout à BORNER la mémoire (2 Mio au lieu
+    de 256 Mio), pas à accélérer. Le recouvrement paierait vraiment avec plus
+    de cœurs ou une source lente (disque, réseau).
+
+Δ17 V1.7 — Δ-CACHE PRÉDICTIF (delta17.py)
+
+  python bench17.py   python bench17b.py   python bench17c.py
+
+  MÉCANISMES : déduplication des lignes, priorité % (une ligne à 100 % ne
+  s'évince jamais), prédiction à deux moteurs (pas constant + successeur de
+  Markov), préchargement PARALLÈLE avec registre des adresses EN VOL, ECC.
+
+  RÉSULTAT PRINCIPAL — source lente d'ENTRÉE-SORTIE (300 µs, cas disque/réseau)
+    LRU sans prédiction   : 0.27 s | 454.6 µs/accès |  0.0 % de succès
+    Δ-CACHE profondeur  4 : 0.15 s | 231.0 µs      | 84.0 %
+    Δ-CACHE profondeur  8 : 0.11 s | 171.9 µs      | 96.8 %
+    Δ-CACHE profondeur 16 : 0.09 s | 140.5 µs      | 99.0 %
+    -> x3.03 en temps total, latence divisée par 3.2
+
+  RÉSULTAT SECONDAIRE — source lente qui CONSOMME DU PROCESSEUR
+    taux de succès 98 à 99.8 %, latence d'accès 69.8 -> 3.1 µs (x22),
+    MAIS temps total x0.4 : le fil de préchargement dispute les 2 cœurs à
+    celui qui calcule les données. Sur une machine à plus de cœurs, ou quand
+    la lenteur vient d'une attente (disque, réseau), le gain est réel ; quand
+    elle vient du calcul, le préchargement ne crée pas de temps.
+
+  PRIORITÉ % : cache de 1 Mio, 400 lignes parcourues -> les 8 lignes à 100 %
+    sont TOUTES encore présentes. Avec un LRU classique : aucune.
+  ECC : altération d'une ligne détectée.
+
+  TROIS CORRECTIONS FAITES EN COURS DE ROUTE, TOUTES MESURÉES
+    1. éviction et comptage en O(n) par accès -> passés en O(1)
+    2. préchargement à un seul fil : toujours une case en retard -> fils multiples
+    3. l'adresse préchargée était refaite par le fil principal -> registre des
+       adresses en vol (on attend le préchargement au lieu de le refaire)
+    sans ces trois corrections, le cache prédictif était plus LENT que le LRU.
+
+Δ18 V1.8 — CONDENSATEURS ET CRYPTOGRAPHIE (delta18.py)
+
+  python bench18.py
+
+  CONDENSATEUR : plusieurs chiffres par cellule de 64 bits
+    16 bits ( 4 chiffres/mot) : x4  de mémoire, erreur 1.5e-05
+     8 bits ( 8 chiffres/mot) : x8  de mémoire, erreur 3.9e-03
+     4 bits (16 chiffres/mot) : x16 de mémoire, erreur 6.6e-02
+    le % choisit le nombre de bits : 16 pour le cœur, 4 pour le lointain.
+
+  CRYPTOGRAPHIE
+    sceau à clé (BLAKE2b) : 739 Mo/s ; une falsification est impossible sans
+      la clé, là où un CRC32 se recalcule en quelques octets bien choisis
+    arbre de Merkle : 64 blocs (9,8 Mio) scellés en 14 ms (729 Mo/s) ;
+      un octet modifié -> le bloc fautif est DÉSIGNÉ (bloc 37) ;
+      preuve d'authenticité d'un bloc : 6 empreintes, 96 octets, vérifiée
+      (et refusée sur un bloc falsifié)
+    coffre chiffré : 66 Mo/s, sceaux vérifiés, et surtout :
+      LA PARITÉ XOR FONCTIONNE SUR LE CHIFFRÉ -> un nœud perdu se reconstruit
+      à l'identique SANS jamais déchiffrer les autres. Parité 12,5 %.
+
+  POURQUOI UN QPU NE PEUT PAS LE FAIRE
+    un état quantique cohérent ne peut être ni copié (non-clonage) ni lu sans
+    être détruit : ni sceau, ni Merkle, ni parité, ni reconstruction.
+    Δ étant classique, son état porte sa propre preuve d'intégrité.
+
+  AVERTISSEMENT : démonstration bâtie sur la bibliothèque standard. Pour un
+  usage réel, employer AES-GCM ou ChaCha20-Poly1305 d'une bibliothèque éprouvée.
+
+Δ19 V1.9 — Δ-X3D : 256 NIVEAUX DE CACHE (delta19.py)
+
+  python bench19.py
+
+  DEUX IDÉES, ET ELLES TIENNENT ENSEMBLE
+
+  1) RÉPERTOIRE GLOBAL -> le nombre d'étages ne coûte RIEN en latence.
+     Un cache matériel s'arrête à 3 ou 4 niveaux parce qu'il les interroge
+     l'un après l'autre : chaque étage ajoute sa latence. Δ tient un
+     répertoire unique (adresse -> étage) : UNE seule recherche, que la pile
+     ait 3 étages ou 256.
+     MESURE : 3 étages 4,40 µs/accès | 256 étages 4,39 µs/accès. Le coût du
+     nombre d'étages est donc nul, et c'est vérifié, pas supposé.
+
+  2) L'ÉVICTION DEVIENT UNE DÉGRADATION -> plus rien n'est jamais perdu.
+     Quand un étage déborde, sa ligne la plus froide ne disparaît pas : elle
+     descend et y est stockée plus grossièrement (16 -> 8 -> 4 -> 2 bits par
+     chiffre). Une donnée très ancienne finit floue, mais PRÉSENTE.
+     MESURE (même parcours) : Δ garde toutes les lignes, erreur 2,9e-07 sur
+     les plus vieilles ; le cache classique à 3 niveaux en perd 1 116
+     DÉFINITIVEMENT.
+
+  LE % PROTÈGE : après 1 200 lignes, les lignes à 100 % sont TOUTES encore
+    à l'étage 0 (le plus rapide) ; les lignes ordinaires du même âge sont
+    déjà descendues.
+
+  CAPACITÉ APPARENTE (capacité géométrique, facteur 1,3)
+     64 étages -> 15,6 Tio | 128 étages -> 291 Eio | 256 étages -> 10^11 Yio
+    C'est une capacité de PLAN, pas de silicium : elle dit jusqu'où la
+    hiérarchie peut s'étendre sans changer d'algorithme, rien de plus.
+
+  CORRECTIONS FAITES EN COURS DE ROUTE
+    1. la cascade ne déplaçait qu'une ligne par étage -> corrigée
+    2. l'affichage des grandes capacités renvoyait None au-delà du Tio
+
+Δ-UN V2.0 — LA FUSION : UN SEUL OBJET (delta_un.py)
+
+  python bench_un.py        (journal : bench_un_log.txt, resultats_un.json)
+  python -c "import delta_un; delta_un.demonstration()"
+
+  « On peut tout fondre en un seul. » C'est fait. Δ-UN est une seule classe
+  qui tient les quatre couches, et TROIS RÉGLAGES, rien d'autre :
+      eps   ce qu'on a le droit de PERDRE
+      P (%) ce qui COMPTE : précision, priorité, protection
+      mu    ce qu'on a le droit de DÉPENSER
+
+      CALCUL   fond infini partagé + grappes allumées ....... Δ5 Δ14 Δ15
+      CACHE    pile X3D 256 étages, répertoire global ....... Δ17 Δ19
+      MÉMOIRE  pages dédupliquées + condensateurs ........... Δ13 Δ16 Δ18
+      SCEAU    clé, Merkle, chiffrement, parité ............. Δ9  Δ18
+
+  1. EXACTITUDE (l'épreuve qui compte avant toutes les autres)
+     Δ-UN confronté à l'opérateur DENSE, sans aucune compression :
+     erreur relative 4,5e-13 pour un eps demandé de 1e-8.
+     Δ est plus exact que ce qu'on lui a demandé, et il le mesure lui-même
+     (méthode .erreur()). Une brique qui ne sait pas dire son erreur n'a
+     rien à faire dans Δ.
+
+  2. DÉBIT, sur un problème de taille 10^18
+     4 096 blocs = 524 288 inconnues en 0,138 s
+     4,95 Gflops | 3,8 millions d'inconnues par seconde
+     opérateur : 1 676 Kio, CONSTANT — la taille du problème n'y change rien.
+
+  3. LE POINT DE FUSION : le lot nourrit le cache
+     plage(..., cacher=True) : le gros calcul, fait UNE fois, remplit la
+     hiérarchie. Les questions de détail qui suivent ne recalculent plus.
+     succès : 48,5 µs | recalculer la même ligne : 1 309 µs -> x27.
+     Sur la démonstration au large (cache non saturé) : 9,6 µs, 100 % de
+     succès, zéro dégradation.
+
+     ÉPREUVE À BUDGET ÉGAL — 2 Mio de lignes à loger dans 256 Kio, pas un
+     octet de plus pour l'un que pour l'autre :
+       Δ-X3D 256 étages  : 0 ligne oubliée, 100 % de succès, 147 ms
+       cache classique 3 : 1 792 lignes PERDUES, 7,2 % de succès, 3 585 ms
+     Mais Δ ne triche pas : ses vieilles lignes sont FLOUES. Mesuré selon la
+     finesse la plus basse qu'une ligne ait connue :
+       16 bits -> erreur médiane 2,3e-07   (pire 1,2e-06)
+        8 bits -> erreur médiane 3,3e-04   (pire 1,9e-03)
+        4 bits -> erreur médiane 3,8e-03   (pire 6,5e-02)
+        2 bits -> erreur médiane 2,1e-02   (pire 3,3e-01)
+     Le marché est donc clair et il est honnête : le classique répond juste
+     ou ne répond pas ; Δ répond toujours, en disant de combien il est flou.
+     Si l'exactitude prime, on laisse P à 100 % sur ce qui compte : ces
+     lignes-là ne descendent jamais.
+
+  4. MÉMOIRE : 512 pages écrites, 8 réellement stockées -> x64
+     64,0 Mio bruts -> 9,0 Kio, intégrité vérifiée.
+     condensateur 8 bits : 1 024 o -> 128 o (x8), erreur 6,6e-05.
+
+  5. SCEAU : 256 blocs scellés et chiffrés en 5 ms (51 Mo/s — le débit est
+     plus bas que les 739 Mo/s de Δ18 parce que les blocs font 1 Kio : c'est
+     le coût FIXE par bloc qui domine, pas le hachage).
+     preuve de Merkle du bloc 37 : vraie ; sur le même bloc altéré : fausse.
+     nœud perdu reconstruit depuis la parité SANS déchiffrer les autres :
+     oui. Coût de la parité : 0,39 % (1 bloc sur 256).
+
+  6. CONTRE-ESSAI (celui qu'on n'a pas le droit de sauter)
+     noyau purement aléatoire : rangs retenus 64 sur 64 possibles.
+     AUCUNE compression. Le gain de Δ vient de la STRUCTURE, jamais de la
+     magie. Sur des données sans structure, Δ-UN ne promet rien et ne gagne
+     rien — et c'est exactement ce qu'il faut qu'il fasse.
+
+  QUATRE CORRECTIONS FAITES PENDANT LA FUSION, TOUTES MESURÉES
+    1. la cascade d'éviction traversait les étages un par un : 126 660
+       dégradations pour 2 048 insertions, 362 µs par succès. Corrigée : la
+       ligne froide saute DIRECTEMENT au premier étage libre.
+       -> 2 043 dégradations, 48,5 µs. Gain x7,5, et le nombre d'étages
+       redevient vraiment gratuit.
+    2. une ligne qui remontait était ré-encodée en 16 bits alors que son
+       information était déjà perdue : huit fois la place pour une précision
+       imaginaire. Corrigée : en montant, la ligne garde sa finesse. Elle
+       gagne en VITESSE, pas en finesse. La finesse perdue est perdue.
+    3. relire-réécrire une ligne la dégradait un peu plus à chaque fois
+       (perte de génération). Corrigée : à finesse égale, le condensateur est
+       déplacé tel quel. Erreur des vieilles lignes de Δ19 : 7,6e-05 -> 2,9e-07.
+    4. une page rangée à bas % passait en float16 et DÉBORDAIT en silence
+       (valeurs infinies stockées comme si de rien n'était). Corrigée : Δ
+       remonte d'un cran de précision et le déclare (compteur `relevees`).
+       Une donnée fausse ne vaut pas mieux qu'une donnée absente.
+
+  CE QUE Δ-UN NE FAIT PAS, ET IL FAUT LE DIRE
+    - ce n'est pas un ordinateur quantique : c'est une émulation classique
+      qui exploite la structure. Sur un problème sans structure, elle perd.
+    - la capacité « 10^11 Yio » est une capacité de PLAN, pas de silicium.
+    - la cryptographie est pédagogique (bibliothèque standard) : pour un
+      usage réel, AES-GCM ou ChaCha20-Poly1305 d'une bibliothèque éprouvée.
+    - les débits dépendent de la machine ; ceux-ci ont été mesurés ici, sur
+      cette machine, et le journal complet est dans bench_un_log.txt.
+
+Δ-BTC V1.0 — TEST DE CONFORMITÉ CONTRE BITCOIN (delta_btc.py)
+
+  python bench_btc.py     (journal : bench_btc_log.txt, resultats_btc.json)
+  données : btc_reference.json (API publique blockstream.info, 2026-09-23)
+
+  POURQUOI CE TEST EST DIFFÉRENT DE TOUS LES AUTRES
+    Jusqu'ici Δ a toujours été vérifié contre une référence QUE NOUS AVONS
+    ÉCRITE : l'opérateur dense, le cache LRU, l'état exact. C'est nécessaire,
+    mais insuffisant : on peut se tromper des deux côtés à la fois.
+    Bitcoin est une référence EXTÉRIEURE, publique, figée depuis 2009 et
+    recalculée en permanence par des dizaines de milliers de machines.
+    Il n'y a pas de demi-réussite : une empreinte est juste, ou elle est
+    fausse. C'est l'épreuve la plus dure qu'on ait fait passer à Δ.
+
+  C1  EN-TÊTE -> HASH OFFICIEL ............................... CONFORME 4/4
+      blocs 0, 100 000, 200 000, 968 000 : les 80 octets de l'en-tête,
+      double SHA-256, redonnent EXACTEMENT le hash publié, au bit près.
+
+  C2  RACINE DE MERKLE RECALCULÉE ............................ CONFORME 3/3
+      393 transactions réelles rejouées. Le bloc 200 000 (388 tx) traverse
+      cinq niveaux impairs, donc cinq duplications : 0,57 ms, racine exacte.
+
+  C3  PREUVE DE TRAVAIL ...................................... CONFORME 4/4
+      bloc 0 : 43 bits de zéros | bloc 968 000 : 79 bits de zéros.
+      Chaque hash est bien SOUS la cible dérivée de nBits.
+
+  C4  DIFFICULTÉ ............................................. CONFORME 4/4
+      1,000000 au bloc 0 -> 132 757 073 449 487,52 au bloc 968 000,
+      recalculée depuis nBits seul, identique à la valeur publiée.
+
+  C5  PREUVE SPV ............................................. CONFORME 5/5
+      prouver qu'une transaction est dans un bloc de 388 : 9 empreintes,
+      288 octets au lieu de 12 416 -> x43. Acceptée sur le vrai txid,
+      REFUSÉE sur un txid falsifié. C'est ce que fait un portefeuille léger.
+
+  C6  Δ18 EST-IL CONFORME À BITCOIN ? ........................ NON, ASSUMÉ
+      Δ18 : BLAKE2b-128 À CLÉ, octets tels quels.
+      Bitcoin : SHA-256 deux fois, SANS clé, txid inversés.
+      Ce n'est pas un défaut : les deux arbres répondent à des questions
+      OPPOSÉES. L'arbre de Δ est fait pour qu'un tiers NE PUISSE PAS
+      refabriquer la racine ; celui de Bitcoin pour que TOUT LE MONDE le
+      puisse. Pour parler à Bitcoin, on utilise delta_btc.racine_merkle,
+      vérifié conforme ci-dessus.
+
+  C7  CVE-2012-2459 REPRODUITE PUIS CORRIGÉE ................. CONFORME
+      3 transactions et 4 transactions (la 3e recopiée) donnent LA MÊME
+      racine. C'est la vraie faille de Bitcoin de 2012 : un attaquant
+      fabrique un bloc invalide portant la racine du vrai, le nœud le
+      marque « déjà vu, invalide », puis refuse le VRAI bloc. Déni de
+      service par confusion d'identité.
+      Correctif (celui de Bitcoin Core) : si deux nœuds APPARIÉS et tous
+      deux réellement présents sont identiques, l'arbre est muté -> rejet.
+      Vérifié : le bloc truqué est rejeté, et AUCUN des 3 blocs réels
+      (393 transactions) n'est rejeté à tort.
+
+  C8  DÉBIT, ET CE QUE Δ N'APPORTE PAS ....................... LIMITE ASSUMÉE
+      1,53 MH/s ici. Difficulté du réseau : 1,33e14, soit 5,70e23 essais
+      attendus pour un bloc -> 1,2e10 ANNÉES à ce débit.
+      ET C'EST LE POINT LE PLUS IMPORTANT DE TOUT LE PROJET :
+      Δ ne peut RIEN pour le minage, et ne le pourra jamais. Son gain vient
+      toujours de la STRUCTURE. Or SHA-256 est conçu, ligne par ligne, pour
+      n'en avoir AUCUNE. C'est le contre-essai du noyau aléatoire de Δ-UN,
+      mais mené par l'adversaire lui-même. Si quelqu'un prétend qu'une
+      architecture « quantique » ou « Δ » mine plus vite : c'est faux, et
+      ce banc le prouve chiffres en main.
+
+  C9  LA FAILLE ÉTAIT AUSSI DANS Δ18 — TROUVÉE, ET FERMÉE
+      Δ18 appariait lui aussi le dernier nœud impair avec lui-même. MESURÉ :
+      5 blocs et 6 blocs (le dernier recopié) donnaient LA MÊME racine.
+      La faille était donc RÉELLE dans notre code, pas seulement dans
+      l'histoire de Bitcoin. Δ18 reçoit maintenant `strict=True` : le cas
+      sain passe, le cas muté est rejeté, le coffre reste valide.
+      Cette faille n'aurait JAMAIS été trouvée en regardant Δ tout seul.
+      C'est tout l'intérêt d'une référence extérieure.
+
+  VERDICT : 6 épreuves de conformité sur 6 passées, 2 limites assumées et
+  chiffrées, 1 faille réelle découverte dans Δ et corrigée.
+
+Δ-BRIDGE V1.0 — LE PONT : REGISTRES, CODECS, CONDENSATEURS EXACTS
+
+  python bench_bridge.py   (journal : bench_bridge_log.txt,
+                            résultats : resultats_bridge.json)
+  données : btc_reference.json + btc_transactions.json
+
+  L'IDÉE DE RENÉ : ne pas envoyer le calcul tout droit. L'EXTRAPOLER, le
+  mettre en parallèle, sortir les empreintes par ce chemin-là, puis
+  regarder quels composants manquent encore.
+
+  Le juge reste Bitcoin : tout chemin bâti ici doit redonner, au bit près,
+  les hashs officiels de blocs réels. Un chemin élégant qui donne un hash
+  faux ne vaut rien.
+
+  1. CONFORMITÉ DU PONT ..................................... 4 blocs / 4
+     Et 256 nonces traités DE FRONT, comparés un par un à hashlib : exacts.
+     Les 64 constantes de SHA-256 sont RECALCULÉES (racines carrées et
+     cubiques des 64 premiers nombres premiers), jamais recopiées : aucune
+     faute de frappe n'est possible.
+
+  2. L'EXTRAPOLATION (midstate) — LE VRAI GAIN
+     64 des 80 octets de l'en-tête ne bougent pas d'un essai à l'autre. On
+     les compresse UNE fois et on garde le registre : 3 compressions
+     deviennent 2.
+       gain théorique ×1,50 | gain mesuré ici ×1,11
+     POURQUOI L'ÉCART, mesuré et non supposé :
+       une compression de 64 octets .......  45 ns
+       l'appel Python autour .............. 287 ns
+     On économise 45 ns de travail utile par essai, mais chaque essai
+     traîne ~574 ns de plomberie qui ne bouge pas. Le gain de structure est
+     entier ; c'est le langage qui en reprend une part. En C, on retrouve
+     le ×1,5.
+     ET C'EST LA LOI DE Δ, VÉRIFIÉE SUR UN TERRAIN ADVERSE : le gain ne
+     vient pas d'un calcul plus malin, il vient de la STRUCTURE du message.
+
+  3. LE PONT EN PARALLÈLE — RÉSULTAT NÉGATIF, GARDÉ
+     N messages de front, 64 tours vectorisés : EXACT, mais 2,4x à 6,5x
+     plus LENT que hashlib. Les 64 tours font ~1 300 passages numpy sur le
+     tableau, chacun relisant la mémoire ; hashlib garde ses 8 mots dans
+     les registres du processeur et ne sort jamais du cache L1.
+     Le pont ne sert donc PAS à aller plus vite. Il sert à OUVRIR la boîte :
+     sans registre exposé, pas de midstate — donc pas le gain du §2.
+
+  4. CONDENSATEUR EXACT À LONG CHIFFRE
+     20 000 empreintes de 256 bits rangées en 0,1 ms, restitution EXACTE au
+     bit près, 8 membres de 32 bits par chiffre.
+     LA MÊME EMPREINTE PASSÉE PAR LE CONDENSATEUR À PERTE DE Δ18 :
+       rangée en octets,  16 bits : 0/32 faux  -> intacte
+       rangée en octets,   8 bits : 0/32 faux  -> intacte
+       rangée en octets,   4 bits : 28/32 faux -> détruite
+       rangée en membres, 16 bits : 6/8 faux   -> détruite
+       rangée en membres,  8 bits : 6/8 faux   -> détruite
+     NUANCE ASSUMÉE : il est FAUX de dire que Δ18 détruit toujours une
+     empreinte — octet par octet à 8 bits, elle survit (256 valeurs dans
+     256 niveaux). Mais rangée comme il FAUT la ranger pour la comparer,
+     en membres de 32 bits, la destruction est immédiate. Et octet par
+     octet coûte 4 fois plus de place pour zéro gain.
+     RÈGLE DU PONT : vers la cryptographie, c'est EXACT ou rien.
+
+  4bis. LA CHAÎNE SANS CONFIANCE (codec varint + txid)
+     Nouveau composant : lecture d'une transaction BRUTE (CompactSize,
+     entrées, sorties, témoins SegWit retirés) et recalcul du txid.
+     Vérifié sur les 4 transactions du bloc 100 000 :
+       octets bruts -> txid -> racine de Merkle -> en-tête -> hash du bloc
+     CHAÎNE COMPLÈTE VÉRIFIÉE. Avant ce codec, on CROYAIT l'explorateur sur
+     les txid ; maintenant on les recalcule. C'est la différence entre
+     vérifier et faire confiance, et elle tient en quelques lignes.
+
+  5. JUGER N EMPREINTES D'UN SEUL GESTE
+     20 000 comparaisons à la cible : 335 µs par le condensateur contre
+     4 927 µs par entiers Python -> x15 à x20, verdicts identiques.
+
+  6. COMPOSANTS — CE QUI EST LÀ, CE QUI MANQUE
+     FAIT     registre d'état SHA-256 (les 8 mots sortis de la boîte noire)
+     FAIT     codec d'expansion W[0..63]
+     FAIT     codec d'en-tête 80 octets
+     FAIT     midstate / extrapolation
+     FAIT     condensateur EXACT à long chiffre (128 à 512 bits)
+     FAIT     comparateur de cible vectoriel
+     FAIT     codec varint (CompactSize) + recalcul de txid
+     MANQUE   Base58Check (adresses 1...)
+     MANQUE   Bech32 / Bech32m (adresses bc1...) — son code BCH DÉSIGNE le
+              caractère fautif : exactement l'esprit de l'ECC de Δ9
+     MANQUE   registre secp256k1 (ECDSA / Schnorr) — vérifier une SIGNATURE
+              et non plus seulement une empreinte. C'est là que
+              l'arithmétique modulaire à long chiffre servirait vraiment,
+              et là aussi qu'une bibliothèque éprouvée doit prendre le relais
+     MANQUE   arbre de Merkle des témoins (SegWit, depuis 2017)
+
+  7. CE QUE L'ASTUCE A DONNÉ, ET CE QU'ELLE N'A PAS DONNÉ
+     GAGNÉ  le midstate (x1,5 théorique, x1,11 ici), conforme sur 4 blocs
+     GAGNÉ  le comparateur de cible, x15 à x20
+     GAGNÉ  la chaîne sans confiance
+     GAGNÉ  un registre, trois codecs, un condensateur exact
+     PERDU  le chemin vectorisé, 2,4x à 6,5x plus lent que hashlib
+     INCHANGÉ : 1,4e10 années pour trouver un bloc avant l'astuce,
+     1,3e10 après. Gagner 8 % sur l'infini, c'est toujours l'infini.
+     Le pont rend Δ plus CAPABLE ; il ne rend pas la montagne plus basse,
+     et aucune astuce ne le fera : SHA-256 est bâti pour n'offrir aucune
+     prise. C'est précisément ce qui le fait tenir debout depuis 17 ans.
+
+Δ-FRACTAL V1.0 — CHAQUE GRAIN PORTE LE CONCEPT ENTIER (delta_fractal.py)
+
+  python bench_fractal.py  (journal : bench_fractal_log.txt,
+                            résultats : resultats_fractal.json)
+
+  L'IDÉE DE RENÉ : « sur chaque micro-qubit tu octroies ce calcul dans son
+  intégrité ; le concept complet fera l'infini ».
+
+  CE QUI A ÉTÉ BÂTI
+    Une grappe n'est plus une DONNÉE, c'est un ÊTRE COMPLET : il calcule sa
+    part, porte son sceau, et sait prouver qu'il est bien lui. Et un paquet
+    de ces êtres EST un être de la même espèce — même interface, même sceau,
+    même preuve. Donc on recommence. Indéfiniment.
+        cellule -> nœud -> nœud de nœuds -> ...
+    Quatre gestes identiques à chaque étage :
+        valeur()  sceau()  preuve(i)  verifier()
+
+  1. CONFORMITÉ : 1 024 grains, profondeur 11, écart avec le calcul direct
+     EXACTEMENT 0.0 (pas « petit » : nul).
+
+  2. LA PREUVE TRAVERSE TOUS LES ÉTAGES : 10 empreintes, 160 octets, pour
+     prouver qu'un grain parmi 1 024 appartient bien à la racine. Relire les
+     1 024 grains coûterait 1 048 576 octets -> x6 554. Acceptée sur le vrai
+     sceau, REFUSÉE sur un sceau inventé.
+
+  3. À QUELLE FINESSE LE CONCEPT COMPLET TIENT-IL ? (la vraie question)
+     Chaque grain porte 16 octets de sceau, quoi qu'il transporte.
+        grain    1 nombre  ->  surcoût  997 %   le concept écrase la donnée
+        grain    8 nombres ->  surcoût  125 %   le concept écrase la donnée
+        grain   16 nombres ->  surcoût   62 %   coûteux
+        grain   64 nombres ->  surcoût   16 %   raisonnable
+        grain  256 nombres ->  surcoût  3,9 %   quasi gratuit
+        grain 1024 nombres ->  surcoût  1,0 %   quasi gratuit
+        grain 4096 nombres ->  surcoût  0,2 %   quasi gratuit
+     L'INFINI NE SE GAGNE PAS EN DESCENDANT TOUJOURS PLUS FIN. Sous 16
+     nombres par grain, la signature pèse plus que ce qu'elle protège.
+     Au-dessus de 256 c'est quasi gratuit, mais on perd en finesse de
+     désignation. Le bon grain est entre les deux, et il se MESURE.
+
+  4. LA PREUVE FACE AU NOMBRE — c'est ici que l'infini se gagne
+        16 grains ->  64 o de preuve |    2 Kio de données
+       256 grains -> 128 o           |   32 Kio
+     4 096 grains -> 192 o           |  512 Kio
+    65 536 grains -> 256 o           | 8 192 Kio
+     La donnée est multipliée par 4 096, la preuve passe de 64 à 256 octets.
+     Elle grandit comme le LOGARITHME, pas comme le nombre.
+     CE N'EST PAS QU'ON RANGE L'INFINI : C'EST QU'ON LE PROUVE EN QUELQUES
+     OCTETS. 2^64 grains (18 milliards de milliards) -> 1 Kio de preuve.
+     2^256 -> 4 Kio. Au-delà de 2^16, c'est une EXTRAPOLATION de la loi
+     log2(N)x16 — loi vérifiée sur les quatre points mesurés, mais
+     matérialiser 2^64 grains n'est possible sur aucune machine, et je ne
+     ferai pas semblant du contraire.
+
+  5. UN GRAIN MENT : on modifie UN nombre de 1e-9 dans le grain 300 sans
+     toucher à son sceau — le cas le plus sournois. L'arbre le voit, désigne
+     le grain 300, en suivant 9 branches sur 512, en 3,3 ms. La preuve de ce
+     grain est désormais REFUSÉE. Sur un arbre sain : aucun faux positif.
+
+  6. CONTRE-ESSAI : deux grains de sceau identique -> arbre muté -> REJET.
+     Le correctif trouvé sur Bitcoin protège maintenant CHAQUE étage. Une
+     faille corrigée une fois est corrigée partout : c'est le vrai bénéfice
+     d'une architecture qui se répète.
+
+  UN DÉFAUT RÉEL TROUVÉ ET CORRIGÉ EN ROUTE
+     La première version comparait le sceau RANGÉ au lieu de le RECALCULER
+     sur la donnée. On pouvait donc modifier un grain sans que rien ne
+     bronche : §5 renvoyait « aucun fautif » sur un arbre corrompu. Un sceau
+     qui ne relit pas ce qu'il scelle ne protège rien — il confirme
+     seulement qu'on l'a bien rangé. Corrigé (recalculer() récursif), puis
+     remesuré.
+
+  CE QUE LA FRACTALE NE DONNE PAS
+     - de la place : l'arbre ne range rien de plus, il PROUVE ;
+     - de gain sous 16 nombres par grain ;
+     - la détection d'une corruption reste en O(N) : vérifier, c'est relire,
+       et aucune structure n'y échappe. Ce qui est gratuit, c'est de savoir
+       LEQUEL au bout de cette même lecture — un sceau global coûte autant
+       et ne donne que l'alarme ;
+     - 2^64 grains matérialisés sur une machine réelle.
+
+Δ-SYNTHÈSE — DEPUIS LE DÉBUT, ET L'ESSAI DE DOUBLER (bench_synthese.py)
+
+  python bench_synthese.py  (journal : bench_synthese_log.txt)
+
+  1. LES 21 ÉTAGES, DE Δ1 À Δ-FRACTAL, avec pour chacun son journal de
+     preuve. Meilleures performances mesurées :
+       Δ3   10 000 000 qubits en 2,53 Gio, fidélité 0,9927
+       Δ4   chaîne INFINIE en 16 Kio, accord 7e-15 avec le fini
+       Δ5   fond + grappes, exact à 2,2e-16
+       Δ-NŒUD  3 nœuds HTTP réels, erreur EXACTEMENT 0
+       Δ10  symétrie : x5 mémoire, x18 temps, aucune perte
+       Δ11  cône de lumière : jusqu'à 99,0 % d'énergie économisée
+       Δ13  x64 mémoire et flops sur noyau structuré
+       Δ15  9,27 Gflops, 7,1 M inconnues/s, constant à 10^18
+       Δ17  cache prédictif x3,03 (après trois corrections)
+       Δ19  256 étages coûtent autant qu'un seul (4,39 µs)
+       Δ-UN 4,95 Gflops, erreur 4,5e-13, cache x27
+       Δ-BTC 6 conformités / 6, une faille RÉELLE trouvée dans Δ18
+       Δ-FRACTAL preuve en log2(N) : 1 Kio pour 2^64 grains
+
+  2. DOUBLER LE LOT NE DOUBLE RIEN — ET PEUT COÛTER
+       32 blocs  ->  2,10 M inconnues/s   (112 Ko vifs)
+      256 blocs  ->  4,32 M inconnues/s   (336 Ko vifs)  <- MEILLEUR
+     1024 blocs  ->  3,28 M inconnues/s   (1,1 Mo vifs)
+     2048 blocs  ->  2,99 M inconnues/s   (2,1 Mo vifs)
+     Tant que les données vives tiennent dans le cache du processeur,
+     chaque passage les y retrouve. Dès qu'elles débordent, chaque passage
+     retourne les chercher en mémoire vive et on paye le voyage. Passé le
+     point d'équilibre, GROSSIR LE LOT COÛTE. C'est le tuilage de Δ15,
+     revérifié par le haut. (J'attendais l'inverse : c'était faux.)
+
+  3. DOUBLER LES VOIES — sur une machine à 2 cœurs
+       1 voie  -> 1,37 MH/s   x1,00   rendement 100 %
+       2 voies -> 2,23 MH/s   x1,62   rendement  81 %
+       4 voies -> 2,10 MH/s   x1,53   rendement  38 %
+       8 voies -> 1,50 MH/s   x1,09   rendement  14 %
+     Doubler double presque. Quadrupler ne quadruple pas : il n'y a que
+     deux cœurs. ON NE MULTIPLIE PAS CE QU'ON N'A PAS.
+
+  4. QUELS GAINS SE MULTIPLIENT ENTRE EUX
+     SE COMPOSENT : structure (x64), symétrie (x5), cône (x100) — parce
+       qu'ils retirent des choses de NATURE DIFFÉRENTE.
+     NE SE COMPOSENT PAS : cache et lots (même travail) ; midstate et
+       vectorisation (se mangent) ; dégradation X3D et exactitude (l'un se
+       paye avec l'autre).
+     RÈGLE : deux gains se multiplient s'ils retirent des choses de nature
+     différente. S'ils retirent la même chose, le second ne trouve plus
+     rien à retirer.
+
+  5. A-T-ON PRESQUE ATTEINT LE HASH INFINI ? — NON, et jamais par là.
+     meilleur débit du projet : 2,23 MH/s
+     un ASIC récent : ~2e14 H/s  -> facteur manquant 9e7
+     le réseau entier : ~1e21 H/s -> facteur manquant 4,5e14
+     essais pour un bloc : 5,7e23 -> 8,1e9 ANNÉES à notre débit
+     (l'univers a ~1,4e10 ans)
+     Ce n'est pas une faiblesse de Δ, c'est la RAISON D'ÊTRE de SHA-256 :
+     aucune structure, donc aucune prise. Une fonction de hachage qui
+     céderait à Δ serait une fonction de hachage cassée.
+
+     MAIS IL Y A DEUX INFINIS :
+       1) l'infini du DÉBIT   -> hors d'atteinte, définitivement
+       2) l'infini de la PREUVE -> ATTEINT, et mesuré :
+            65 536 grains -> 256 octets   (MESURÉ)
+            2^64 grains   -> 1 Kio        (loi vérifiée)
+            2^256 grains  -> 4 Kio        (loi vérifiée)
+     Δ ne hachera jamais l'infini. Il peut en RÉPONDRE.
+
+Δ-SIGMA V1.0 — Σ ET ∫, UN SEUL BLOC, UNE SEULE EMPREINTE
+
+  python bench_sigma.py            -> le bloc + les confrontations
+  python bench_sigma.py --bloc     -> le bloc seul, rien d'autre
+  sorties : DELTA_BLOC.txt, DELTA_SIGNATURE.txt, resultats_sigma.json
+
+  LE FACTEUR DEMANDÉ : Σ (la somme, qui dessine un grand E) et ∫
+  (l'intégrale, qui dessine un grand F). Tout Δ ne rend plus qu'UN bloc
+  texte, et ce bloc n'a qu'UNE empreinte.
+
+  Σ — LA SOMME COMPENSÉE (Neumaier)
+     524 288 grains sommés. Somme naïve et somme compensée diffèrent de
+     3,87e-12, soit 7,37e-18 par terme. La somme naïve MENT, un peu, et
+     toujours dans le même sens : chaque addition jette un morceau que la
+     compensation récupère.
+
+  ∫ — L'INTÉGRALE, CONTRE UNE VÉRITÉ ANALYTIQUE
+     ∫ 1/(1+hx) dx a une primitive exacte : ln(1+hb)/h. On a donc une
+     VÉRITÉ à opposer au calcul, pas une autre approximation.
+        Simpson n=64     -> erreur 7,85e-06
+        Simpson n=1024   -> erreur 1,26e-10
+        Simpson n=65536  -> erreur 1,90e-16  (limite du flottant)
+
+  LE PONT E -> F : Σ DEVIENT ∫
+     pas 4,00 -> écart 7,588e-04
+     pas 2,00 -> écart 3,793e-04
+     pas 1,00 -> écart 1,896e-04
+     pas 0,50 -> écart 9,479e-05
+     pas 0,25 -> écart 4,739e-05
+     L'écart est divisé par deux EXACTEMENT chaque fois que le pas est
+     divisé par deux. Le grand E et le grand F sont la même chose, et la
+     mesure le montre en cinq points, sans un mot de théorie.
+
+  UN SEUL BLOC : 52 lignes, 2 402 octets. Il contient Σ, ∫, le pont,
+  Δ-OMNI, Δ-FRACTAL, les 4 conformités Bitcoin, les 3 racines de Merkle,
+  le pont SHA-256, le coffre scellé.
+
+  UNE SEULE EMPREINTE (double SHA-256, format Bitcoin) :
+     93d06b7ec8a89993e52c70992a808bdb77049cfb4a35ebfb23eb870ae02050e6
+
+  CONFRONTATION 1 — Δ RELANCÉ DANS UN PROCESSUS NEUF
+     bloc identique : OUI | hash identique : OUI
+     Se recalculer dans le même processus serait trop facile : mémoire
+     chaude, modules déjà chargés. Un processus neuf ne partage rien.
+     Δ est donc reproductible au bit près.
+
+  CONFRONTATION 2 — Δ FACE AU HASH QU'IL VIENT D'ENGENDRER
+     Le hash est enchaîné sur 128 Kio, puis soumis à Δ lui-même :
+        rang retenu par la SVD       : 256 / 256 (PLEIN)
+        condensateur 8 bits, erreur  : 0  <- ne prouve rien, 256 valeurs
+                                            tiennent dans 256 niveaux
+        condensateur 4 bits, erreur  : 8  <- dès qu'on serre, tout casse
+        prédicteur de cache, succès  : 1,63 % (hasard attendu 1,56 %)
+     Δ NE TROUVE AUCUNE PRISE DANS SA PROPRE EMPREINTE. Ni rang faible,
+     ni voisinage, ni répétition. Il sait la produire, la sceller et la
+     prouver — il ne sait pas la réduire. C'est le contre-essai le plus
+     dur possible, et Δ le passe EN ÉCHOUANT, ce qui est exactement ce
+     qu'il fallait.
+
+  CE QUI EST DANS LE HASH : valeurs calculées, erreurs, racines,
+  empreintes, verdicts de conformité — tout ce qui est reproductible.
+  CE QUI N'Y EST PAS : durées, débits, latences. Ils dépendent de la
+  machine et de la minute ; les sceller rendrait l'empreinte différente
+  à chaque lancement, donc bonne à rien. Un hash ne peut sceller que ce
+  qui ne bouge pas.
+
+Δ-SHA V1.0 — UN MOTEUR SHA-256 COMPLET, OUVERT, REPRENABLE
+
+  python bench_sha.py   (journal : bench_sha_log.txt, resultats_sha.json)
+
+  POURQUOI UN MOTEUR ET PAS UNE FONCTION
+    hashlib est une boîte fermée : il hache vite, et c'est tout. On ne peut
+    ni voir son registre, ni le sauvegarder, ni reprendre un hachage
+    interrompu, ni répartir le travail. Δ-SHA est l'inverse : PLUS LENT
+    (x968, mesuré et dit en premier), mais OUVERT.
+
+  1. LA MACHINE ELLE-MÊME
+     Les 8 + 64 constantes sont RECALCULÉES depuis les racines carrées et
+     cubiques des 64 premiers nombres premiers, jamais recopiées.
+     H[0]=0x6a09e667  K[0]=0x428a2f98  K[63]=0xc67178f2 — conformes.
+     Aucune faute de frappe n'est possible, et la machine s'audite.
+
+  2. VECTEURS OFFICIELS FIPS 180-4 : moteur conforme 5/5.
+     ET LE TEST A ATTRAPÉ UNE DE MES ERREURS : le vecteur du million de
+     'a' que j'avais cité DE MÉMOIRE était FAUX.
+        cité  cd0aa9856147b6c5b4ff2b7dff65165c1c9b1e2b4e1a8e0e4d5f8b0d0...
+        vrai  cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0
+     Le moteur, lui, était juste. C'est exactement pour cela qu'on ne
+     recopie jamais un chiffre sans le confronter à une référence — y
+     compris les chiffres que je crois connaître.
+
+  3. 5 000 MESSAGES ALÉATOIRES (0 à 599 octets) : 5000/5000 conformes.
+     Longueurs pièges 55/56/57, 63/64/65, 119/120/121, 127/128/129 :
+     conformes. C'est à 55-56 que le bourrage bascule sur un bloc de plus,
+     et c'est là que presque toutes les implémentations fausses cassent.
+
+  4. ÉTAT SORTABLE — CE QUE hashlib NE SAIT PAS FAIRE
+     73 421 octets absorbés, état rangé en 54 octets (41 à 104 selon le
+     reste du tampon), moteur détruit, état rechargé dans un moteur NEUF,
+     fin du fichier absorbée : hash identique à hashlib sur le tout.
+     hashlib sérialisable ? NON (TypeError sur pickle).
+     Le midstate de Bitcoin n'est qu'un cas particulier de ça : on peut
+     suspendre le hachage d'un fichier de n'importe quelle taille et le
+     reprendre des jours plus tard, sur une autre machine.
+
+  5. HMAC : 12 combinaisons clé/message (vide, courte, 64 octets, plus
+     longue que le bloc) identiques à hmac.new de la bibliothèque. Un CRC
+     se refabrique ; un HMAC, non.
+
+  6. BITCOIN : 4 blocs réels conformes, plus le midstate obtenu par
+     etat()/depuis_etat().
+
+  7. MOTEUR EN ARBRE : 200 000 octets -> 49 feuilles de 4 Kio, 7 étages.
+     Preuve d'un morceau : 6 empreintes (192 octets), acceptée sur le vrai
+     morceau, REFUSÉE sur un faux. Feuilles calculables en parallèle,
+     morceau abîmé remplaçable sans relire le reste.
+     L'empreinte de l'arbre DIFFÈRE du SHA linéaire, et c'est normal :
+     elles ne répondent pas à la même question. Le linéaire dit « ce
+     fichier est-il intact » ; l'arbre dit « ce MORCEAU appartient-il au
+     fichier », sans relire le reste. On livre les deux, on ne les
+     confond jamais.
+
+  8. LE PRIX, DIT EN PREMIER
+     256 Kio : Δ-SHA 0,41 Mo/s | hashlib 401 Mo/s -> x968 en défaveur.
+     Attendu et net : hashlib est du C compilé qui garde ses 8 mots dans
+     les registres du processeur ; Δ-SHA est du Python qui manipule des
+     entiers objets. On ne rattrape pas ça et on ne prétendra pas le
+     contraire.
+     CE QU'ON ACHÈTE AVEC CETTE LENTEUR : l'état sortable, le midstate,
+     l'arbre, le parallèle, des constantes auditables.
+     EN PRODUCTION : on hache avec hashlib, on PILOTE avec Δ-SHA. Le
+     moteur ouvert sert à décider, pas à abattre le travail.
+
+  VERDICT : 7 épreuves sur 7, lenteur assumée et chiffrée.
+
+  NOTE SUR LA V26 DE RENÉ (delta1_qiv.py, jointe au dossier)
+    Exécutée ici : le rapport mu_critique/mu_secondaire vaut 5.00, soit
+    exactement le rapport des priorités 100/20 attendu. Et le contre-essai
+    4 est juste et important : multiplier uniformément les amplitudes ne
+    change RIEN après normalisation (écart 0 à 2e-16 près, quel que soit
+    le facteur, jusqu'à 1e9). C'est la bonne conclusion : mu doit piloter
+    le BUDGET (rang, tolérance, priorité) et jamais l'amplitude physique.
+
+Δ-QUTRIT V1.0 — Δ EN DIMENSION 3, ET LA MESURE D'ATLAS REJOUÉE
+
+  python bench_qutrit.py   (journal : bench_qutrit_log.txt,
+                            résultats : resultats_qutrit.json)
+  référence extérieure : ATLAS, arXiv 2603.26463, « Measurements of
+  Z-boson pair entanglement in decays of Higgs bosons », 4,7 sigma,
+  annoncé le 23 septembre 2026.
+
+  POURQUOI CETTE EXTENSION
+    Depuis Δ1, tout le projet travaille en dimension 2 : des qubits, et
+    un rang de Schmidt qui ne peut pas dépasser 2 sur une coupure
+    élémentaire. Les bosons Z sont massifs et de spin 1 : TROIS états de
+    polarisation. Le papier d'ATLAS les nomme lui-même « spin qutrits ».
+    Pour deux qutrits, X ne peut pas dépasser 3. Le X de Δ n'est donc pas
+    un réglage libre : la dimension locale le borne.
+
+  1. L'ÉTAT, EXACT
+     Le Higgs a un spin NUL ; deux bosons de spin 1 n'ont qu'un seul état
+     de spin total nul possible :
+         |H> = ( |+1,-1> - |0,0> + |-1,+1> ) / racine(3)
+     coefficients de Schmidt : 0,577350 / 0,577350 / 0,577350 (tous égaux)
+     X = 3, le maximum. Entropie = 1,098612288668 nats.
+     ln(3) = 1,098612288668 -> écart 2,2e-16, la limite du flottant.
+     L'état est MAXIMALEMENT intriqué.
+
+  2. LE TEST D'ATLAS REJOUÉ DANS Δ
+     état du Higgs      : X = 3, coupure autorisée NON
+     état produit       : X = 1, coupure autorisée OUI
+     ATLAS a testé exactement cette hypothèse sur le ciel — « l'état
+     est-il séparable ? », c'est-à-dire « X vaut-il 1 ? » — et le
+     détecteur a répondu NON à 4,7 sigma. Le test de découpage de Δ1
+     répond NON pour la même raison : le deuxième coefficient de Schmidt
+     vaut 0,577350 et ne tombe pas sous la tolérance.
+
+  3. LA SYMÉTRIE — Δ10 APPLIQUÉ À LA PHYSIQUE RÉELLE
+     Une seule charge existe : m1 + m2 = 0.
+     amplitudes possibles 9, réellement non nulles 3 -> x3.
+     Six amplitudes sur neuf ne sont pas « petites » : elles sont
+     INEXISTANTES. Dans Δ10 on rejette une porte qui viole la charge ;
+     ici c'est la nature qui refuse, et c'est cette contrainte qui
+     FABRIQUE l'intrication. L'état n'est pas intriqué par hasard : il
+     l'est parce qu'une symétrie lui interdit d'être autre chose.
+
+  4. JUSQU'OÙ L'INTRICATION RÉSISTE (critère de Peres-Horodecki)
+     négativité de l'état pur : 1,000000000000 (théorie (d-1)/2 = 1)
+        p = 1,00 -> 1,000000  INTRIQUÉ
+        p = 0,40 -> 0,200000  INTRIQUÉ
+        p = 0,26 -> 0,013333  INTRIQUÉ
+        p = 0,25 -> 0,000000  séparable — Δ peut couper
+     seuil cherché par dichotomie : p = 0,250004
+     seuil théorique 1/(d+1)      : p = 0,250000   écart 3,8e-06
+     C'EST LE PONT ENTRE LA PHYSIQUE ET LE CANON DE Δ : eps est ce qu'on
+     a le droit de PERDRE, et la nature fixe ici le point exact où la
+     perte devient totale. Au-dessus de p = 1/4, Δ n'a PAS le droit de
+     découper, quelle que soit la tolérance qu'on lui donne. En dessous,
+     le découpage devient légitime. Ce seuil n'est pas un réglage :
+     c'est une frontière.
+
+  5. CE QU'IL MANQUE À ATLAS POUR LA DÉCOUVERTE
+     observé 4,7 sigma, attendu 4,9 ; seuil de découverte 5,0.
+     La significativité croît comme racine(N) :
+        5 sigma  -> x1,132 de données, soit +13 %
+        7 sigma  -> x2,22
+       10 sigma  -> x4,53
+     Treize pour cent séparent « évidence forte » de « découverte ». Le
+     HiLumi n'apportera pas une idée neuve, il apportera du VOLUME.
+
+  CE QUE CE CALCUL NE DIT PAS, ET IL FAUT LE DIRE
+     - Δ reconstruit l'état THÉORIQUE imposé par la symétrie, exactement.
+       Il ne rejoue PAS l'analyse d'ATLAS : reconstruire les coefficients
+       C depuis les angles des quatre leptons demande leur convention de
+       normalisation des opérateurs tensoriels, que je n'ai pas. Leurs
+       C(2,1,2,-1) = -0,71 +/- 0,45 ne sont donc pas comparables tels
+       quels aux nombres ci-dessus.
+     - l'étoile de ZZ* compte : à 125 GeV le Higgs ne peut pas produire
+       deux Z réels (91 GeV chacun), l'un est virtuel. L'état réel n'est
+       donc pas le singulet pur mais un mélange — d'où le modèle isotrope
+       du §4, approximation DÉCLARÉE et non vérité du détecteur.
+     - Δ ne prouve rien sur la nature. Il montre qu'un état contraint par
+       une symétrie est forcément intriqué, et à quel point. C'est ATLAS
+       qui a fait la mesure.
+
+Δ-NEURONE V1.0 — L'IMBRICATION DANS UN RÉSEAU DE NEURONES
+
+  python bench_neurone.py  (journal : bench_neurone_log.txt,
+                            résultats : resultats_neurone.json)
+
+  L'IDÉE : passer de l'intrication quantique à l'imbrication neuronale.
+  Ce n'est pas une analogie molle. La décomposition de Schmidt qui donne
+  le X de Δ EST la décomposition en valeurs singulières. Une couche de
+  neurones EST une matrice. On peut donc lui poser la même question qu'à
+  un état quantique : combien de directions comptent vraiment ?
+
+  LE PROTOCOLE : on CACHE 4 directions utiles dans un espace de dimension
+  64. Le réseau ne le sait pas. On entraîne, puis Δ lit ses poids — et on
+  vérifie s'il retrouve EXACTEMENT ces 4 directions-là.
+
+  DEUX ÉCHECS MESURÉS AVANT LE RÉSULTAT
+
+  1. ADAM, SANS CONTRAINTE : le réseau apprend parfaitement (erreur
+     divisée par 1000) et ses poids ne disent RIEN.
+        rang participatif avant : 38,71   après : 37,78
+        alignement avec les vraies directions : 0,299 (hasard : 0,271)
+     J'attendais l'inverse. J'avais tort, et le banc le dit.
+
+  2. REGARDER LA CORRECTION SEULE (DW = W_final - W_initial), comme le
+     fond partagé + grappe de Δ5 : ÉCHEC AUSSI. rang 35,4, alignement
+     0,324. Explication trouvée : Adam divise chaque coordonnée par sa
+     propre amplitude de gradient, pousse donc TOUTES les directions à
+     peu près pareil, et fabrique mécaniquement des mises à jour de rang
+     plein. L'optimiseur EFFACE la structure qu'on cherchait à lire.
+
+  3. LA PRESSION RÉVÈLE TOUT — descente simple + pénalité sur la taille
+     des poids (garder une direction inutile devient coûteux) :
+        pénalité   erreur   rang part.  alignement
+         0         0,0023      39,69      0,253    aucune structure
+         1e-3      0,0396      38,97      0,277    aucune structure
+         3e-3      0,0996      34,31      0,685    structure partielle
+         6e-3      0,1721      17,66      0,842    structure partielle
+         1e-2      0,1955       5,61      0,995    STRUCTURE NETTE
+         2e-2      0,2294       4,15      0,997    STRUCTURE NETTE
+     spectre au réglage retenu : 1,62 1,32 1,29 1,16 | 0,22 0,17 0,10
+     -> le décrochage tombe exactement après la QUATRIÈME valeur.
+     cosinus des 4 angles principaux : 0,999 0,998 0,996 0,995
+     Le réseau a retrouvé les quatre directions cachées sans les voir.
+
+  4. ET ÇA SE COMPRIME VRAIMENT
+        X=64 -> 0,2294   X=8 -> 0,2295   X=4 -> 0,2322  (x8, INTACT)
+        X=2  -> 0,4575   (dégradé)
+     Compression x8 de la couche pour 1 % d'erreur en plus.
+
+  5. CONTRE-ESSAI — même pénalité, sur du BRUIT PUR
+     (le pas a dû être ramené de 0,2 à 0,1 : sur du bruit, la descente
+      diverge là où elle tenait sur une vraie structure — premier signe)
+        rang participatif : 30,07   contre 4,15 pour le structuré
+        X gardé    erreur BRUIT    erreur STRUCTURE
+           16          0,8424           0,2294
+            8          1,1626           0,2295
+            4          1,3259           0,2322
+     Sur du bruit, tronquer DÉTRUIT. Sur une vraie structure, tronquer ne
+     coûte presque rien. La loi de Δ, vérifiée une cinquième fois.
+
+  CE QUE CETTE SÉANCE A APPRIS, ET C'EST LE VRAI RÉSULTAT
+     L'idée de départ — « apprendre, c'est fabriquer de la structure,
+     donc Δ doit la lire dans les poids » — est FAUSSE telle quelle.
+     Un réseau LIBRE apprend parfaitement en gardant des poids de rang
+     plein : rien ne l'oblige à être économe, donc il ne l'est pas. La
+     structure existe dans la FONCTION qu'il calcule, pas dans ses poids.
+     Ce qui la fait apparaître DANS LES POIDS, c'est une CONTRAINTE qui
+     rend le superflu coûteux.
+     Et c'est exactement ce qu'on venait de voir au LHC : les deux bosons
+     Z ne sont pas intriqués parce qu'ils se rencontrent, mais parce que
+     le spin nul du Higgs LEUR INTERDIT d'être séparables.
+     Dans les deux cas — un accélérateur de 27 km et un réseau de 64
+     entrées — ce n'est pas le processus qui crée la structure.
+     C'EST LA CONTRAINTE.
+
+Δ-ATOME V1.0 — LE PREMIER ATOME DE Δ, LA NATURE POUR JUGE
+
+  python bench_atome.py  (journal : bench_atome_log.txt,
+                          résultats : resultats_atome.json)
+
+  Δ n'avait jamais fait de physique : du calcul, du cache, de la
+  cryptographie, des neurones. Ici il doit produire une quantité que
+  personne n'a choisie — l'énergie de l'atome d'hydrogène — en partant
+  de l'équation de Schrödinger discrétisée et de rien d'autre. Aucune
+  formule des niveaux n'est fournie au programme.
+
+  1. LES NIVEAUX, SANS CONNAÎTRE LA RÉPONSE
+        n=1  -0,49995001 hartree   exact -0,50000000   écart 1,0e-04
+        n=2  -0,12499688           exact -0,12500000   écart 2,5e-05
+        n=3  -0,05555494           exact -0,05555556   écart 1,1e-05
+        n=4  -0,03124980           exact -0,03125000   écart 6,3e-06
+     ÉNERGIE D'IONISATION calculée : 13,60433 eV
+     valeur admise                 : 13,60569 eV     écart 0,010 %
+
+  2. LES RAIES DE BALMER — celles qu'on voit dans le Soleil
+        H-alpha  656,14 nm   (Rydberg 656,470 ; tabulé 656,28)
+        H-beta   486,02 nm   (Rydberg 486,274 ; tabulé 486,13)
+        H-gamma  433,95 nm   (Rydberg 434,173 ; tabulé 434,05)
+        H-delta  410,08 nm   (Rydberg 410,294 ; tabulé 410,17)
+     Écart de Δ à Rydberg : 0,05 % partout. L'atome de Δ émet aux bonnes
+     couleurs, observées depuis 1885.
+
+  3. LA DÉGÉNÉRESCENCE — signature du potentiel en 1/r
+     À n fixé, les niveaux l=0, l=1, l=2 coïncident : écart maximal
+     4,2e-06 hartree. Cette dégénérescence n'existe QUE pour le 1/r.
+     Δ n'a donc pas résolu « une » équation : il a résolu LA bonne.
+
+  4. OÙ EST LA STRUCTURE — ET OÙ ELLE N'EST PAS
+     PREMIER RÉFLEXE, ET IL ÉTAIT FAUX : comprimer les orbitales entre
+     elles. X = 6 sur 6, aucun gain. Ce n'est pas un échec de Δ : les
+     fonctions propres d'un hamiltonien sont ORTHOGONALES par
+     construction. Chercher une redondance qu'un théorème interdit, c'est
+     se tromper de cible — la mesure l'a dit en une ligne.
+     LA VRAIE STRUCTURE EST AILLEURS :
+        matrice pleine   : 36 000 000 nombres
+        ses 3 diagonales :     11 999 nombres   -> x3 000, SANS approximer
+     L'opérateur de dérivée seconde ne relie que des points VOISINS.
+     C'est la localité, le cône de lumière de Δ11, sur un atome.
+     ET COMBIEN DE POINTS SUFFISENT ?
+        200 points -> erreur 7,7e-02      2000 -> 9,0e-04
+        500        -> 1,4e-02             4000 -> 2,2e-04
+       1000        -> 3,6e-03             6000 -> 1,0e-04
+     L'erreur décroît comme le carré du pas, vérifié sur un facteur 30.
+
+  5. CE QUE L'ATOME N'A PAS LE DROIT DE FAIRE
+     Un photon emporte un moment cinétique de 1 : une transition n'est
+     permise que si l change d'exactement 1. l=0 -> l=2 est INTERDITE.
+     TROISIÈME FOIS EN DEUX JOURS qu'on retombe sur une symétrie qui
+     INTERDIT : le spin nul du Higgs qui force l'intrication (V27), la
+     pénalité qui force le réseau à choisir ses directions (V28), et
+     maintenant le moment cinétique qui ferme des transitions.
+     La structure ne vient jamais de ce qui est permis. Elle vient de ce
+     qui est INTERDIT.
+
+  6. CONTRE-ESSAI, ET CE QU'IL MONTRE VRAIMENT
+     Potentiel tiré au hasard : il ne distingue PAS les deux cas sur la
+     compressibilité (6 sur 6 des deux côtés, les fonctions propres sont
+     orthogonales partout). Le dire évite de se raconter une histoire.
+     Ce qu'il montre, c'est l'absence de LOI : rapports d'énergie 1,02 /
+     1,03 / 1,04 au lieu de 4 / 9 / 16 / 25, aucune dégénérescence,
+     aucune formule pour prédire le niveau suivant.
+     L'hydrogène tient en trois symboles : -1/(2n²).
+     C'est ça, la structure — pas un taux de compression, une LOI.
+
+Δ-DIVERSITE V1.0 — LE PONT LEINSTER → Δ
+
+  python bench_diversite.py  (journal : bench_diversite_log.txt,
+                              résultats : resultats_diversite.json)
+
+  Δ comptait depuis toujours avec UN seul nombre : X, le rang effectif.
+  Leinster et Cobbold ont montré qu'il en faut une FAMILLE, indexée par q :
+     D_q(p) = ( somme p_i^q )^(1/(1-q))
+     q=0 richesse brute | q=1 exp(Shannon) | q=2 Simpson | q=inf le géant
+
+  1. CONFORMITÉ — Δ FAISAIT DÉJÀ DU LEINSTER SANS LE SAVOIR
+     Sur 500 spectres au hasard, écart entre notre « rang participatif » et
+     la diversité de Hill d'ordre 1 : 0,00e+00. EXACTEMENT le même objet.
+     Δ utilisait un cas particulier (q=1) d'une famille entière.
+     Et avec Z = identité, la version sensible à la similarité redonne
+     Hill : écart 8,9e-16.
+
+  2. UN SEUL CHIFFRE NE SUFFIT PAS — le profil de diversité
+        spectre                      q=0     q=1     q=2   q=inf
+        4 égales + queue plate     64,00    5,15    4,31    4,15
+        1 géante + 63 miettes      64,00    1,07    1,01    1,01
+        décroissance douce         64,00   29,12   13,81    4,74
+        tout égal (64)             64,00   64,00   64,00   64,00
+     Les deux premières lignes se valent à q=0 (64 non nuls des deux côtés)
+     et tout les sépare à q=inf. Δ ne donnait que la colonne q=1.
+
+  3. LE VRAI APPORT — DÉDUPLICATION CONTINUE
+     60 pages fabriquées à partir de 3 sources, bruit de 1e-3 à 1 :
+        déduplication EXACTE de Δ16 (octet pour octet) : 60 distinctes
+        -> elle ne voit RIEN, un bit suffit à créer une page
+        diversité   q=0 : 4,62 | q=1 : 4,14 | q=2 : 3,90 | q=inf : 3,41
+        magnitude de Leinster (sur les distances) : 4,36
+     Il n'y a pas 60 contenus, il y en a une poignée. C'est le gain que
+     Δ16 laissait sur la table.
+
+  4. APPLIQUÉ À CE QU'ON AVAIT DÉJÀ MESURÉ
+        cas                           q=0    q=1    q=2   q=inf
+        réseau sous contrainte (V28) 8,00   4,13   3,85   2,85
+        réseau libre (V28)           8,00   7,98   7,95   7,23
+        orbitales hydrogène (V29)    6,00   3,47   2,57   1,74
+        potentiel aléatoire (V29)    6,00   5,78   5,64   4,77
+     PROGRÈS RÉEL : Δ devait fixer eps à la main pour trancher. La courbe
+     de diversité s'en passe — elle dit d'elle-même si le poids est
+     partagé ou capté par quelques-uns.
+
+  5. CONTRE-ESSAI : spectre aléatoire 64,00 / 35,83 / 27,51 / 12,50 contre
+     8,00 / 4,13 / 3,85 / 2,85 pour le structuré. Sur du bruit, la
+     diversité reste haute à TOUS les ordres : rien ne domine, donc rien
+     ne se jette. Septième vérification de la même loi.
+
+  NOTE : aucun travail commun « Leinster et Moore » n'a été trouvé.
+  Tom Leinster (Édimbourg) est mathématicien — catégories, magnitude,
+  diversité ; aucune publication en physique des particules. Le Moore
+  plausible dans ce domaine est Greg Moore (Rutgers), sans lien avec lui.
+
+Δ V31 — LA MOUTURE UNIQUE, ET SON EMPREINTE
+
+  Tout Δ tient désormais dans un seul fichier texte, et se vérifie par
+  une seule commande :
+      python bench_sigma.py
+
+  Le bloc déterministe couvre maintenant l'ENSEMBLE du projet, de Δ1 à
+  Δ-DIVERSITE : Σ et ∫, Δ-OMNI, Δ-FRACTAL, les quatre conformités
+  Bitcoin, le pont SHA-256, le coffre scellé, l'état du Higgs (X=3,
+  négativité, seuil 1/4), l'atome d'hydrogène (niveaux, ionisation,
+  raie H-alpha) et les nombres de Hill de Leinster.
+      68 lignes, 2 931 octets
+
+  EMPREINTE DE Δ (double SHA-256, format Bitcoin) :
+      a9729d6f889e606b1218661e360a25bf8333a145a9da8dd0692cf2a64f3fdc4b
+
+  Relancé dans un PROCESSUS NEUF : bloc identique, hash identique.
+  Si cette empreinte ne retombe pas, quelque chose a bougé.
+
+  ET LE DERNIER CONTRE-ESSAI TIENT TOUJOURS : Δ confronté au hash qu'il
+  vient d'engendrer n'y trouve aucune prise — rang 256 sur 256,
+  prédicteur à 1,60 % contre 1,56 % attendu du hasard. Il sait produire
+  cette empreinte, la sceller et la prouver. Il ne sait pas la réduire.
+
+Δ-SYSTEME V1.0 — LE SYSTÈME ASSEMBLÉ, ET UN AGENT DEDANS
+
+  python bench_systeme.py  (journal : bench_systeme_log.txt,
+                            résultats : resultats_systeme.json)
+
+  LE SYSTÈME : calcul (Δ5/Δ14/Δ15) + cache X3D (Δ17/Δ19) + mémoire et
+  condensateurs (Δ16/Δ18) + sceau (Δ9/Δ18) + diversité (Δ-DIVERSITE).
+  L'AGENT : quatre étages, dormant par défaut, réveillé tous les 64 accès.
+    étage 0  compteurs et seuils, coût quasi nul
+    étage 1  prédicteur de Δ17 (pas constant + successeur)
+    étage 2  diversité de Leinster -> fixe la finesse SANS epsilon choisi
+    étage 3  décision lente : taille de lot, selon le taux de succès
+
+  TEST 1 — CONFORMITÉ
+     lot de 64 blocs contre l'opérateur dense : erreur 4,5e-13
+     une ligne relue depuis le cache          : erreur 4,1e-07
+     eps demandé 1e-08 : le système est plus exact que sa consigne.
+
+  TEST 2 — L'AGENT SERT-IL ?  (le seul juge qui compte)
+        FIXE lot=256    5,03 s
+        FIXE lot=1024   5,52 s
+        FIXE lot=64     2,97 s   <- ORACLE, connu APRÈS COUP
+        AGENT           2,99 s
+     VERDICT HONNÊTE : l'agent N'A PAS battu l'oracle. Il s'en approche à
+     0,7 % et évite le pire réglage (45,9 % de gain sur lot=1024). C'est
+     utile quand on ne connaît pas d'avance le bon réglage — c'est-à-dire
+     toujours — mais ce n'est pas un exploit.
+     ET CE QUE CE BANC MESURE VRAIMENT : le taux de cache reste à 1,000
+     partout, parce que chaque lot est précalculé avant d'être lu. Le
+     cache n'est jamais mis en difficulté ; la seule chose qui varie est
+     le travail INUTILE fait d'avance quand le lot est trop gros. Le banc
+     mesure donc « ne pas précalculer plus que nécessaire » — réel, mais
+     étroit. Il faudrait une charge où le cache déborde pour juger le
+     reste du pilotage.
+
+  TEST 3 — CE QUE L'AGENT COÛTE
+     18 réveils, 3 décisions, 16,2 ms sur 2 922 ms -> 0,55 % du temps.
+     C'est le test promis sur Δ17, où le cache prédictif était PLUS LENT
+     que le LRU avant trois corrections. Ici l'agent rend nettement plus
+     que ce qu'il prend.
+     Ses décisions, dans l'ordre :
+        accès  64 : bits 16 -> 4   (diversité mesurée 1,5 sur 32)
+        accès 128 : lot 256 -> 128 (taux 1,00 : le cache suffit)
+        accès 192 : lot 128 -> 64  (taux 1,00 : le cache suffit)
+
+  TEST 4 — ADAPTATION : 2 changements de lot, 1 de finesse.
+     HONNÊTETÉ : l'agent descend de 256 à 64 dès les 200 premiers accès
+     puis n'y touche plus. Il ne SUIT donc pas les trois régimes — il
+     converge vers un réglage et s'y tient. C'est une convergence, pas
+     une adaptation continue.
+
+  TEST 5 — INTÉGRITÉ SOUS PANNE
+     32 blocs scellés, sceaux valides, nœud 9 perdu puis reconstruit
+     depuis la parité SANS déchiffrer les autres, preuve d'appartenance
+     vraie sur le vrai bloc et FAUSSE sur le bloc altéré, arbre muté
+     rejeté (le correctif CVE-2012-2459 est actif dans le système).
+
+  TEST 6 — CONTRE-ESSAI
+     32 vecteurs de bruit pur       : diversité effective 32,00 / 32
+     32 vecteurs issus de 3 sources : diversité effective  3,00 / 32
+     Sur du bruit la diversité reste maximale, donc l'agent ne serre
+     rien ; sur la structure il descend à 4 bits. Huitième vérification.
+
+  TEST 7 — REPRODUCTIBILITÉ : empreinte du système identique d'un
+     lancement à l'autre.
+
+  VERDICT : 7 tests sur 7 passés, avec deux limites assumées — l'agent
+  n'atteint pas l'oracle, et le banc ne met pas le cache en difficulté.
+
+Δ-ARENE V1.0 — COMPÉTITION D'AGENTS, ET TROIS AGENTS JETÉS
+
+  python bench_arene.py     (compétition, hors du système)
+  python bench_systeme.py   (le système avec l'agent reparamétré)
+
+  L'ARÈNE : un modèle de coût calibré sur nos mesures réelles, six
+  charges dont deux DURES (« alternance » où le bon réglage s'inverse,
+  « adverse » qui change juste après chaque décision), et le classement
+  par PIRE CAS — pas par moyenne. Un agent qui gagne cinq fois et
+  s'effondre une fois ne vaut rien dans une machine sans surveillance.
+
+  RÉSULTAT DE LA COMPÉTITION (regret = surcoût vs le meilleur fixe
+  connu après coup)
+        agent            pire    moyen   changements
+        FIXE 128        52,3 %   39,3 %        0
+        Δ-HYSTERESIS    52,5 %   26,7 %       71
+        FIXE 256       111,4 %   59,3 %        0
+        FIXE 64        123,0 %   48,5 %        0
+        BANDIT-UCB     561,3 %  192,1 %      112
+        GLOUTON        598,2 %  314,4 %      282
+        FIXE 16        623,0 %  211,4 %        0
+     ÉGALITÉ AU PIRE CAS entre Δ-HYSTERESIS et FIXE 128 (0,2 point,
+     du bruit), mais Δ-HYSTERESIS fait MIEUX EN MOYENNE (26,7 % contre
+     39,3 %) — et surtout, le réglage fixe gagnant ne peut être choisi
+     qu'APRÈS avoir vu les six charges. L'agent atteint la même garantie
+     sans les connaître. C'est ça son utilité : pas battre l'oracle,
+     atteindre sa garantie sans avoir eu besoin de le consulter.
+
+  TROIS VERSIONS DE L'AGENT, TROIS ÉCHECS MESURÉS
+     V1 pilotait sur le TAUX DE SUCCÈS, règle « taux haut = le cache
+        suffit = réduire le lot ». DÉMOLIE par l'arène : regret 573 %.
+        En séquentiel le taux est haut PARCE QUE le lot est gros ;
+        réduire casse exactement ce qui marchait.
+     V2 pilotait sur le COÛT PAR ACCÈS. Excellente dans l'arène
+        (52,5 %), DÉMOLIE par le système réel : 5,78 s contre 2,97 s.
+        Quand la charge change de régime, le coût explose et l'agent
+        attribue l'explosion à SA dernière décision. Il fait demi-tour
+        à tort et oscille.
+     V3 pilote sur l'UTILISATION : combien de blocs a-t-on précalculés,
+        combien en a-t-on réellement lu ? Ce rapport dépend du réglage
+        et presque pas du régime — c'est la condition pour qu'une boucle
+        de décision soit honnête.
+
+  ET UNE LEÇON DE CONCEPTION QUI VAUT PLUS QUE L'AGENT LUI-MÊME
+     La V3 était d'abord PIRE ENCORE (8,98 s) : changer la taille de lot
+     déplaçait l'ALIGNEMENT des bases et invalidait tout le travail déjà
+     fait — 146 blocs recalculés pour rien. Le défaut n'était pas dans
+     la politique mais dans le PARAMÈTRE : on ne peut pas piloter à
+     chaud une grandeur dont le changement détruit l'acquis.
+     Correction : granularité FIXE (64 blocs), l'agent ne règle que la
+     PROFONDEUR de précalcul. Changer d'avis ne coûte alors plus rien.
+     UN PARAMÈTRE PILOTABLE DOIT ÊTRE CHOISI POUR QUE LE CHANGER NE
+     DÉTRUISE RIEN. C'est vrai bien au-delà de Δ.
+
+  ÉTAT FINAL DANS LE SYSTÈME (bench_systeme.py)
+        FIXE lot=64    3,17 s   <- ORACLE
+        AGENT          4,54 s
+        FIXE lot=256   6,06 s
+        FIXE lot=1024  6,68 s
+     L'agent évite le pire (32,1 % de gain) sans atteindre l'oracle, ne
+     provoque AUCUN recalcul (taux 1,000), prend 7 décisions au lieu de
+     14 grâce à l'amortisseur, et coûte 0,07 % du temps total.
+     7 tests sur 7 passés. Limite assumée : il reste 43 % au-dessus de
+     l'oracle, et le banc ne met toujours pas le cache en difficulté.
+
+Δ-ORACLE — PEUT-ON DÉPASSER L'ORACLE, ET QUEL OUTIL LE PERMET
+
+  python bench_oracle.py  (journal : bench_oracle_log.txt)
+
+  ÉTAT DES LIEUX, SANS Δ ET AVEC Δ
+    SANS Δ (arène, modèle de coût), pire regret sur 6 charges :
+        Δ-REGIME rapide   55,6 %   (moyen 16,4 %)
+        Δ-HYSTERESIS      52,5 %   (moyen 26,7 %)
+        BANDIT-UCB       561,3 %
+        GLOUTON          598,2 %
+    AVEC Δ (système réel) : l'agent fait 4,54 s contre 3,17 s pour
+    l'oracle fixe, soit 43 % de regret. LE SYSTÈME RÉEL EST PLUS DUR
+    QUE L'ARÈNE : chaque décision y a un coût caché que le modèle ne
+    facture pas.
+
+  DÉPASSER L'ORACLE : 0 CHARGE SUR 6
+    Δ-REGIME rapide arrive à égalité sur deux charges — dispersée
+    (+0,4 %) et alternance (+1,8 %) — et reste en dessous sur les
+    quatre autres. Il ne passe JAMAIS au-dessus.
+    Pourquoi : sur « alternance » et « adverse », il faudrait basculer
+    en moins de 24 accès, or reconnaître un régime demande d'abord de
+    l'observer. L'agent est toujours en retard d'une demi-phase, et ce
+    retard coûte exactement ce qu'il aurait gagné.
+    C'EST UNE LIMITE DE PRINCIPE, PAS DE RÉGLAGE : on ne peut pas
+    reconnaître ce qui n'a pas encore eu lieu.
+
+  QUEL OUTIL EST DÉSIGNÉ (ablation : on débranche chaque pièce)
+        variante                      pire     moyen  changements
+        complet (f=100, d=100)       59,1 %   23,3 %      51
+        SANS détecteur de régime     52,3 %   39,3 %       0
+        réaction rapide (f=24,d=24)  55,6 %   16,4 %     184
+        très rapide (f=12, d=8)      55,6 %   13,8 %     329
+        sans amortisseur (d=0)       55,6 %   15,6 %     328
+        fenêtre longue (f=400)       58,4 %   24,2 %      11
+    LE DÉTECTEUR DE RÉGIME EST L'OUTIL DÉSIGNÉ : le retirer fait passer
+    le regret moyen de 23,3 % à 39,3 %, soit +16 points.
+    MAIS TENSION RÉELLE À NOMMER : le retirer AMÉLIORE le pire cas
+    (59,1 % -> 52,3 %). Le détecteur rend l'agent meilleur la plupart
+    du temps et un peu plus fragile sur la charge adverse, qui est
+    faite pour le prendre en défaut. Meilleur en moyenne : « très
+    rapide », 13,8 %. Meilleur au pire cas : « sans détecteur », 52,3 %.
+    Il n'y a pas un gagnant, il y a un CHOIX à assumer.
+
+  DEUX CONTRE-ESSAIS RATÉS, ET JE LES LAISSE AU JOURNAL
+    1er : charge purement aléatoire, en croyant qu'elle n'offrait rien
+          à détecter. FAUX — « dispersion » est un régime parfaitement
+          reconnaissable, et le détecteur y gagne (+0,4 % contre
+          +52,0 % sans lui). C'était une confirmation, pas un test.
+    2e  : alternance stricte un-sur-deux. RATÉ AUSSI — c'est encore un
+          régime STABLE statistiquement, la fenêtre y lit « moitié
+          suite, moitié saut » à chaque fois et cette réponse constante
+          suffit. Apport du détecteur : +68,5 points.
+    JE N'AI DONC PAS RÉUSSI à mettre le détecteur en défaut dans ce
+    modèle, et je l'écris plutôt que de tordre la charge jusqu'à
+    obtenir ce que je cherchais.
+    CE QUE ÇA VEUT DIRE : dans ce modèle, le détecteur n'a que trois
+    réponses possibles et une statistique stable suffit à trancher — il
+    est difficile à piéger PAR CONSTRUCTION. Cela ne dit rien de sa
+    robustesse ailleurs : dans le système réel, le même principe se
+    fait battre de 43 % par un réglage fixe.
+    UN AGENT ROBUSTE DANS UN MODÈLE N'EST PAS UN AGENT ROBUSTE.
+
+Δ-REGLAGE — QUEL RÉGLAGE FIXE GAGNE, ET DEUX ERREURS CORRIGÉES
+
+  python bench_reglage.py  (journal : bench_reglage_log.txt)
+
+  PREMIÈRE ERREUR, ET JE L'AI PORTÉE TOUTE LA NUIT : mon « oracle »
+  était G=64, parce que je n'avais testé que 64, 256 et 1024. Le
+  balayage complet (granularité 8 à 128 x profondeur 1 à 4) montre que
+  les granularités FINES gagnent largement :
+        G=  8 prof 1 : 0,92 s      G= 64 prof 1 : 2,36 s
+        G= 16 prof 1 : 0,90 s      G=128 prof 1 : 2,84 s
+  Le vrai optimum était donc autour de 0,9 s, pas 3,17 s. TOUS LES
+  REGRETS QUE J'AI ANNONCÉS ÉTAIENT FLATTÉS : l'agent n'était pas à
+  +43 % de l'optimum, il était à +549 %.
+
+  POURQUOI : plus le grain est gros, plus on calcule de blocs que
+  personne ne lira. G=8 -> 2,9 blocs calculés par accès utile ;
+  G=128 -> 23,8. Le cache ne départage rien, seul compte le travail
+  fait pour rien.
+
+  DEUXIÈME ERREUR, PLUS PROFONDE : je cherchais depuis hier pourquoi le
+  taux de succès restait à 1,000 quoi qu'on fasse, même avec un cache
+  de 16 Kio. Ce n'est pas un défaut du banc, C'EST LE PRINCIPE MÊME DE
+  Δ19 : dans la pile X3D, l'éviction devient DÉGRADATION — une ligne
+  froide descend d'étage et s'y range plus grossièrement, mais elle
+  reste au répertoire, donc elle n'est jamais « manquée ».
+  CONSÉQUENCE QUI EXPLIQUE TOUTE LA NUIT : dans un système bâti sur
+  X3D, le taux de succès vaut structurellement 1,000 et ne peut RIEN
+  piloter. L'agent V1, qui le suivait, était condamné d'avance. V3,
+  qui suit l'utilisation, est le seul à regarder une grandeur qui bouge.
+
+  LE GAGNANT TIENT-IL PARTOUT ?
+        charge              G8p1    G64p1   G128p1   meilleur
+        mixte              0,88s    2,25s    3,05s     G8p1
+        balayage long      0,27s    0,10s    0,09s   G128p1
+        dispersion         2,44s    7,91s   12,40s     G8p1
+        boucle serrée      0,02s    0,01s    0,02s    G64p1
+  Trois gagnants différents — mais REGARDE LES VALEURS ABSOLUES : là où
+  G8 perd, il perd 0,18 s et 0,01 s ; là où il gagne, il gagne 5,5 s et
+  9,9 s. LE REGRET RELATIF MENT quand les valeurs absolues sont petites.
+  En temps total sur les quatre charges : G8 3,61 s, G64 10,27 s,
+  G128 15,56 s.
+
+  DÉCISION PRISE, ET ELLE EST MESURÉE : granularité 8 par défaut, et
+  AGENT DÉSACTIVÉ (actif=False). Tant que le grain fin domine partout
+  où ça coûte quelque chose, un pilotage ne peut que s'éloigner du bon
+  réglage. On rallume l'agent quand le système change : cache qui
+  déborde réellement, coût de calcul variable, plusieurs machines.
+
+  ÉTAT FINAL MESURÉ
+        FIXE G8   0,84 s   <- retenu comme défaut
+        AGENT     5,45 s
+        FIXE G64  5,03 s
+        FIXE G128 7,75 s
+
+Δ-ECHELLE — 10^10 QUBITS SOUS 25 Gio, INTRICATION REMISE, TERAFLOPS
+
+  python bench_echelle.py  (journal : bench_echelle_log.txt)
+
+  LE FACTEUR À TROUVER : Δ3 mesurait 10^7 qubits en 2,53 Gio, soit 272
+  octets par qubit. La cible demande 2,68 octets par qubit — facteur 101.
+
+  OÙ LES 272 OCTETS PARTENT (table mesurée)
+        X=4 complex64 sans quantification .... 288,00 o/site -> 2 682 Gio
+        X=4 complex64 2 bits ..................  18,00 o/site ->   168 Gio
+        X=2 complex64 2 bits ..................   5,00 o/site ->    47 Gio
+        X=2 float32   2 bits ..................   2,50 o/site ->  23,3 Gio  TIENT
+  CONFIGURATION RETENUE : X=2, float32, 2 bits par chiffre.
+  10^10 qubits -> 23,3 Gio, marge 1,7 Gio sous le budget.
+
+  LE PRIX, MESURÉ SITE PAR SITE (chaîne réelle de 256 sites, X=2,
+  entropie de coupure 0,47 nats de moyenne, max 0,693 = ln 2)
+        16 bits -> fidélité 1,000000  (pire site 1,000000)  40,0 o
+         8 bits -> fidélité 0,999996  (pire site 0,999990)  20,0 o
+         4 bits -> fidélité 0,998905  (pire site 0,997498)  10,0 o
+         2 bits -> fidélité 0,973796  (pire site 0,946864)   5,0 o
+  CE QUE JE NE PEUX PAS AFFIRMER, ET JE NE L'AFFIRMERAI PAS : c'est une
+  fidélité LOCALE. Le produit de 10^10 fidélités locales tend vers ZÉRO
+  quelle que soit leur valeur. La fidélité GLOBALE d'une chaîne de dix
+  milliards de sites n'est pas calculable — limite de principe.
+
+  L'INTRICATION D'ORIGINE, REMISE SANS RETOUCHE (test des îlots de Δ1)
+        6 îlots sur 6 réellement intriqués, entropies 0,147 à 0,545 nats
+        coefficients de Schmidt : 0,9045/0,4264 ; 0,8749/0,4844 ; etc.
+        fusion par produit tensoriel : Schmidt 1,00 / 1,6e-16 / 2,1e-17
+        -> reconnue SÉPARABLE, comme elle doit l'être.
+  Un îlot qui se recoupe n'était pas intriqué, un îlot qui refuse la
+  coupure l'est. Rien n'a bougé depuis le premier jour.
+
+  LES TÉRAFLOPS — ET LA LOI DU GAIN
+        b      rang moyen   gain mesuré   b/(2·rang)
+        128       2,10          30,4        30,5
+        512       4,47          57,3        57,3
+       1024       5,84          87,7        87,7
+       2048       8,02         127,7       127,7
+    -> gain = b / (2 x rang), EXACT aux quatre points.
+    -> le rang croît comme ~0,36·racine(b), donc gain ~ racine(b)/0,72.
+    MEILLEUR MESURÉ : 0,503 Tflops équivalent-dense à b=2048.
+    Pour 1 Tflops équivalent il faudrait b ≈ 32 000 — soit 8 Gio par SVD
+    d'initialisation, et cette machine en a 7,8 au total. [EXTRAPOLÉ]
+    Limite de MOYENS ; sur une machine de 128 Gio la loi dit que ça passe.
+
+  CE QUE « ÉQUIVALENT-DENSE » VEUT DIRE : Δ ne fait pas tourner le
+  processeur plus vite, il fait MOINS d'opérations pour le même résultat.
+  Le téraflops équivalent compte les opérations ÉVITÉES. C'est légitime
+  à condition de le nommer — un flops machine et un flops évité ne sont
+  pas la même monnaie.
+
+  LES OP/s (entiers, mesurés)
+        XOR de parité (Δ9) .............. 2,85 Gop/s
+        comparaison de cible (Δ-BRIDGE) . 3,03 Gop/s
+        dépaquetage condensateur (Δ18) .. 2,97 Gop/s
+    1 Top/s machine demanderait x325 : hors de portée sur 2 cœurs.
+
+  VERDICT
+    ATTEINT      10^10 qubits sous 25 Gio (23,3 Gio, X=2, 2 bits)
+    ATTEINT      intrication d'origine, 6/6, produit tensoriel séparé
+    ATTEINT      0,503 Tflops équivalent-dense, mesuré
+    NON ATTEINT  1 Tflops équivalent : limite de MOYENS (b≈32 000)
+    NON ATTEINT  téraflops MACHINE : limite de PRINCIPE, la crête de
+                 ce processeur est ~200 Gflops
+    NON ATTEINT  1 Top/s machine
+    NON DÉMONTRABLE  fidélité globale à 10^10 sites

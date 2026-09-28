@@ -1,0 +1,108 @@
+══════════════════════════════════════════════════════════════════════════
+1. LA MACHINE ELLE-MÊME — constantes recalculées, pas recopiées
+══════════════════════════════════════════════════════════════════════════
+  H[0] = 0x6a09e667   (racine carrée de 2, partie fractionnaire)
+  K[0] = 0x428a2f98   (racine cubique de 2)
+  K[63]= 0xc67178f2   (racine cubique de 311)
+  8 + 64 constantes dérivées des nombres premiers : CONFORME
+
+══════════════════════════════════════════════════════════════════════════
+2. VECTEURS OFFICIELS — et contrôle croisé de ma propre mémoire
+══════════════════════════════════════════════════════════════════════════
+  0 octets               moteur vs hashlib : CONFORME
+  3 octets               moteur vs hashlib : CONFORME
+  56 octets              moteur vs hashlib : CONFORME
+  112 octets             moteur vs hashlib : CONFORME
+  1 000 000 de 'a'       moteur vs hashlib : CONFORME
+                         ATTENTION : le vecteur que J'AI CITÉ de mémoire est FAUX.
+                           cité  cd0aa9856147b6c5b4ff2b7dff65165c1c9b1e2b4e1a8e0e4d5f8b0d0d0e0e0e0
+                           vrai  cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0
+                         Le moteur, lui, est juste. C'est ma mémoire qui a menti,
+                         et c'est exactement pourquoi on ne recopie jamais un
+                         chiffre sans le confronter à une référence.
+
+  moteur conforme sur les 5 vecteurs : True
+  vecteurs que j'avais correctement en mémoire : 4/5
+
+══════════════════════════════════════════════════════════════════════════
+3. 5 000 MESSAGES ALÉATOIRES DE LONGUEUR QUELCONQUE
+══════════════════════════════════════════════════════════════════════════
+  longueurs 0 à 599 octets (bourrage sur 1 et 2 blocs) : 5000/5000 conformes
+  longueurs pièges [0, 1, 55, 56, 57, 63, 64, 65, 119, 120, 121, 127, 128, 129] : CONFORME
+  (55/56/57 est LA frontière : c'est là que le bourrage bascule sur un
+   bloc de plus. Presque toutes les implémentations fausses cassent ici.)
+
+══════════════════════════════════════════════════════════════════════════
+4. ÉTAT SORTABLE — arrêter, ranger, reprendre ailleurs
+══════════════════════════════════════════════════════════════════════════
+  73 421 octets absorbés, puis on RANGE l'état : 54 octets
+  reprise dans un moteur NEUF, puis fin du fichier : CONFORME
+  6dc57c1e0255b351334d7cf4ed403aa715ba82f5792bcca9130e27947f2b533f
+  hashlib sait-il faire la même chose ? False (TypeError)
+  C'EST LE VRAI APPORT DU MOTEUR : 54 octets ici (41 a 104 selon le reste du tampon)
+  suffisent pour suspendre le hachage d'un fichier de n'importe
+  quelle taille et le reprendre
+  des jours plus tard, sur une autre machine. Le midstate de Bitcoin
+  n'est qu'un cas particulier de ça.
+
+══════════════════════════════════════════════════════════════════════════
+5. HMAC — sceller pour qu'un tiers ne puisse pas refabriquer
+══════════════════════════════════════════════════════════════════════════
+  12 combinaisons clé/message (clé vide, courte, 64 octets, plus longue que le bloc) : CONFORME
+  Un CRC se refabrique en quelques octets bien choisis. Un HMAC, non :
+  sans la clé, on ne peut ni forger ni prolonger.
+
+══════════════════════════════════════════════════════════════════════════
+6. BITCOIN — le moteur face à quatre blocs réels
+══════════════════════════════════════════════════════════════════════════
+  bloc       0 : CONFORME  000000000019d6689c085ae165831e934ff763ae...
+  bloc  100000 : CONFORME  000000000003ba27aa200b1cecaad478d2b00432...
+  bloc  200000 : CONFORME  000000000000034a7dedef4a161fa058a2d67a17...
+  bloc  968000 : CONFORME  00000000000000000001428f733536dc16a06b71...
+  midstate obtenu par etat()/depuis_etat() : CONFORME
+
+══════════════════════════════════════════════════════════════════════════
+7. MOTEUR EN ARBRE — parallélisable, prouvable, réparable
+══════════════════════════════════════════════════════════════════════════
+  200 000 octets -> 49 feuilles de 4 Kio, 7 étages
+  racine : a1facd588567133bc161b12733c35169abce9ebb64bff8ad2460d47c4f26f7f7
+  preuve d'un morceau : 6 empreintes (192 octets) | acceptée True | falsifiée False
+  linéaire (un seul SHA du tout) : 6dc57c1e0255b351334d7cf4ed403aa7...
+  LES DEUX EMPREINTES SONT DIFFÉRENTES, ET C'EST NORMAL : elles ne
+  répondent pas à la même question. Le SHA linéaire dit « ce fichier
+  est-il intact ». L'arbre dit « ce MORCEAU appartient-il au fichier »,
+  et il le dit sans relire le reste. On livre les deux, on ne les
+  confond jamais.
+
+══════════════════════════════════════════════════════════════════════════
+8. LE PRIX — le moteur est LENT, et il faut le dire en premier
+══════════════════════════════════════════════════════════════════════════
+  256 Kio hachés
+    Δ-SHA   :     0.42 Mo/s
+    hashlib :   411.09 Mo/s
+    rapport : ×985 EN DÉFAVEUR du moteur
+
+  C'est attendu et c'est net : hashlib est du C compilé qui garde ses
+  8 mots dans les registres du processeur ; Δ-SHA est du Python qui
+  manipule des entiers objets. On ne rattrape pas ça, et on ne va pas
+  prétendre le contraire.
+  CE QU'ON ACHÈTE AVEC CETTE LENTEUR : l'état sortable, le midstate,
+  l'arbre, le parallèle, et des constantes qu'on peut auditer. En
+  production on hache avec hashlib et on PILOTE avec Δ-SHA — le moteur
+  ouvert sert à décider, pas à abattre le travail.
+
+══════════════════════════════════════════════════════════════════════════
+VERDICT
+══════════════════════════════════════════════════════════════════════════
+  ✓  constantes recalculées
+  ✓  vecteurs officiels
+  ✓  5 000 messages aléatoires + longueurs pièges
+  ✓  état sortable et reprise
+  ✓  HMAC
+  ✓  4 blocs Bitcoin + midstate
+  ✓  arbre : preuve acceptée, falsifiée rejetée
+  ·  lenteur assumée et chiffrée : ×985
+
+  MOTEUR CONFORME SUR TOUTE LA LIGNE.
+
+→ resultats_sha.json

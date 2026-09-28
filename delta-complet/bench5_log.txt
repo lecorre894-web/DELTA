@@ -1,0 +1,16 @@
+=== 1. CONTRÔLE : hybride contre une chaîne finie complète de 4 000 qubits ===
+chaîne complète 4000 : 32500 Kio, 3.74 s
+hybride              : 861 Kio, 0.08 s  (fond 16640 o + grappe 845 Kio)
+écart max <Z> sur 304 sites (grappe, zone d influence, bords, lointains) : 2.2e-16
+effet réel de la grappe : <Z> fond = +0.8600 ; dans la grappe de -0.8459 à +0.9209
+
+=== 2. TROIS GRAPPES ALLUMÉES DANS UNE CHAÎNE INFINIE ===
+grappe de 64 qubits individuels au site                    0 : 845 Kio, 0.08 s
+grappe de 64 qubits individuels au site            1,000,000 : 845 Kio, 0.07 s
+grappe de 64 qubits individuels au site 1,000,000,000,000,000 : 845 Kio, 0.08 s
+mémoire totale : 2552 Kio pour une infinité de qubits, dont 192 individuels
+   <Z> au site                     32 = -0.318256
+   <Z> au site              1,000,032 = +0.329649
+   <Z> au site  1,000,000,000,000,032 = +0.709157
+   <Z> au site    500,000,000,000,000 = +0.859952
+   <Z> au site 1,000,000,000,000,000,000 = +0.859952

@@ -1,0 +1,107 @@
+══════════════════════════════════════════════════════════════════════════
+TEST 1 — CONFORMITÉ : le système rend-il le bon résultat ?
+══════════════════════════════════════════════════════════════════════════
+  lot de 64 blocs contre l'opérateur dense : erreur 4.53e-13
+  une ligne relue depuis le cache           : erreur 4.12e-07
+  eps demandé : 1e-08  -> le système est plus exact que sa consigne.
+
+══════════════════════════════════════════════════════════════════════════
+TEST 2 — L'AGENT SERT-IL À QUELQUE CHOSE ? (le seul juge qui compte)
+══════════════════════════════════════════════════════════════════════════
+  Trois régimes se succèdent dans la charge : balayage serré, accès
+  dispersés, puis boucle sur peu de blocs. Aucun réglage immobile ne
+  peut être bon sur les trois.
+
+  régime                  secondes    taux   calculs  lectures
+  FIXE G8 (le vrai optimum)      0.84   1.000         0     1,200
+  FIXE G64 (mon ancien oracle)      5.03   1.000         0     1,200
+  FIXE G128                   7.75   1.000         0     1,200
+  AGENT                       5.45   1.000         0     1,200
+
+  CORRECTION D'UNE ERREUR QUE J'AI PORTÉE TOUTE LA NUIT : mon
+  « oracle » d'hier était G=64, parce que je n'avais testé que 64,
+  256 et 1024. Le balayage complet (bench_reglage) montre que les
+  granularités FINES gagnent largement. Mon oracle était donc faux,
+  et tous les regrets que je t'ai annoncés étaient flattés.
+
+  meilleur réglage FIXE (connu après coup, l'ORACLE) : 0.84 s
+  pire réglage FIXE                                   : 7.75 s
+  AGENT                                               : 5.45 s
+  -> L'AGENT est entre le meilleur et le pire fixe : il évite le mauvais choix sans atteindre le meilleur.
+
+  ET IL FAUT DIRE CE QUE CE BANC MESURE VRAIMENT : le taux de cache
+  reste à 1,000 dans TOUS les régimes, parce que chaque lot est
+  précalculé avant d'être lu. Le cache n'est donc jamais mis en
+  difficulté, et la seule chose qui varie est le travail INUTILE fait
+  d'avance quand le lot est trop gros. Le banc mesure donc « ne pas
+  précalculer plus que nécessaire », ce qui est réel mais étroit.
+
+══════════════════════════════════════════════════════════════════════════
+TEST 3 — L'AGENT COÛTE-T-IL PLUS QU'IL NE RAPPORTE ?
+══════════════════════════════════════════════════════════════════════════
+  réveils : 18   décisions prises : 7
+  temps passé DANS l'agent : 2.6 ms sur 4866 ms au total, soit 0.05 %
+  gain apporté vs le pire réglage fixe : 29.7 %
+
+  C'est le test qu'on s'était promis sur Δ17, où le cache prédictif
+  était PLUS LENT que le LRU avant trois corrections. Ici l'agent doit
+  rendre plus que le temps qu'il prend, sinon il ne mérite pas de vivre.
+    accès    64 : bits 16 -> 4   (diversité 1.5/32)
+    accès    64 : lot 256 -> 64   (utilisation 21 %)
+    accès   256 : lot 64 -> 128   (utilisation 6400 %)
+    accès   448 : lot 128 -> 64   (utilisation 1 %)
+    accès   640 : lot 64 -> 32   (utilisation 3 %)
+    accès   832 : lot 32 -> 16   (utilisation 9 %)
+    accès  1024 : lot 16 -> 32   (utilisation 3400 %)
+
+══════════════════════════════════════════════════════════════════════════
+TEST 4 — L'AGENT SUIT-IL LE CHANGEMENT DE RÉGIME ?
+══════════════════════════════════════════════════════════════════════════
+  changements de taille de lot : 6
+  changements de finesse (bits) : 1
+  premier et dernier réglage de lot : 256 -> 32
+
+  L'agent ne suit pas un plan écrit d'avance : il réagit au taux de
+  succès observé et à la diversité de ce qui circule. Quand la charge
+  passe des accès dispersés à la boucle serrée, le cache devient
+  suffisant et l'agent réduit le lot de lui-même.
+
+══════════════════════════════════════════════════════════════════════════
+TEST 5 — UN NŒUD TOMBE, UNE DONNÉE MENT
+══════════════════════════════════════════════════════════════════════════
+  32 blocs scellés et chiffrés. racine de Merkle : db33897e5a66941151e3a3ae...
+  sceaux tous valides : True
+  nœud 9 perdu, reconstruit depuis la parité SANS déchiffrer les autres : True
+  preuve d'appartenance du bloc 9 : vraie True, sur bloc altéré False
+  deux blocs identiques -> arbre muté rejeté : True
+
+══════════════════════════════════════════════════════════════════════════
+TEST 6 — CONTRE-ESSAI : le système face à du bruit pur
+══════════════════════════════════════════════════════════════════════════
+  32 vecteurs de BRUIT pur         : diversité effective 32.00/32
+  32 vecteurs issus de 3 sources   : diversité effective 3.00/32
+  -> l'agent serrera à 4 bits dans le second cas et pas dans le premier.
+  erreur du condensateur sur du bruit : 16 bits 4.69e-05  |  4 bits 2.04e-01
+
+  Sur du bruit, la diversité reste maximale et rien ne peut être serré.
+  Huitième vérification : le gain vient de la structure, jamais de la magie.
+
+══════════════════════════════════════════════════════════════════════════
+TEST 7 — LE SYSTÈME EST-IL REPRODUCTIBLE ?
+══════════════════════════════════════════════════════════════════════════
+  empreinte du système : c829bca648ae96ac5e7a4be14c317b74f32184f126901f2e514aa5fdfd9cd281
+  recalculée           : c829bca648ae96ac5e7a4be14c317b74f32184f126901f2e514aa5fdfd9cd281
+  identique : True
+
+══════════════════════════════════════════════════════════════════════════
+VERDICT
+══════════════════════════════════════════════════════════════════════════
+  OK   le système rend le bon résultat
+  OK   une ligne relue depuis le cache est juste
+  OK   l'agent n'est pas pire que le pire réglage fixe
+  OK   l'agent coûte moins de 5 % du temps total
+  OK   intégrité : reconstruction, preuve, mutation rejetée
+  OK   sur du bruit, rien n'est promis
+  OK   reproductible
+
+→ resultats_systeme.json

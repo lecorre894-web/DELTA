@@ -1,0 +1,59 @@
+──────────────────────────────────────────────────────────────────────
+1. EXACTITUDE — Δ-UN confronté à l'opérateur dense, sans compression
+──────────────────────────────────────────────────────────────────────
+opérateur : 81 classes, 1676.0 Kio
+erreur relative Δ-UN vs dense, sur 32 blocs : 4.519e-13   (eps demandé 1e-8)
+
+──────────────────────────────────────────────────────────────────────
+2. DÉBIT — un lot de 4096 blocs sur un problème de taille 10^18
+──────────────────────────────────────────────────────────────────────
+4096 blocs = 524,288 inconnues en 0.138 s
+4.95 Gflops   3,798,086 inconnues/s
+mémoire de l'opérateur : 1676.0 Kio — constante, quel que soit n
+
+──────────────────────────────────────────────────────────────────────
+3. CACHE — MÊME BUDGET D'OCTETS pour Δ et pour un cache classique
+──────────────────────────────────────────────────────────────────────
+2048 lignes (2 Mio bruts) rangées dans 256 Kio en 0.20 s
+étages occupés : 98 sur 256 | dégradations : 2043 | lignes OUBLIÉES : 0
+   étage   0 : 16 bits/chiffre,    5 lignes,     1.2 Kio
+   étage   1 : 16 bits/chiffre,    5 lignes,     1.2 Kio
+   étage   2 : 16 bits/chiffre,    5 lignes,     1.2 Kio
+   étage   3 : 16 bits/chiffre,    5 lignes,     1.2 Kio
+   étage  95 :  2 bits/chiffre,   33 lignes,     1.0 Kio
+   étage  96 :  2 bits/chiffre,   33 lignes,     1.0 Kio
+   étage  97 :  2 bits/chiffre,   15 lignes,     0.5 Kio
+3000 questions : 147 ms, 100.0 % de succès, 48.5 µs par succès
+recalculer une ligne coûte 1309 µs -> le cache fait ×27
+erreur d'une ligne relue, selon la FINESSE qu'elle a connue au plus bas :
+   16 bits/chiffre :   7 lignes, erreur médiane 2.32e-07, pire 1.25e-06
+    8 bits/chiffre :  17 lignes, erreur médiane 3.30e-04, pire 1.85e-03
+    4 bits/chiffre : 170 lignes, erreur médiane 3.76e-03, pire 6.49e-02
+    2 bits/chiffre : 206 lignes, erreur médiane 2.14e-02, pire 3.29e-01
+
+référence 3 niveaux, MÊMES 256 Kio : 1792 lignes perdues au remplissage, puis 7.2 % de succès sur les mêmes 3000 questions (3585 ms)
+Δ : 0 ligne(s) oubliée(s), 100.0 % de succès (147 ms) — mais les vieilles lignes sont FLOUES, pas exactes.
+
+──────────────────────────────────────────────────────────────────────
+4. MÉMOIRE — pages dédupliquées + condensateurs
+──────────────────────────────────────────────────────────────────────
+512 pages écrites, 8 réellement stockées -> déduplication ×64
+64.0 Mio bruts -> 9.0 Kio, intégrité : True
+condensateur 8 bits : 1024 o -> 128 o (×8), erreur 6.55e-05
+
+──────────────────────────────────────────────────────────────────────
+5. SCEAU — ce qu'un QPU ne peut pas faire : signer son propre état
+──────────────────────────────────────────────────────────────────────
+256 blocs scellés et chiffrés en 5.2 ms -> 51 Mo/s
+racine de Merkle : 011a0e031106e61a2014f866dd466e42...   sceaux valides : True
+preuve du bloc 37 : 8 empreintes -> vraie : True, sur bloc altéré : False
+nœud 3 perdu, reconstruit depuis la parité SANS déchiffrer les autres : True
+coût de la parité : 0.39 % (1 bloc sur 256)
+
+──────────────────────────────────────────────────────────────────────
+6. CONTRE-ESSAI — sur du bruit pur, Δ-UN ne doit RIEN gagner
+──────────────────────────────────────────────────────────────────────
+noyau aléatoire : rangs retenus [64, 64, 64, 64, 64, 64, 64, 64, 64] sur 64 possibles
+-> aucune compression. Le gain de Δ vient de la STRUCTURE, jamais de la magie.
+
+→ resultats_un.json

@@ -1,0 +1,5 @@
+=== CÔNE DE LUMIÈRE, cas HONNÊTE : les qubits interrogés sont dans une zone ACTIVE ===
+n=   200 | tout :     50 portes,      3.6 ms, 0.0071 J | cône :  23 portes,    1.3 ms, 0.002567 J | économie d énergie 64.00 % | écart réponse 0.0e+00
+n=  1000 | tout :    275 portes,     16.9 ms, 0.0338 J | cône :  24 portes,    1.4 ms, 0.002808 J | économie d énergie 91.69 % | écart réponse 0.0e+00
+n=  4000 | tout :   1050 portes,     57.4 ms, 0.1148 J | cône :  23 portes,    1.5 ms, 0.003013 J | économie d énergie 97.37 % | écart réponse 0.0e+00
+n= 20000 | tout :   5175 portes,    311.6 ms, 0.6232 J | cône :  24 portes,    2.5 ms, 0.005034 J | économie d énergie 99.19 % | écart réponse 0.0e+00

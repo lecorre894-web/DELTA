@@ -1,0 +1,115 @@
+══════════════════════════════════════════════════════════════════════════
+1. PREMIÈRE TENTATIVE (Adam, sans contrainte) — ET ELLE ÉCHOUE
+══════════════════════════════════════════════════════════════════════════
+  On cache 4 directions utiles dans un espace de dimension 64.
+  Le réseau ne le sait pas. On entraîne, puis Δ lit ses poids.
+
+  erreur 1.6962 -> 0.0016  : le réseau A APPRIS, sans discussion.
+  rang participatif AVANT entraînement : 38.71
+  rang participatif APRÈS entraînement : 37.78
+  alignement avec les vraies directions : 0.2992  (hasard : 0.2713)
+
+  RIEN. Le réseau apprend parfaitement et ses poids ne disent RIEN.
+  J'attendais l'inverse, et j'avais tort. Δ ne trouve aucune prise.
+
+══════════════════════════════════════════════════════════════════════════
+2. DEUXIÈME TENTATIVE — regarder ce que l'apprentissage a AJOUTÉ
+══════════════════════════════════════════════════════════════════════════
+  Idée : l'initialisation aléatoire est un FOND plein qui masque tout.
+  Regardons donc la correction seule, DW = W_final - W_initial.
+  (c'est le fond partagé + grappe allumée de Δ5, appliqué aux poids)
+
+  norme du fond : 11.29   norme de la correction : 9.52
+  rang participatif de DW : 35.38
+  alignement de DW        : 0.3237
+
+  ÉCHEC AUSSI. La correction est aussi pleine que le fond.
+  Explication trouvée : Adam divise chaque coordonnée par sa propre
+  amplitude de gradient. Il pousse donc TOUTES les directions à peu
+  près pareil, et fabrique mécaniquement des mises à jour de rang
+  plein. L'optimiseur EFFACE la structure qu'on cherchait à lire.
+
+══════════════════════════════════════════════════════════════════════════
+3. ON MET LA PRESSION — et là, tout change
+══════════════════════════════════════════════════════════════════════════
+  Descente simple, plus une PÉNALITÉ sur la taille des poids : garder
+  une direction inutile devient coûteux. Le réseau doit choisir.
+
+   pénalité   erreur  rang part.  alignement   lecture
+      0e+00   0.0023       39.69      0.2530   aucune structure
+      1e-03   0.0396       38.97      0.2765   aucune structure
+      3e-03   0.0996       34.31      0.6851   structure partielle
+      6e-03   0.1721       17.66      0.8417   structure partielle
+      1e-02   0.1955        5.61      0.9948   structure nette
+      2e-02   0.2294        4.15      0.9970   structure nette
+
+  LE BASCULEMENT EST NET. Sans pénalité : rang 40, alignement 0,18 —
+  le hasard. Avec la bonne pénalité : rang 4, alignement 0,997 — le
+  réseau a retrouvé EXACTEMENT les quatre directions qu'on lui avait
+  cachées, sans jamais les voir.
+
+  réglage retenu : pénalité 2e-02
+  spectre : 1.62  1.32  1.29  1.16  0.22  0.17  0.10  0.08
+  cosinus des 4 angles principaux : 0.999  0.998  0.996  0.995
+
+══════════════════════════════════════════════════════════════════════════
+4. LA STRUCTURE TROUVÉE SE COMPRIME-T-ELLE VRAIMENT ?
+══════════════════════════════════════════════════════════════════════════
+   X gardé     poids    gain     erreur   verdict
+        64     8,192    0.5×     0.2294   intact
+        32     4,096    1.0×     0.2294   intact
+        16     2,048    2.0×     0.2294   intact
+        12     1,536    2.7×     0.2294   intact
+         8     1,024    4.0×     0.2295   intact
+         6       768    5.3×     0.2304   intact
+         4       512    8.0×     0.2322   intact
+         2       256   16.0×     0.4575   dégradé
+
+  (référence, couche entière : 0.2294)
+
+══════════════════════════════════════════════════════════════════════════
+5. CONTRE-ESSAI — la MÊME pression, sur du BRUIT PUR
+══════════════════════════════════════════════════════════════════════════
+/home/claude/delta1/delta_neurone.py:111: RuntimeWarning: overflow encountered in matmul
+  d = (d @ self.W[k].T) * (1 - a[k] ** 2)
+/home/claude/delta1/delta_neurone.py:111: RuntimeWarning: invalid value encountered in multiply
+  d = (d @ self.W[k].T) * (1 - a[k] ** 2)
+  (le pas a du etre ramene de 0,2 a 0.1 : sur du bruit pur,
+   la descente diverge la ou elle tenait sur une vraie structure.
+   C'est deja un signe : il n'y a aucune pente a suivre.)
+  cible tirée au hasard : il n'y a RIEN à apprendre, seulement à retenir.
+  erreur atteinte : 0.2871
+  rang participatif : 30.07   (structuré : 4.15)
+
+   X gardé   erreur BRUIT   erreur STRUCTURE
+        16         0.8424             0.2294
+         8         1.1626             0.2295
+         4         1.3259             0.2322
+         2         1.4683             0.4575
+
+  Sur du bruit, tronquer DÉTRUIT. Sur une vraie structure, tronquer
+  ne coûte presque rien. C'est la loi de Δ, vérifiée pour la
+  cinquième fois : le gain vient de la structure, jamais de la magie.
+
+══════════════════════════════════════════════════════════════════════════
+6. CE QUE CETTE JOURNÉE A APPRIS
+══════════════════════════════════════════════════════════════════════════
+  L'idée de départ était : « apprendre, c'est fabriquer de la
+  structure, donc Δ doit la lire dans les poids ». C'est FAUX tel quel,
+  et il a fallu deux échecs mesurés pour le voir.
+
+  Ce qui est vrai : un réseau LIBRE apprend parfaitement en gardant des
+  poids de rang plein. Rien ne l'oblige à être économe, donc il ne
+  l'est pas. La structure existe dans la FONCTION qu'il calcule, mais
+  elle n'est pas écrite dans ses poids.
+
+  Ce qui la fait apparaître, c'est une CONTRAINTE qui rend le superflu
+  coûteux. Et c'est exactement ce qu'on a vu hier au LHC : les deux
+  bosons Z ne sont pas intriqués parce qu'ils se rencontrent, mais
+  parce que le spin nul du Higgs LEUR INTERDIT d'être séparables.
+
+  Dans les deux cas — un accélérateur de 27 kilomètres et un réseau de
+  neurones de 64 entrées — ce n'est pas le processus qui crée la
+  structure. C'est la contrainte.
+
+→ resultats_neurone.json

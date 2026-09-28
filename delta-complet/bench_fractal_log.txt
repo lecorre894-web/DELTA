@@ -1,0 +1,120 @@
+════════════════════════════════════════════════════════════════════════
+1. CONFORMITÉ — la récursion rend-elle la même valeur que le calcul direct ?
+════════════════════════════════════════════════════════════════════════
+  1 024 grains de 128 nombres, arbre de profondeur 11
+  écart maximal entre l'arbre entier et le calcul direct : 0.0e+00
+  racine : a547046c9b068615c7294d9e4badc0b0
+  construction : 13 ms
+
+════════════════════════════════════════════════════════════════════════
+2. LA PREUVE TRAVERSE TOUS LES ÉTAGES
+════════════════════════════════════════════════════════════════════════
+  grain     0 : 10 empreintes ( 160 octets) | acceptée True | sur un sceau inventé False
+  grain     1 : 10 empreintes ( 160 octets) | acceptée True | sur un sceau inventé False
+  grain   511 : 10 empreintes ( 160 octets) | acceptée True | sur un sceau inventé False
+  grain  1000 : 10 empreintes ( 160 octets) | acceptée True | sur un sceau inventé False
+  grain  1023 : 10 empreintes ( 160 octets) | acceptée True | sur un sceau inventé False
+  -> prouver l'appartenance d'un grain parmi 1 024 coûte 160 octets ; relire les 1 024 grains en coûterait 1,048,576 : ×6,554
+
+════════════════════════════════════════════════════════════════════════
+3. À QUELLE FINESSE LE CONCEPT COMPLET TIENT-IL ENCORE ?
+════════════════════════════════════════════════════════════════════════
+  Chaque grain porte 16 octets de sceau, quoi qu'il transporte.
+  Plus le grain est fin, plus cette signature pèse lourd devant lui.
+
+     grain        utile        total    surcoût  verdict
+         1        2,048       22,464     996.9%  le concept écrase la donnée
+         2        4,096       24,512     498.4%  le concept écrase la donnée
+         4        8,192       28,608     249.2%  le concept écrase la donnée
+         8       16,384       36,800     124.6%  le concept écrase la donnée
+        16       32,768       53,184      62.3%  coûteux
+        64      131,072      151,488      15.6%  raisonnable
+       256      524,288      544,704       3.9%  quasi gratuit
+      1024    2,097,152    2,117,568       1.0%  quasi gratuit
+      4096    8,388,608    8,409,024       0.2%  quasi gratuit
+
+  LECTURE : sous 16 nombres par grain, la signature et l'ossature de
+  l'arbre pèsent plus que ce qu'elles protègent. Au-dessus de 256, le
+  concept complet devient quasi gratuit — mais on perd en finesse de
+  désignation : on ne peut plus montrer du doigt qu'un gros morceau.
+  L'infini ne se gagne donc pas en descendant toujours plus fin. Il se
+  gagne à la BONNE finesse, et cette finesse se mesure.
+
+════════════════════════════════════════════════════════════════════════
+4. LA PREUVE FACE AU NOMBRE — c'est ici que l'infini se gagne
+════════════════════════════════════════════════════════════════════════
+        grains  profondeur     preuve        données  rapport
+            16           5      64 o        2,048 o  ×        32
+           256           9     128 o       32,768 o  ×       256
+         4,096          13     192 o      524,288 o  ×     2,731
+        65,536          17     256 o    8,388,608 o  ×    32,768
+
+  La donnée est multipliée par 4 096 ; la preuve, elle, passe de 64 à
+  256 octets. Elle grandit comme le LOGARITHME, pas comme le nombre.
+  C'est exactement ça, « le concept complet fera l'infini » : ce n'est
+  pas qu'on range l'infini, c'est qu'on le PROUVE en quelques octets.
+
+════════════════════════════════════════════════════════════════════════
+5. JUSQU'OÙ — et ce qui est mesuré, ce qui est extrapolé
+════════════════════════════════════════════════════════════════════════
+                      grains    preuve   statut
+  2^16  =             65,536     256 o   MESURÉ
+  2^20  =          1,048,576     320 o   extrapolé (log2(N)×16 o)
+  2^32  =      4,294,967,296     512 o   extrapolé (log2(N)×16 o)
+  2^64  = 18,446,744,073,709,551,616    1024 o   extrapolé (log2(N)×16 o)
+  2^128 =          3.403e+38    2048 o   extrapolé (log2(N)×16 o)
+  2^256 =          1.158e+77    4096 o   extrapolé (log2(N)×16 o)
+
+  2^64 grains, soit dix-huit milliards de milliards : la preuve tient
+  en UN kilo-octet. 2^256 : quatre kilo-octets.
+  HONNÊTEMENT : au-delà de 2^16 (65 536), ce tableau est une
+  EXTRAPOLATION de la loi log2(N)×16, pas une mesure. La loi est
+  vérifiée sur les quatre points mesurés du §4 ; elle n'est pas
+  devinée. Mais matérialiser 2^64 grains n'est possible sur aucune
+  machine, et je ne vais pas faire semblant du contraire.
+
+════════════════════════════════════════════════════════════════════════
+6. UN GRAIN MENT — l'arbre le montre-t-il du doigt ?
+════════════════════════════════════════════════════════════════════════
+  arbre sain : intact ? True | un fautif désigné à tort ? False
+  avant altération, le grain 300 se vérifie : True
+  on modifie UN nombre de 1e-9 dans le grain 300 (le sceau, lui,
+  n'est PAS retouché — c'est le cas le plus sournois)
+  l'arbre le voit : True
+  et il désigne : grain k=300 (attendu 300), chemin de 9 branches sur 512 grains
+  la preuve du grain 300 est maintenant REFUSÉE : True
+  trouvé en 3.3 ms
+
+  CE DÉFAUT ÉTAIT RÉEL ET IL ÉTAIT À MOI : la vérification comparait
+  le sceau RANGÉ au lieu de le RECALCULER sur la donnée. Résultat :
+  on pouvait modifier un grain sans que rien ne bronche. Un sceau qui
+  ne relit pas ce qu'il scelle ne protège rien — il confirme seulement
+  qu'on l'a bien rangé. Corrigé, puis remesuré ci-dessus.
+
+════════════════════════════════════════════════════════════════════════
+7. CONTRE-ESSAI — et si deux grains sont identiques ?
+════════════════════════════════════════════════════════════════════════
+  deux grains de sceau identique -> deux enfants appariés identiques : arbre muté (CVE-2012-2459)
+  rejeté : True
+  Le correctif trouvé hier sur Bitcoin protège maintenant CHAQUE étage
+  de la fractale. Une faille corrigée une fois est corrigée partout :
+  c'est le seul vrai bénéfice d'une architecture qui se répète.
+
+════════════════════════════════════════════════════════════════════════
+8. CE QUE LA FRACTALE DONNE, ET CE QU'ELLE NE DONNE PAS
+════════════════════════════════════════════════════════════════════════
+  DONNE  une preuve en log2(N) : 1 Kio pour 2^64 grains.
+  DONNE  la désignation du grain fautif : 9 branches suivies sur 512.
+         (détecter exige de tout relire — O(N), aucune structure n'y
+          échappe — mais dire LEQUEL, au bout de cette même lecture,
+          ne coûte rien de plus. Un sceau global, lui, coûte autant
+          et ne donne que l'alarme.)
+  DONNE  une seule correction qui protège tous les étages à la fois.
+  DONNE  la même interface à tous les niveaux : on peut empiler sans fin.
+  NE DONNE PAS  de la place : l'arbre ne range rien de plus, il PROUVE.
+  NE DONNE PAS  de gain sous 16 nombres par grain : en dessous, le
+                concept complet pèse plus que ce qu'il porte.
+  NE DONNE PAS  2^64 grains sur une machine réelle — la loi est
+                vérifiée, la matérialisation ne l'est pas.
+
+→ resultats_fractal.json

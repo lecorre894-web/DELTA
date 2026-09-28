@@ -1,0 +1,79 @@
+{
+ "etat": {
+  "X": 3,
+  "entropie": 1.0986122886681096,
+  "ln3": 1.0986122886681098,
+  "schmidt": [
+   0.5773502691896258,
+   0.5773502691896258,
+   0.5773502691896258
+  ]
+ },
+ "test": {
+  "higgs_coupable": false,
+  "separable_coupable": true,
+  "X_higgs": 3,
+  "X_separable": 1
+ },
+ "symetrie": {
+  "amplitudes": 9,
+  "non_nulles": 3,
+  "gain": 3.0,
+  "charges": [
+   0
+  ]
+ },
+ "bruit": {
+  "negativite_pure": 1.0000000000000002,
+  "seuil_mesure": 0.2500038146972656,
+  "seuil_theorique": 0.25,
+  "courbe": [
+   {
+    "p": 1.0,
+    "negativite": 1.0000000000000002
+   },
+   {
+    "p": 0.8,
+    "negativite": 0.7333333333333337
+   },
+   {
+    "p": 0.6,
+    "negativite": 0.46666666666666684
+   },
+   {
+    "p": 0.4,
+    "negativite": 0.20000000000000018
+   },
+   {
+    "p": 0.3,
+    "negativite": 0.06666666666666671
+   },
+   {
+    "p": 0.26,
+    "negativite": 0.013333333333333391
+   },
+   {
+    "p": 0.25,
+    "negativite": 1.0408340855860843e-16
+   },
+   {
+    "p": 0.24,
+    "negativite": -0.0
+   },
+   {
+    "p": 0.2,
+    "negativite": -0.0
+   },
+   {
+    "p": 0.1,
+    "negativite": -0.0
+   }
+  ]
+ },
+ "sigma": {
+  "observe": 4.7,
+  "attendu": 4.9,
+  "facteur_pour_5": 1.131733816206428,
+  "pourcent": 13.173381620642811
+ }
+}
