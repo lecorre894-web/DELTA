@@ -1,0 +1,23 @@
+============= Δ-QI-V — ENREGISTREMENT SCELLÉ =============
+date   : 2026-09-27T00:57:38Z
+auteur : René — AISA, Port-Brillet (Mayenne)
+env    : v26.3.1  /  8 coeurs
+
+-- NATURE (vérité) --
+Δ-QI-V V4 : SIMULATION CLASSIQUE Node.js.
+ - ilots quantiques locaux (vecteur d'etat reel, portes H/CNOT)
+ - intrication globale reelle par stabilisateurs (CHP, Gottesman-Knill)
+ - echelle en logarithme (ilots / qubits / Hilbert)
+ - telemetrie batterie reelle si Termux:API present
+PAS de materiel quantique. PAS d'acceleration quantique.
+Aucune mesure en picosecondes, aucun chiffre non calculable.
+
+-- FICHIERS SCELLES (SHA-256) --
+dqiv.js  : 934ac42716178bf568d6186a031038bde3e12689a12507dc523843fe9c9d90b0  (6919 o)
+dqiv.log : 24a96a1fbeea130a3e6e857d3b67be2ef74b084d6c2e2cbe435fd82a1702ee02  (2814 o)
+
+-- VERIFICATION --
+Rejouer : sha256sum dqiv.js
+Le sceau tient si l'empreinte est identique. Un octet change = sceau brise.
+=========================================================
+sceau global du present enregistrement : fcd70352ffdf5ef1a3e49bab9f4e7dc70931a1521f1b0d7de13666f918bb8cae

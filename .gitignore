@@ -1,0 +1,16 @@
+# Archives locales / sauvegardes
+*.tar.gz
+*.tgz
+*.zip
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*~
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / éditeurs
+.DS_Store
