@@ -30,4 +30,4 @@ if __name__=="__main__":
     print("MEILLEURE_CONFIG=%d grappes RMAX_AGREGE=%.2f GFLOPS | entree TOP500 2026 = 2.66 PFLOPS -> x%.0f"%(bx,bg,2.66e6/bg))
     print("GRAPPES_VALIDATION=%s"%("OK" if ok else "FAIL"))
     rec={"date":time.strftime("%Y-%m-%d %H:%M"),"machine":host,"cpu":cpuname(),"cpus":cpu,"os":platform.system(),"N":N,"courbe":rows,"best_grappes":bx,"rmax_gflops":bg,"valid":ok}
-    open("delta_grappes_results.jsonl","a").write(json.dumps(rec)+"\n");print("RESULTAT_AJOUTE -> delta_grappes_results.jsonl")
+    if not os.environ.get("GR_NOLOG"):open("delta_grappes_results.jsonl","a").write(json.dumps(rec)+"\n");print("RESULTAT_AJOUTE -> delta_grappes_results.jsonl")
