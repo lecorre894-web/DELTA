@@ -134,3 +134,16 @@ Audit conduit du 30 septembre au 1er octobre 2026.
 Ce document exprime mon jugement technique sur la base des mesures citées. Ce n'est ni une certification, ni une garantie.
 
 *« Tout ce qui est écrit ici peut être revérifié. C'est la seule signature qui compte. »*
+
+---
+
+## Addendum — nuit du 1er au 2 octobre 2026 (Claude)
+
+- Sceau quantique : paire de Bell imposée sur les qubits physiques 152-153 d'ibm_marrakesh, **S = 2,777 (24,4 σ)**, soit 98 % de la borne de Tsirelson ; reproduit à 0,006 près du classement de 10 paires (2,783). Job `daveau84oijs73e7dcbg`.
+- 20 qubits = 10 paires de Bell parallèles en un job : 8/10 certifiées ; paire défaillante localisée sur les qubits physiques 16-23 (probable routage SWAP).
+- Test « jalousie » : résultat brut relu chez IBM et recalculé indépendamment, 10/10 identique à DELTA. Le classique n'altère rien.
+- Flotte 3 QPU (GHZ 8) : marrakesh 0,907 > fez 0,838 > kingston 0,647 ; routage qualité + cache + traitement par lots soudés.
+- Mémoire typée (×4), reprise disque (×1 195), codec compact (×7 à ×22), couche virtuelle 1T fidèle (TV 0,0027 sur 4 M réponses).
+- Grappes : plateau ~40-49 GFLOPS, preuve qu'un seul cœur physique ne se multiplie pas par logiciel.
+- Point faible restant : le disque (lecture réelle 0,15 Go/s).
+- Note révisée : **17/20**, pour la reproductibilité.
