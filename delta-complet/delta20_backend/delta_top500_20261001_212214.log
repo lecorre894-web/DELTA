@@ -1,0 +1,17 @@
+=== DELTA TOP500-STYLE (non homologue) ACCELERATEUR=all ===
+MEM_AVAILABLE=1446 MB N_MAX=4000
+HPL N= 2000 FP64 0.490 s   10.9 GFLOPS RES=0.002 | MxP 0.271 s   19.7 GFLOPS-eq RES=0.030 ITER=2 x1.81
+HPL N= 4000 FP64 0.922 s   46.3 GFLOPS RES=0.002 | MxP 1.518 s   28.1 GFLOPS-eq RES=0.040 ITER=3 x0.61
+QPU GHZ4 NIVEAU=MISS_COMPUTED POP=0.949 QPU=ibm_marrakesh JOB=davcu4o4oijs73e7bd50
+QPU GHZ5 NIVEAU=MISS_COMPUTED POP=0.946 QPU=ibm_marrakesh JOB=davcu4o4oijs73e7bd50
+QPU GHZ6 NIVEAU=MISS_COMPUTED POP=0.936 QPU=ibm_marrakesh JOB=davcu4o4oijs73e7bd50
+QPU GHZ8 NIVEAU=L2_DISK       POP=0.892 QPU=ibm_marrakesh JOB=davcees92g1c7398lt7g
+QPU_BATCH circuits=4 depuis_cache=1 calcules=3 JOBS=1 (au lieu de 3) WALL=15.0 s BACKEND=ibm_marrakesh JOB=davcu4o4oijs73e7bd50
+--- FICHE STYLE TOP500 (non homologuee) ---
+SYSTEME=DELTA / GitHub Codespaces | CPU=INTEL(R) XEON(R) PLATINUM 8573C | COEURS_LOGIQUES=2
+ACCELERATEUR=precision mixte FP32 + QPU IBM 156 qubits
+RMAX_HPL_FP64=46.32 GFLOPS  (seul chiffre comparable au TOP500 ; entree 2026 = 2.66 PFLOPS, facteur x57428)
+RMAX_HPL_MxP=28.12 GFLOPS-eq  (style liste HPL-MxP, gain x0.61)
+QPU_DEBIT=4000 shots en 1 job(s), 1 circuit(s) servis du cache  (non compte en FLOPS : un QPU ne fait pas de HPL)
+QUANTITE_CALCUL_CLASSIQUE=9.608e+10 operations FP64 verifiees | 1993 #1 CM-5 non battu
+TOP500_VALIDATION=OK
