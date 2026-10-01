@@ -1,0 +1,11 @@
+=== DELTA_MEM : stockage typé par oracle, RAM chaude / disque froid, flux asynchrone ===
+TOLERANCE_RMS_REL=1e-03 BUDGET_RAM=80 MB N=8388608 par tableau
+PUT pixels_0_255     TYPE=uint8i    64->   8 MB x8.0 ERR=0.0e+00<=1e-03 OK HOT_RAM
+PUT compteurs_signes TYPE=int8i     64->   8 MB x8.0 ERR=0.0e+00<=1e-03 OK HOT_RAM
+PUT signal_lisse     TYPE=float16   64->  16 MB x4.0 ERR=1.7e-04<=1e-03 OK HOT_RAM
+PUT gaussien         TYPE=float16   64->  16 MB x4.0 ERR=2.1e-04<=1e-03 OK HOT_RAM
+PUT horner_exact     TYPE=float64   64->  64 MB x1.0 ERR=0.0e+00<=1e-12 OK COLD_DISK
+STREAM horner_exact     SYNC  0.158 s SUM=6.8686693819e+06
+STREAM horner_exact     ASYNC 0.117 s SUM=6.8686693819e+06
+REPORT objets=5 float64_brut=320 MB stocke=112 MB GAIN_MEMOIRE=x2.86 RAM_chaude=48/80 MB
+DELTA_MEM_VALIDATION=OK
