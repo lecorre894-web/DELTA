@@ -1,0 +1,10 @@
+=== DELTA GRAPPES 1..4 : noeuds = processus independants, 1 thread BLAS chacun (style cluster TOP500) ===
+CPU_LOGIQUES=2 N=2000 par noeud, 3 resolutions HPL chacun, residu verifie
+GRAPPES= 1 GFLOPS_AGREGES=  23.07 PAR_NOEUD= 23.07 EFFICACITE=100.0% 
+GRAPPES= 2 GFLOPS_AGREGES=  22.65 PAR_NOEUD= 11.32 EFFICACITE= 49.1% 
+GRAPPES= 3 GFLOPS_AGREGES=  25.62 PAR_NOEUD=  8.54 EFFICACITE= 37.0% (surcharge : plus de noeuds que de CPU)
+GRAPPES= 4 GFLOPS_AGREGES=  37.31 PAR_NOEUD=  9.33 EFFICACITE= 40.4% (surcharge : plus de noeuds que de CPU)
+--- CLASSEMENT STYLE TOP500 (non homologue) ---
+MEILLEURE_CONFIG=4 grappes RMAX_AGREGE=37.31 GFLOPS | entree TOP500 2026 = 2.66 PFLOPS -> x71295
+NOTE: agregat de HPL independants, pas un HPL distribue unique (le TOP500 exige un seul run sur tout le systeme)
+GRAPPES_VALIDATION=OK
