@@ -5,3 +5,4 @@ delta_qpu_cache.db
 delta_v15_1T_qbits_metrics
 delta_mem_stream.bin
 delta_mem_cold/
+*.bak*
