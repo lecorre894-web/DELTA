@@ -1,0 +1,7 @@
+=== DELTA REBENCH : avant (float64 brut) / apres (delta_core) sur les points faibles ===
+MEM_AVAILABLE=1490 MB DATASET=298 MB (39066828 float64) TOLERANCE=1e-03
+A RAM     AVANT=298 MB  APRES=74 MB (float16)  GAIN=x4.00  -> le HPL tue faute de RAM aurait 4x plus de marge
+B DISQUE  lecture a froid + calcul : AVANT 0.26 s (1.22 GB/s) | APRES 0.49 s (0.64 GB/s eq. float64) | GAIN=x0.52 ERREUR=1.2e-07
+C REPRISE simulation GHZ20 : AVANT recalcul 3.583 s | APRES relu du disque 0.0030 s | GAIN=x1195
+C REPRISE QPU ibm_marrakesh GHZ8 : AVANT file+execution 89 s | APRES cache L2_DISK 0.0061 s | GAIN=x14566 | SHOTS_DEPENSES=0 si niveau != MISS
+REBENCH_VALIDATION=OK
