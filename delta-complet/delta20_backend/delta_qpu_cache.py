@@ -6,16 +6,32 @@ DB=os.environ.get("DELTA_CACHE_DB",os.path.join(os.path.dirname(os.path.abspath(
 class DeltaQPUCache:
     def __init__(s,db=DB):
         s.c=sqlite3.connect(db);s.c.execute("create table if not exists r(k text primary key,mode text,counts text,origin text,created real,hits integer default 0)");s.svc=None;s.mem={};s.pend={}
-    def key(s,qc,shots,mode):return hashlib.sha256((qasm2.dumps(qc)+"|%d|%s"%(shots,mode)).encode()).hexdigest()
-    def run(s,qc,shots=1024,physical=False):
-        mode="qpu" if physical or qc.num_qubits>SIM_MAX else "sim";k=s.key(qc,shots,mode);t0=time.perf_counter()
+    def key(s,qc,shots,mode,backend="local"):return hashlib.sha256((qasm2.dumps(qc)+"|%d|%s|%s"%(shots,mode,backend)).encode()).hexdigest()
+    def choose(s,policy="quality",rank_file="delta_multiqpu.json",max_age_h=24):
+        try:
+            d=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),rank_file)))
+            if time.time()-d["date"]<=max_age_h*3600 and d["results"]:
+                r=d["results"]
+                if policy=="quality":return max(r,key=lambda x:x["pop"])["backend"],"RANK_QUALITY"
+                ok=[x for x in r if x["pop"]>=0.8] or r;return min(ok,key=lambda x:x["done_after_s"])["backend"],"RANK_SPEED"
+        except Exception:pass
+        return None,"LEAST_BUSY"
+    def run(s,qc,shots=1024,physical=False,policy="quality",fresh=False,ttl_h=24):
+        mode="qpu" if physical or qc.num_qubits>SIM_MAX else "sim";t0=time.perf_counter();bk,how=(None,"LOCAL")
+        if mode=="qpu":bk,how=s.choose(policy)
+        k=s.key(qc,shots,mode,bk or "auto")
+        if fresh:s.mem.pop(k,None);s.c.execute("delete from r where k=?",(k,));s.c.commit()
+        if mode=="qpu" and ttl_h:
+            row=s.c.execute("select created from r where k=?",(k,)).fetchone()
+            if row and time.time()-row[0]>ttl_h*3600:s.mem.pop(k,None);s.c.execute("delete from r where k=?",(k,));s.c.commit()
         if k in s.mem:
             out=s.mem[k];s.pend[k]=s.pend.get(k,0)+1;return dict(out,level="L1_RAM",wall=time.perf_counter()-t0)
         row=s.c.execute("select mode,counts,origin,created from r where k=?",(k,)).fetchone()
         if row:
             out={"key":k[:16],"mode":row[0],"counts":json.loads(row[1]),"origin":json.loads(row[2]),"created":row[3]};s.mem[k]=out
             s.c.execute("update r set hits=hits+1 where k=?",(k,));s.c.commit();return dict(out,level="L2_DISK",wall=time.perf_counter()-t0)
-        counts,origin=s._sim(qc,shots) if mode=="sim" else s._qpu(qc,shots)
+        counts,origin=s._sim(qc,shots) if mode=="sim" else s._qpu(qc,shots,bk)
+        origin["routing"]=how
         out={"key":k[:16],"mode":mode,"counts":counts,"origin":origin,"created":time.time()};s.mem[k]=out
         s.c.execute("insert into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,json.dumps(counts),json.dumps(origin),out["created"]));s.c.commit()
         return dict(out,level="MISS_COMPUTED",wall=time.perf_counter()-t0)
@@ -33,11 +49,11 @@ class DeltaQPUCache:
         p=np.abs(psi.reshape(-1))**2;p/=p.sum();rng=np.random.default_rng(1234);idx=rng.choice(p.size,size=shots,p=p)
         u,cn=np.unique(idx,return_counts=True)
         return {format(int(i),"0%db"%n):int(c) for i,c in zip(u,cn)},{"engine":"DELTA_STATEVECTOR_EXACT","qubits":n}
-    def _qpu(s,qc,shots):
+    def _qpu(s,qc,shots,bk=None):
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
         from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
         if s.svc is None:s.svc=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
-        b=s.svc.least_busy(operational=True,simulator=False);job=SamplerV2(mode=b).run([generate_preset_pass_manager(optimization_level=1,backend=b).run(qc)],shots=shots)
+        b=s.svc.backend(bk) if bk else s.svc.least_busy(operational=True,simulator=False);job=SamplerV2(mode=b).run([generate_preset_pass_manager(optimization_level=1,backend=b).run(qc)],shots=shots)
         d=job.result()[0].data;c={}
         for nm in dir(d):
             if not nm.startswith("_") and hasattr(getattr(d,nm),"get_counts"):c=getattr(d,nm).get_counts()
@@ -56,7 +72,7 @@ def top(c,k=2):return dict(sorted(c.items(),key=lambda x:-x[1])[:k])
 if __name__=="__main__":
     D=DeltaQPUCache();print("=== DELTA QPU CACHE — routeur + cache persistant + aiguillage sim/QPU ===")
     plan=[("GHZ 2 (Bell)",ghz(2),False),("GHZ 20",ghz(20),False)]
-    if "--qpu" in sys.argv:plan.append(("GHZ 10 PHYSIQUE",ghz(10),True))
+    if "--qpu" in sys.argv:plan.append(("GHZ 8 QUALITE",ghz(8),True))
     for name,qc,phys in plan:
         for i in (1,2,3):
             r=D.run(qc,1000,phys)
