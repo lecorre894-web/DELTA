@@ -1,0 +1,26 @@
+{
+ "date": 1790887313.5962386,
+ "results": [
+  {
+   "backend": "ibm_marrakesh",
+   "job_id": "davcaetj371s73dmlotg",
+   "ghz_n": 8,
+   "pop": 0.907,
+   "done_after_s": 88.8
+  },
+  {
+   "backend": "ibm_fez",
+   "job_id": "davcaec92g1c7398lp4g",
+   "ghz_n": 8,
+   "pop": 0.838,
+   "done_after_s": 8.3
+  },
+  {
+   "backend": "ibm_kingston",
+   "job_id": "davcaeg4oijs73e7aljg",
+   "ghz_n": 8,
+   "pop": 0.647,
+   "done_after_s": 88.6
+  }
+ ]
+}

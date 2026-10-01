@@ -1,0 +1,13 @@
+=== DELTA MULTI-QPU : inventaire reel du compte IBM ===
+QPU ibm_fez          QUBITS=156 OPERATIONNEL=OUI FILE_ATTENTE=0
+QPU ibm_kingston     QUBITS=156 OPERATIONNEL=OUI FILE_ATTENTE=2
+QPU ibm_marrakesh    QUBITS=156 OPERATIONNEL=OUI FILE_ATTENTE=6
+QPU_ACCESSIBLES=3 OPERATIONNELS=3 QUBITS_PHYSIQUES_CUMULES=468 (machines separees, non reliables en un seul circuit)
+SOUMIS ibm_fez          JOB=davcaec92g1c7398lp4g
+SOUMIS ibm_kingston     JOB=davcaeg4oijs73e7aljg
+SOUMIS ibm_marrakesh    JOB=davcaetj371s73dmlotg
+RESULTAT ibm_fez          GHZ8 POP=0.838 FINI_A=8 s JOB=davcaec92g1c7398lp4g
+RESULTAT ibm_kingston     GHZ8 POP=0.647 FINI_A=89 s JOB=davcaeg4oijs73e7aljg
+RESULTAT ibm_marrakesh    GHZ8 POP=0.907 FINI_A=89 s JOB=davcaetj371s73dmlotg
+CLASSEMENT_QUALITE=ibm_marrakesh(0.907) > ibm_fez(0.838) > ibm_kingston(0.647)
+MULTIQPU_VALIDATION=OK
