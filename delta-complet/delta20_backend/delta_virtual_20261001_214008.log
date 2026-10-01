@@ -1,0 +1,15 @@
+=== DELTA VIRTUAL BENCH : domaine logique 1T adosse aux resultats reels du cache ===
+RESULTATS_REELS=9 (dont QPU physiques=5) SHOTS_REELS_TOTAL=9000 DOMAINE_VIRTUEL=1e+12 adresses
+VIRTUEL requetes=4000000 WALL_MED=0.859 s DEBIT=4.7 M reponses/s LATENCE=214.8 ns/reponse
+FIDELITE DELTA_STATEVECTOR_EXACT/2q   requetes=  444994 distance_TV=0.0001 JOB=-
+FIDELITE DELTA_STATEVECTOR_EXACT/20q  requetes=  445040 distance_TV=0.0004 JOB=-
+FIDELITE ibm_fez/10q                  requetes=  445177 distance_TV=0.0021 JOB=davah7s92g1c7398jcv0
+FIDELITE DELTA_STATEVECTOR_EXACT/2q   requetes=  444823 distance_TV=0.0003 JOB=-
+FIDELITE DELTA_STATEVECTOR_EXACT/20q  requetes=  443658 distance_TV=0.0017 JOB=-
+FIDELITE ibm_marrakesh/8q             requetes=  442894 distance_TV=0.0012 JOB=davcees92g1c7398lt7g
+FIDELITE ibm_marrakesh/4q             requetes=  445359 distance_TV=0.0005 JOB=davcu4o4oijs73e7bd50
+FIDELITE ibm_marrakesh/5q             requetes=  444047 distance_TV=0.0019 JOB=davcu4o4oijs73e7bd50
+FIDELITE ibm_marrakesh/6q             requetes=  444008 distance_TV=0.0027 JOB=davcu4o4oijs73e7bd50
+AMPLIFICATION=444x reponses virtuelles par shot reel (re-echantillonnage : AUCUNE information quantique nouvelle)
+PROJECTION servir les 1T adresses sur 1 coeur = 59.7 h [PROJECTION, NON EXECUTEE]
+VIRTUAL_VALIDATION=OK (distance_TV max 0.0027 < 0.01 = couche virtuelle fidele au reel)
