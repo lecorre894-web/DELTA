@@ -1,0 +1,6 @@
+SOUMIS ibm_marrakesh JOB=davem9ql7guc73ceos9g
+=== TEST D'INTRICATION A/B (meme paire [152, 153], meme job) ===
+A AVEC porte CX (intrication) : S=2.745 (+23.2 sigma vs 2) -> INTRIQUE
+B SANS porte CX (temoin)      : S=0.015 (-51.4 sigma vs 2) -> classique, comme attendu
+QPU=ibm_marrakesh JOB=davem9ql7guc73ceos9g
+INTRICATION_VALIDATION=OK
