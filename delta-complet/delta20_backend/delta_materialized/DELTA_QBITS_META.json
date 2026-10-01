@@ -1,0 +1,11 @@
+{
+  "qbit_domain": "1000000000000",
+  "physically_materialized_qbits": 1000000,
+  "state_bytes": 8,
+  "physical_bytes": 8000000,
+  "checksum": "1263823899918824108",
+  "first_state": "10820449572363811078",
+  "middle_state": "10648518388054990353",
+  "last_state": "2024226187046387284",
+  "validation": true
+}

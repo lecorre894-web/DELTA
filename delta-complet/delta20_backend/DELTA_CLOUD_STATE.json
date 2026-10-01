@@ -1,0 +1,14 @@
+{
+  "version": "DELTA-V10-V14-1T-MATERIALIZED",
+  "generation": "4",
+  "logicalQbits": "1000000000000",
+  "globalState": "9356340859534032338",
+  "checksum": "12959324243839219643",
+  "lastNode": "9999999",
+  "lastQbit": "198128233521",
+  "cloudHi": "13433233655261467694",
+  "cloudLo": "850524784570230784",
+  "materializedWindows": "153",
+  "materializedExecuted": "10027008",
+  "executionFeedback": "1858958177440968288"
+}

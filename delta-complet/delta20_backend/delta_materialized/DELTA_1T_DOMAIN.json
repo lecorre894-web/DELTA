@@ -1,0 +1,16 @@
+{
+  "version": "DELTA-FULL-1T-MATERIALIZED-DOMAIN",
+  "qbit_domain": "1000000000000",
+  "first_qbit": "0",
+  "last_qbit": "999999999999",
+  "execution_layer": "FULL_1T",
+  "materialization": "IMPLICIT_DETERMINISTIC",
+  "physical_representation": "COMPACT",
+  "global_array": false,
+  "per_qbit_ram": false,
+  "execution_seed": "15995396004015519052",
+  "verification_checksum": "874350512666758990",
+  "probes_verified": 9,
+  "bounds_verified": true,
+  "deterministic_states": true
+}

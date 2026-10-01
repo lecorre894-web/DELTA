@@ -1,0 +1,35 @@
+======================================================
+       DELTA FULL CHAIN — V10 → V15
+======================================================
+CPU_CORE_ROLE=BRIDGE
+V15_QBIT_ROLE=EXECUTION_LAYER
+
+
+------------------------------------------------------
+ DELTA V10 EVENT STATE
+ SOURCE=delta_v10_10m_event_state.VALIDATED.c
+------------------------------------------------------
+[BUILD] delta_v10_10m_event_state.VALIDATED.c
+[RUN] .delta_full_v10
+DELTA V10-10M EVENT-STATE
+logical nodes       : 10000000
+central 2^N vector  : NONE
+shards              : 1024
+node bytes          : 20
+allocated state     : 190.73 MiB
+events              : 1000003
+event wall          : 0.031103 s
+event rate          : 32.151 M/s
+shard epoch total   : 1000003
+probe 7             : v=1 a=1.125000 b=0.250000 shard=334
+probe 900000        : v=1 a=1.125000 b=0.250000 shard=604
+probe 9999999       : v=1 a=1.125000 b=0.250000 shard=275
+checksum            : 5000010500000
+V10 structural test : OK
+DELTA_COMPONENT=V10 EVENT STATE PASSED
+
+------------------------------------------------------
+ DELTA V12.1 FULL ENGINE
+ SOURCE=delta_v12_1_FULL_ENGINE.VALIDATED.c
+------------------------------------------------------
+[BUILD] delta_v12_1_FULL_ENGINE.VALIDATED.c

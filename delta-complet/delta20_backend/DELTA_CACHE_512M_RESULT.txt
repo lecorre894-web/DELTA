@@ -1,0 +1,17 @@
+==============================================
+ DELTA 1T QBIT — 512 MiB CACHE MATERIALIZER
+==============================================
+QBIT_DOMAIN             = 1000000000000
+CPU_CORE_ROLE           = BRIDGE
+QBIT_LAYER              = LOGICAL_VIRTUAL
+CACHE_ROLE              = MATERIALIZATION_MEMORY
+CACHE_BYTES             = 536870912
+STATE_BYTES             = 8
+QBITS_PER_CACHE_WINDOW  = 67108864
+WINDOW_REUSE            = YES
+
+ALLOCATING_CACHE...
+CACHE_ALLOCATION        = OK
+CACHE_ACTUAL_BYTES      = 536870912
+
+MATERIALIZING_WINDOW...

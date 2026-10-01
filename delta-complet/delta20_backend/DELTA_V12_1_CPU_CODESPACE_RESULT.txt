@@ -1,0 +1,133 @@
+=== DELTA V12.1 FULL ENGINE TEST ===
+10M EVENT-STATE + DSPC + L1-L200 selective + C1-C32 + persistent OpenCL CPU
+GPU               : cpu-skylake-avx512-INTEL(R) XEON(R) PLATINUM 8573C
+node state        : 190.73 MiB
+CPU/GPU split     : 8800000 / 1200000 events
+CPU workers       : 32 persistent per pass
+DSPC ring         : 1024 contexts
+CPU batch         : 2048 events/context
+software caches   : L1 -> L200, 256 lines/level, selective
+OpenCL setup wall : 0.679045 s
+
+=== FULL PASS 1/5 ===
+DSPC routed/return: 4297 / 4297
+CPU contexts      : 4297
+C1-C32 active     : 32 / 32
+L1-L200 active    : 200 / 200
+cache contexts    : 4297
+cache events      : 8800000
+cache read/write  : 8800000 / 8800000
+cache hit/miss    : 0 / 8800000
+cache fill/evict  : 8800000 / 8748800
+CPU events        : 8800000
+GPU events        : 1200000
+GPU compute wall  : 0.025821 s
+HYBRID wall       : 0.026105 s
+HYBRID rate       : 383.071 M events/s
+readback wall     : 0.003169 s
+nodes active      : 10000000 / 10000000
+version mismatches: 0
+epochs            : 10000003
+checksum          : 50000005000003
+probe versions    : 2 / 2 / 2
+PASS VALIDATION   : OK
+
+=== FULL PASS 2/5 ===
+DSPC routed/return: 4297 / 4297
+CPU contexts      : 4297
+C1-C32 active     : 32 / 32
+L1-L200 active    : 200 / 200
+cache contexts    : 4297
+cache events      : 8800000
+cache read/write  : 8800000 / 8800000
+cache hit/miss    : 0 / 8800000
+cache fill/evict  : 8800000 / 8748800
+CPU events        : 8800000
+GPU events        : 1200000
+GPU compute wall  : 0.032862 s
+HYBRID wall       : 0.035018 s
+HYBRID rate       : 285.566 M events/s
+readback wall     : 0.003301 s
+nodes active      : 10000000 / 10000000
+version mismatches: 0
+epochs            : 10000003
+checksum          : 50000005000003
+probe versions    : 2 / 2 / 2
+PASS VALIDATION   : OK
+
+=== FULL PASS 3/5 ===
+DSPC routed/return: 4297 / 4297
+CPU contexts      : 4297
+C1-C32 active     : 32 / 32
+L1-L200 active    : 200 / 200
+cache contexts    : 4297
+cache events      : 8800000
+cache read/write  : 8800000 / 8800000
+cache hit/miss    : 0 / 8800000
+cache fill/evict  : 8800000 / 8748800
+CPU events        : 8800000
+GPU events        : 1200000
+GPU compute wall  : 0.024468 s
+HYBRID wall       : 0.024740 s
+HYBRID rate       : 404.202 M events/s
+readback wall     : 0.003113 s
+nodes active      : 10000000 / 10000000
+version mismatches: 0
+epochs            : 10000003
+checksum          : 50000005000003
+probe versions    : 2 / 2 / 2
+PASS VALIDATION   : OK
+
+=== FULL PASS 4/5 ===
+DSPC routed/return: 4297 / 4297
+CPU contexts      : 4297
+C1-C32 active     : 32 / 32
+L1-L200 active    : 200 / 200
+cache contexts    : 4297
+cache events      : 8800000
+cache read/write  : 8800000 / 8800000
+cache hit/miss    : 0 / 8800000
+cache fill/evict  : 8800000 / 8748799
+CPU events        : 8800000
+GPU events        : 1200000
+GPU compute wall  : 0.026734 s
+HYBRID wall       : 0.027039 s
+HYBRID rate       : 369.830 M events/s
+readback wall     : 0.003188 s
+nodes active      : 10000000 / 10000000
+version mismatches: 0
+epochs            : 10000003
+checksum          : 50000005000003
+probe versions    : 2 / 2 / 2
+PASS VALIDATION   : OK
+
+=== FULL PASS 5/5 ===
+DSPC routed/return: 4297 / 4297
+CPU contexts      : 4297
+C1-C32 active     : 32 / 32
+L1-L200 active    : 200 / 200
+cache contexts    : 4297
+cache events      : 8800000
+cache read/write  : 8800000 / 8800000
+cache hit/miss    : 0 / 8800000
+cache fill/evict  : 8800000 / 8748800
+CPU events        : 8800000
+GPU events        : 1200000
+GPU compute wall  : 0.025777 s
+HYBRID wall       : 0.026054 s
+HYBRID rate       : 383.814 M events/s
+readback wall     : 0.003379 s
+nodes active      : 10000000 / 10000000
+version mismatches: 0
+epochs            : 10000003
+checksum          : 50000005000003
+probe versions    : 2 / 2 / 2
+PASS VALIDATION   : OK
+
+=== V12.1 FULL ENGINE SUMMARY ===
+passes            : 5
+mean HYBRID wall  : 0.027791 s
+mean rate         : 359.824 M events/s
+best HYBRID wall  : 0.024740 s
+best rate         : 404.202 M events/s
+DELTA V12.1 FULL ENGINE VALIDATION: OK

@@ -1,0 +1,22 @@
+================================================
+ DELTA 1T QBIT - MATERIALIZE -> CACHE -> EXECUTE
+================================================
+
+QBIT_DOMAIN             = 1000000000000
+CPU_CORE_ROLE           = BRIDGE
+QBIT_LAYER              = LOGICAL_VIRTUAL
+MATERIALIZATION         = WINDOWED_LOGICAL
+EXECUTION_MEMORY        = 512_MiB_CACHE
+CACHE_BYTES             = 536870912
+STATE_BYTES             = 8
+QBITS_PER_WINDOW        = 67108864
+WINDOW_REUSE            = YES
+PAUSE_MS                = 20
+TEST_WINDOWS            = 16
+PHYSICAL_QUANTUM_QBITS  = NO
+
+ALLOCATING_EXECUTION_CACHE...
+CACHE_ALLOCATION        = OK
+CACHE_ACTUAL_BYTES      = 536870912
+
+WINDOW 0 MATERIALIZE 0 -> 67108863
