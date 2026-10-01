@@ -1,0 +1,13 @@
+=== DELTA MEMORY BENCH (streaming, asynchrone, types) ===
+MEM_AVAILABLE=4232 MB DISK_FREE=17596 MB FILE=5248 MB (1.24x la RAM libre) CHUNK=64 MB
+E1 WRITE  5248 MB en 67.1 s = 0.08 GB/s
+E1 READ   fichier (> RAM libre si ratio>1) 0.15 GB/s
+E1 RAM    tableau 512 MB en RAM 9.65 GB/s -> la RAM est x63.6 plus rapide que le flux fichier
+E2 COMPUTE_PASSES=31 (calcul ~= lecture, cas ou l'asynchrone peut le plus)
+E2 SYNC   54.55 s | ASYNC double tampon 42.24 s | GAIN x1.29 (max theorique x1.51) | CHECKSUM MATCH
+E3 TYPES  N=33554432 elements, oracle = float64
+E3 float64 OCTETS/ELEM=8 MEM=  256 MB DEBIT= 1532.6 M elem/s ERREUR_RMS=0.0e+00 ERREUR_DOT_REL=0.0e+00
+E3 float32 OCTETS/ELEM=4 MEM=  128 MB DEBIT= 1790.7 M elem/s ERREUR_RMS=2.5e-08 ERREUR_DOT_REL=4.9e-08
+E3 float16 OCTETS/ELEM=2 MEM=   64 MB DEBIT= 4237.4 M elem/s ERREUR_RMS=2.1e-04 ERREUR_DOT_REL=3.0e-05
+E3 int8    OCTETS/ELEM=1 MEM=   32 MB DEBIT= 9383.9 M elem/s ERREUR_RMS=9.4e-03 ERREUR_DOT_REL=7.1e-03
+MEMORY_VALIDATION=OK
