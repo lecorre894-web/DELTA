@@ -1,0 +1,17 @@
+{
+ "date": "2026-10-01 22:58",
+ "backend": "ibm_marrakesh",
+ "job_id": "daveau84oijs73e7dcbg",
+ "qubits_physiques": [
+  152,
+  153
+ ],
+ "shots": 2048,
+ "chsh_S": 2.777,
+ "sigma": 24.4,
+ "entropie_bits": 71,
+ "seed_sha256": "99b70a651a38a8a05e46d856d9d1deed9003da499b8cbf7cf8daa00ea2634e8b",
+ "seed64": 11076333237888919712,
+ "memoire_type": "float16",
+ "certifie": true
+}
