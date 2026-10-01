@@ -1,0 +1,11 @@
+{
+ "date": "2026-10-01 22:30",
+ "seed_sha256": "16a7d50725087b7c9dfbeef63dc919a7c0092a1e8e0fff2faf31b3c4fedee8ba",
+ "seed64": 1632507616607894396,
+ "chsh_S": 2.721,
+ "sigma": 15.7,
+ "entropie_estimee_bits": 64.9,
+ "backend": "ibm_marrakesh",
+ "job_id": "davdshql7guc73cenn4g",
+ "niveau": "MISS_COMPUTED"
+}
