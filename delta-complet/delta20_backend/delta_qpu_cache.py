@@ -1,6 +1,7 @@
 import os,sys,time,json,hashlib,sqlite3,warnings
 warnings.filterwarnings("ignore")
 from qiskit import QuantumCircuit,qasm2
+from delta_pack import pack,unpack
 SIM_MAX=int(os.environ.get("DELTA_SIM_MAX","26"))
 DB=os.environ.get("DELTA_CACHE_DB",os.path.join(os.path.dirname(os.path.abspath(__file__)),"delta_qpu_cache.db"))
 class DeltaQPUCache:
@@ -28,12 +29,12 @@ class DeltaQPUCache:
             out=s.mem[k];s.pend[k]=s.pend.get(k,0)+1;return dict(out,level="L1_RAM",wall=time.perf_counter()-t0)
         row=s.c.execute("select mode,counts,origin,created from r where k=?",(k,)).fetchone()
         if row:
-            out={"key":k[:16],"mode":row[0],"counts":json.loads(row[1]),"origin":json.loads(row[2]),"created":row[3]};s.mem[k]=out
+            out={"key":k[:16],"mode":row[0],"counts":unpack(row[1]),"origin":json.loads(row[2]),"created":row[3]};s.mem[k]=out
             s.c.execute("update r set hits=hits+1 where k=?",(k,));s.c.commit();return dict(out,level="L2_DISK",wall=time.perf_counter()-t0)
         counts,origin=s._sim(qc,shots) if mode=="sim" else s._qpu(qc,shots,bk)
         origin["routing"]=how
         out={"key":k[:16],"mode":mode,"counts":counts,"origin":origin,"created":time.time()};s.mem[k]=out
-        s.c.execute("insert into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,json.dumps(counts),json.dumps(origin),out["created"]));s.c.commit()
+        s.c.execute("insert into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,pack(counts),json.dumps(origin),out["created"]));s.c.commit()
         return dict(out,level="MISS_COMPUTED",wall=time.perf_counter()-t0)
     def _sim(s,qc,shots):
         import numpy as np
@@ -78,7 +79,7 @@ class DeltaQPUCache:
             if k in s.mem:out[i]=dict(s.mem[k],level="L1_RAM");hits+=1;continue
             row=s.c.execute("select mode,counts,origin,created from r where k=?",(k,)).fetchone()
             if row and not(mode=="qpu" and ttl_h and time.time()-row[3]>ttl_h*3600):
-                o={"key":k[:16],"mode":row[0],"counts":json.loads(row[1]),"origin":json.loads(row[2]),"created":row[3]};s.mem[k]=o;out[i]=dict(o,level="L2_DISK");hits+=1;continue
+                o={"key":k[:16],"mode":row[0],"counts":unpack(row[1]),"origin":json.loads(row[2]),"created":row[3]};s.mem[k]=o;out[i]=dict(o,level="L2_DISK");hits+=1;continue
             miss.append((i,k,qc))
         jid=None
         if miss:
@@ -87,7 +88,7 @@ class DeltaQPUCache:
                 cs,org=s._qpu_batch([q for _,_,q in miss],shots,bk);jid=org["job_id"];res=[(c,dict(org,batch_size=len(miss))) for c in cs]
             for (i,k,qc),(c,o) in zip(miss,res):
                 o=dict(o,routing=how);rec={"key":k[:16],"mode":mode,"counts":c,"origin":o,"created":time.time()};s.mem[k]=rec
-                s.c.execute("insert or replace into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,json.dumps(c),json.dumps(o),rec["created"]));out[i]=dict(rec,level="MISS_COMPUTED")
+                s.c.execute("insert or replace into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,pack(c),json.dumps(o),rec["created"]));out[i]=dict(rec,level="MISS_COMPUTED")
             s.c.commit()
         return out,{"circuits":len(qcs),"hits":hits,"computed":len(miss),"jobs":1 if (miss and mode=="qpu") else 0,"job_id":jid,"backend":bk,"wall":time.perf_counter()-t0}
     def flush(s):

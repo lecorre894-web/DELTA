@@ -1,27 +1,69 @@
 {
  "format": "DELTA_MIRROR_V1",
- "exported": 1790882898.6725466,
+ "exported": 1790890337.321106,
  "entries": [
   {
    "k": "fb27306e8816f5f644103ff37868f6e6747c24f1c9b685f22890e6e53b47bc46",
    "mode": "sim",
-   "counts": "{\"00\": 498, \"11\": 502}",
+   "counts": "b64:AQICAPIDA/YD",
    "origin": "{\"engine\": \"DELTA_STATEVECTOR_EXACT\", \"qubits\": 2}",
    "created": 1790879896.44891
   },
   {
    "k": "8a3b7efed54e27c32050590c432988d9c3252c65bcf4afa30a82af8f5f67dbc8",
    "mode": "sim",
-   "counts": "{\"00000000000000000000\": 498, \"11111111111111111111\": 502}",
+   "counts": "b64:ARQCAPID//8/9gM=",
    "origin": "{\"engine\": \"DELTA_STATEVECTOR_EXACT\", \"qubits\": 20}",
    "created": 1790879896.5729692
   },
   {
    "k": "a2f58eb979c045884a8555bd8e098ea1be2efbc4320a7f75ed7e39706b063665",
    "mode": "qpu",
-   "counts": "{\"0000000000\": 392, \"1111111111\": 371, \"1111110000\": 7, \"1111111000\": 9, \"1111110111\": 8, \"1111111100\": 3, \"1111111110\": 22, \"0000000011\": 6, \"1111111101\": 11, \"1100000000\": 10, \"1011011111\": 1, \"1011111111\": 6, \"1101111111\": 24, \"0001111111\": 7, \"0111110000\": 1, \"0011111111\": 7, \"1000000000\": 20, \"0111111111\": 10, \"0100000000\": 2, \"1101011111\": 1, \"1110000000\": 7, \"0000000110\": 2, \"1111101111\": 3, \"0000000010\": 1, \"0000100111\": 1, \"1111011111\": 4, \"0010000000\": 5, \"1011111000\": 1, \"0000001111\": 6, \"0000001000\": 4, \"0000100000\": 2, \"0000010111\": 1, \"1111111011\": 3, \"1101111110\": 4, \"0101111111\": 1, \"0000011111\": 4, \"0000000001\": 6, \"1101101111\": 1, \"0000000111\": 3, \"0001011110\": 1, \"1101110000\": 1, \"1110110000\": 1, \"1111100000\": 5, \"1101111000\": 1, \"1110111111\": 2, \"0110000011\": 1, \"1101110111\": 1, \"1011111101\": 1, \"1111011100\": 1, \"1110000111\": 1, \"0011111110\": 1, \"1111011101\": 1, \"1101111011\": 1, \"0011110000\": 1, \"1101011101\": 1, \"0000010000\": 1, \"1111000000\": 1}",
+   "counts": "b64:AnjaFcuxDYNAEERR/u7eLT4kHwFCtkRC6AoQxVCCJXfglC4pggZYstGbmbI2u5KBrIJiHtlpDXEWZif9eN4kf4wvtTAc8CYhmbIh9Nw98VbjhTsfqsAUJkaqGtby0BjQMXLKBZoMBrE=",
    "origin": "{\"engine\": \"IBM_QPU\", \"backend\": \"ibm_fez\", \"job_id\": \"davah7s92g1c7398jcv0\", \"physical_qubits\": 156}",
    "created": 1790880004.6827164
+  },
+  {
+   "k": "65b511d1d16c8d13a652ffba9bf3bad824644a3259a016ceb955c4fd41053de3",
+   "mode": "sim",
+   "counts": "b64:AQICAPIDA/YD",
+   "origin": "{\"engine\": \"DELTA_STATEVECTOR_EXACT\", \"qubits\": 2, \"routing\": \"LOCAL\"}",
+   "created": 1790887734.6983814
+  },
+  {
+   "k": "bb684c99b5e5e0dfeb5064e591727047be242dcc2853258b8ea14d3032708e27",
+   "mode": "sim",
+   "counts": "b64:ARQCAPID//8/9gM=",
+   "origin": "{\"engine\": \"DELTA_STATEVECTOR_EXACT\", \"qubits\": 20, \"routing\": \"LOCAL\"}",
+   "created": 1790887734.8074903
+  },
+  {
+   "k": "86ade187c0b81da89771db54335eb79f6231e77502df7c5f253b903598b575aa",
+   "mode": "qpu",
+   "counts": "b64:Anja45BneMLMyM7IDISMzEDMzizAKgkkFRhlQEIijJwKjPLMCsyMLPwsjKxsQEWMLEyMjExgHZyMM5gBdBkDFQ==",
+   "origin": "{\"engine\": \"IBM_QPU\", \"backend\": \"ibm_marrakesh\", \"job_id\": \"davcees92g1c7398lt7g\", \"physical_qubits\": 156, \"routing\": \"RANK_QUALITY\"}",
+   "created": 1790887749.1545365
+  },
+  {
+   "k": "2d78adacd3f4d86721212165c536ae0307384d28eb30bf861855d197e42ececb",
+   "mode": "qpu",
+   "counts": "b64:AQQLAOIDAQgBAgEBBAoBBAMLAQQBAwEIAdMD",
+   "origin": "{\"engine\": \"IBM_QPU\", \"backend\": \"ibm_marrakesh\", \"job_id\": \"davcu4o4oijs73e7bd50\", \"physical_qubits\": 156, \"batch_size\": 3, \"routing\": \"RANK_QUALITY\"}",
+   "created": 1790889756.0151138
+  },
+  {
+   "k": "e85ca4d604f77e036a2cc0f1cfbe5376c6fccfbe488a765a5b51bb710e4287a5",
+   "mode": "qpu",
+   "counts": "b64:AQUQAOgDAQMCAQEBAwEBAQcNAQICAQUCAQUDCgEEAQMBBwHKAw==",
+   "origin": "{\"engine\": \"IBM_QPU\", \"backend\": \"ibm_marrakesh\", \"job_id\": \"davcu4o4oijs73e7bd50\", \"physical_qubits\": 156, \"batch_size\": 3, \"routing\": \"RANK_QUALITY\"}",
+   "created": 1790889756.0155761
+  },
+  {
+   "k": "869fa19a0f47a988a07e2acb1378ed6ecb841851b4f889582c780be097cbcc44",
+   "mode": "qpu",
+   "counts": "b64:AQYUAOQDAQYBAQEDAQEDAgQBBQEIAQcDAQMPCgEDBwQBBQMHAQIBBQEGAcQD",
+   "origin": "{\"engine\": \"IBM_QPU\", \"backend\": \"ibm_marrakesh\", \"job_id\": \"davcu4o4oijs73e7bd50\", \"physical_qubits\": 156, \"batch_size\": 3, \"routing\": \"RANK_QUALITY\"}",
+   "created": 1790889756.0156257
   }
  ]
 }
