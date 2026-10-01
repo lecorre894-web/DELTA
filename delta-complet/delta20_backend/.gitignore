@@ -2,3 +2,4 @@ dspc_pingpong
 cache_l200
 layers_bench
 delta_qpu_cache.db
+delta_v15_1T_qbits_metrics
