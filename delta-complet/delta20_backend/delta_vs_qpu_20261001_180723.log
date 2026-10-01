@@ -1,0 +1,24 @@
+=== DELTA vs QPU IBM : GHZ N QUBITS (intrication totale) ===
+--- A : DELTA simule classiquement (vecteur d'etat exact, 1 coeur) ---
+SV N=16 MEM=     1.0 MB WALL=  0.172 s CHECK=OK
+SV N=18 MEM=     4.0 MB WALL=  0.013 s CHECK=OK
+SV N=20 MEM=    16.0 MB WALL=  0.051 s CHECK=OK
+SV N=22 MEM=    64.0 MB WALL=  0.525 s CHECK=OK
+SV N=24 MEM=   256.0 MB WALL=  2.256 s CHECK=OK
+SV N=26 MEM=  1024.0 MB WALL=  9.139 s CHECK=OK
+PROJECTION SV N= 30 TEMPS=10^2.2 s MEM=10^10.2 octets [NON EXECUTEE]
+PROJECTION SV N= 40 TEMPS=10^5.4 s MEM=10^13.2 octets [NON EXECUTEE]
+PROJECTION SV N= 50 TEMPS=10^8.5 s MEM=10^16.3 octets [NON EXECUTEE]
+PROJECTION SV N=100 TEMPS=10^23.8 s MEM=10^31.3 octets [NON EXECUTEE]
+PROJECTION SV N=156 TEMPS=10^40.9 s MEM=10^48.2 octets [NON EXECUTEE]
+PROJECTION SV N=1T TEMPS=10^3.01e+11 s MEM=10^3.01e+11 octets [IMPOSSIBLE]
+--- B : QPU IBM execute physiquement les memes GHZ ---
+QPU_JOB_ID=dava30ql7guc73ceipag BACKEND=ibm_marrakesh QUBITS_PHYSIQUES=156
+QPU N=  5 SHOTS=1000 POP_GHZ(0..0+1..1)=0.945 (ideal 1.000, aleatoire 6.2e-02)
+QPU N= 10 SHOTS=1000 POP_GHZ(0..0+1..1)=0.870 (ideal 1.000, aleatoire 2.0e-03)
+QPU N= 20 SHOTS=1000 POP_GHZ(0..0+1..1)=0.311 (ideal 1.000, aleatoire 1.9e-06)
+QPU N= 50 SHOTS=1000 POP_GHZ(0..0+1..1)=0.103 (ideal 1.000, aleatoire 1.8e-15)
+QPU N=100 SHOTS=1000 POP_GHZ(0..0+1..1)=0.008 (ideal 1.000, aleatoire 1.6e-30)
+QPU_WALL_TOTAL=10 s (file+execution) QPU_QUANTUM_SECONDS=-1
+--- C : DELTA instruit le cache avec les echantillons QPU ---
+CACHE_REPLAY LOOKUPS=1000000 NS_PER_SAMPLE=178 SAMPLES_PER_S=5.62 M (relecture, aucune info quantique nouvelle)
