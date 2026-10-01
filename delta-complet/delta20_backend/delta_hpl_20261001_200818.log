@@ -1,0 +1,23 @@
+=== DELTA STRESS HPL (methode LINPACK du TOP500, FP64) ===
+CPU=INTEL(R) XEON(R) PLATINUM 8573C LOGICAL_CPUS=2 NUMPY=2.5.3
+MEM_AVAILABLE=4682 MB BUDGET_35%=1638 MB N_MAX_SUR=8000 (DELTA sans memoire dediee : bench adaptatif)
+HPL N= 1000 MEM=      8 MB WALL=   0.021 s GFLOPS=  31.60 RESIDU=0.0026 PASSED
+HPL N= 2000 MEM=     31 MB WALL=   0.120 s GFLOPS=  44.65 RESIDU=0.0020 PASSED
+HPL N= 4000 MEM=    122 MB WALL=   0.732 s GFLOPS=  58.37 RESIDU=0.0018 PASSED
+HPL N= 6000 MEM=    275 MB WALL=   2.298 s GFLOPS=  62.69 RESIDU=0.0012 PASSED
+HPL N= 8000 MEM=    488 MB WALL=   5.180 s GFLOPS=  65.91 RESIDU=0.0012 PASSED
+DGEMM N=4096 WALL=1.704 s GFLOPS=80.64 (pic pratique matmul)
+PETITS_JOBS 69917 systemes 32x32 WALL=0.479 s US_PAR_JOB=6.86 JOBS_PAR_S=145835
+--- CLASSEMENT (Rmax = meilleur HPL mesure) ---
+RMAX_DELTA=65.91 GFLOPS
+TOP500 #500 juin 2026 = 2.66 PFLOPS -> facteur x40355, il faudrait ~40355 Codespaces SANS perte reseau [PROJECTION]
+TOP500 #1 juin 2026 = 2198 PFLOPS -> facteur x3.34e+07 [PROJECTION]
+DELAI THEORIQUE du #1 pour notre plus gros HPL (N=8000) = 0.155 us a Rmax plein [PROJECTION, petit probleme = machine sous-utilisee]
+HISTOIRE: #1 mondial juin 1993 (CM-5) = 59.7 GFLOPS -> DELTA l'aurait battu
+--- QUANTITE DE CALCUL REELLEMENT EXECUTEE ---
+QTE_HPL=6.317e+11 operations (631.66 GFLOP)
+QTE_DGEMM=2.749e+11 operations (274.88 GFLOP)
+QTE_JOBS=1.673e+09 operations (1.67 GFLOP)
+QTE_TOTALE=9.082e+11 operations flottantes FP64 en 16.5 s de run = 908.2 milliards d'operations, resultats HPL verifies (residu<16)
+EQUIVALENT_HUMAIN=28779 ans a 1 operation/seconde
+HPL_VALIDATION=OK
