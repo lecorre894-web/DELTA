@@ -1,2 +1,1 @@
-{"date": "2026-10-01 22:04", "machine": "codespace", "cpu": "INTEL(R) XEON(R) PLATINUM 8573C", "cpus": 2, "os": "Linux", "N": 2000, "courbe": [[1, 18.56], [2, 26.76], [3, 24.77], [4, 36.11]], "best_grappes": 4, "rmax_gflops": 36.11, "valid": true}
 {"date": "2026-10-01 22:15", "machine": "codespace-8573C", "cpu": "INTEL(R) XEON(R) PLATINUM 8573C", "cpus": 2, "os": "Linux", "N": 3000, "courbe": [[1, 44.57], [2, 48.71]], "best_grappes": 2, "rmax_gflops": 48.71, "valid": true}
