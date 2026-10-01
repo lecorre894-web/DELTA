@@ -20,7 +20,7 @@ for p in range(P):
         for k,v in c.items():
             b=k.replace(" ","");a+=v if b[-1-2*p]==b[-2-2*p] else -v
         e.append(a/SH)
-    S=e[0]+e[1]+e[2]-e[3];d=abs(S-R["S_pairs"][p]);same+=d<1e-9
+    S=e[0]+e[1]+e[2]-e[3];d=abs(S-R["S_pairs"][p]);same+=d<6e-4
     phys="physiques %s"%(lay[2*p:2*p+2],) if lay else "physiques inconnus"
     print("PAIRE %2d IBM_brut S=%.3f DELTA S=%.3f ECART=%.1e %s"%(p,S,R["S_pairs"][p],d,phys))
-print("VERDICT : %s"%("le Xeon n'a rien altere (%d/%d paires identiques au bit pres) ; les paires rejetees viennent de la puce QPU"%(same,P) if same==P else "ECART detecte sur %d paires : a examiner"%(P-same)))
+print("VERDICT : %s"%("le Xeon n'a rien altere (%d/%d paires identiques a l arrondi JSON pres (3 decimales)) ; les paires rejetees viennent de la puce QPU"%(same,P) if same==P else "ECART detecte sur %d paires : a examiner"%(P-same)))
