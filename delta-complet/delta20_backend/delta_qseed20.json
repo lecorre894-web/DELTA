@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-01 22:41",
+ "qubits": 20,
+ "pairs": 10,
+ "pairs_certified": 8,
+ "S_mean": 2.462,
+ "sigma_mean": 30.2,
+ "S_pairs": [
+  2.654,
+  2.73,
+  0.906,
+  2.809,
+  2.734,
+  2.598,
+  2.1,
+  2.689,
+  2.619,
+  2.783
+ ],
+ "entropie_min_bits": 650,
+ "seed_sha256": "9f484d3a4ea4db1ba84e503b0134e239ace03d604a10a02549c8b4d8369dbbd1",
+ "seed64": 11477508563176577819,
+ "backend": "ibm_marrakesh",
+ "job_id": "dave30il7guc73ceo0kg",
+ "niveau": "MISS_COMPUTED",
+ "jobs": 1
+}
