@@ -1,7 +1,6 @@
 import os,sys,time,json,hashlib,sqlite3,warnings
 warnings.filterwarnings("ignore")
 from qiskit import QuantumCircuit,qasm2
-from qiskit.quantum_info import Statevector
 SIM_MAX=int(os.environ.get("DELTA_SIM_MAX","26"))
 DB=os.environ.get("DELTA_CACHE_DB",os.path.join(os.path.dirname(os.path.abspath(__file__)),"delta_qpu_cache.db"))
 class DeltaQPUCache:
@@ -21,8 +20,19 @@ class DeltaQPUCache:
         s.c.execute("insert into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,json.dumps(counts),json.dumps(origin),out["created"]));s.c.commit()
         return dict(out,level="MISS_COMPUTED",wall=time.perf_counter()-t0)
     def _sim(s,qc,shots):
-        sv=Statevector.from_instruction(qc.remove_final_measurements(inplace=False));sv.seed(1234)
-        c=sv.sample_counts(shots);return {k:int(v) for k,v in c.items()},{"engine":"DELTA_STATEVECTOR_EXACT","qubits":qc.num_qubits}
+        import numpy as np
+        from qiskit import transpile
+        n=qc.num_qubits;t=transpile(qc.remove_final_measurements(inplace=False),basis_gates=["u","cx"],optimization_level=0)
+        psi=np.zeros([2]*n,dtype=np.complex128);psi[(0,)*n]=1.0
+        for ins in t.data:
+            q=[t.find_bit(b).index for b in ins.qubits];ax=[n-1-i for i in q]
+            if ins.operation.name=="cx":
+                sl=[slice(None)]*n;sl[ax[0]]=1;sub=psi[tuple(sl)];a=ax[1]-(1 if ax[1]>ax[0] else 0);sub[...]=np.flip(sub,axis=a).copy()
+            elif ins.operation.name=="u":
+                m=np.asarray(ins.operation.to_matrix());psi=np.moveaxis(np.tensordot(m,psi,axes=([1],[ax[0]])),0,ax[0])
+        p=np.abs(psi.reshape(-1))**2;p/=p.sum();rng=np.random.default_rng(1234);idx=rng.choice(p.size,size=shots,p=p)
+        u,cn=np.unique(idx,return_counts=True)
+        return {format(int(i),"0%db"%n):int(c) for i,c in zip(u,cn)},{"engine":"DELTA_STATEVECTOR_EXACT","qubits":n}
     def _qpu(s,qc,shots):
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
         from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
