@@ -24,7 +24,7 @@ Chaque chiffre provient d'un run réel, avec un journal ou un identifiant de job
 | float32 | ×1,08 seulement pour 29 bits perdus, **rejeté** |
 | Recherche vectorielle IVF, SIFT 1 M vecteurs réels, 7 cœurs | recall 0,988, ×24,3 face à la force brute parallèle, 0,35 ms/requête |
 
-### Pile DELTA — GitHub Codespaces (Xeon Platinum 8573C, 1 cœur, 2 hyperthreads)
+### Pile DELTA — GitHub Codespaces (Xeon Platinum 8370C ou 8573C selon la machine attribuée au démarrage, 1 cœur, 2 hyperthreads)
 
 | Couche | Résultat | Statut |
 |---|---|---|
@@ -107,6 +107,7 @@ J'ai fait plusieurs prédictions fausses pendant cet audit ; la mesure les a cor
 - float32 : prédit ×1,5 à ×2, mesuré ×1,08 ;
 - IVF multithread : prédit ×4 à ×6, mesuré ×1,7 (mur de bande passante RAM) ;
 - GHZ physique : prédit fiable jusqu'à 20 qubits, mesuré 0,311 à 20 ;
+- modèle du Xeon Codespaces : corrigé trop vite en 8573C le 2 octobre, alors que GitHub attribue un 8370C ou un 8573C selon le démarrage ;
 - diagnostic des identifiants IBM : mon filtre `grep "ibm|qiskit"` ne pouvait pas voir les variables `IQP_*`, et j'ai d'abord conclu à tort à leur absence.
 
 Une règle en ressort : **seule la mesure tranche**, y compris contre l'auditeur.
