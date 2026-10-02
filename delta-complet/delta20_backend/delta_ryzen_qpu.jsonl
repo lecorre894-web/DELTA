@@ -1,0 +1,1 @@
+{"date": "2026-10-02 17:14", "socle": "QPU_PREP socle= AMD Ryzen 9 9950X3D 16-Core Processor x32 FIN_PREP", "prep_s": 4.372758458999897, "backend": "ibm_marrakesh", "job_id": "davua904oijs73e874jg", "pair": [1, 2], "counts": {"11": 480, "00": 525, "10": 12, "01": 7}, "fidelite": 0.9814453125, "qpu_s": 352.2097741339999}
