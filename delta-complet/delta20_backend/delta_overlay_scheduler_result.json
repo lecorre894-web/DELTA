@@ -1,0 +1,30 @@
+{
+  "architecture": "DELTA_RYZEN_RTX_OVERLAY_V1",
+  "host": {
+    "cpu": "x86_64",
+    "logical_cpus": 2,
+    "execution": "PHYSICAL_MEASURED"
+  },
+  "overlay_cpu": {
+    "model": "AMD Ryzen 9 9950X3D",
+    "cores": 16,
+    "threads": 32,
+    "execution": "VIRTUALIZED",
+    "scheduler": "32_TO_2_MULTIPLEXED"
+  },
+  "overlay_gpu": {
+    "model": "NVIDIA GeForce RTX 4080",
+    "vram_mib": 16376,
+    "execution": "VIRTUALIZED",
+    "cuda_physical": false
+  },
+  "measurement": {
+    "logical_lanes": 32,
+    "physical_slots_used": 2,
+    "iterations": 6400000,
+    "wall_s": 1.9508971559998827,
+    "cpu_s": 1.92139427,
+    "signature": "5a04b468c976232b731f0cb85c4e6857f911f7d777ab2bbff09923cd3f7ae246"
+  },
+  "validation": "PASSED"
+}

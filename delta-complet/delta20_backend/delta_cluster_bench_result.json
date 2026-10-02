@@ -1,0 +1,247 @@
+{
+  "host_logical_cpus": 2,
+  "total_work": 6400000,
+  "repeats": 3,
+  "results": [
+    {
+      "clusters": 1,
+      "physical_workers": 1,
+      "median_wall_s": 2.076880890999746,
+      "median_iterations_per_second": 3081544.0730061503,
+      "runs": [
+        {
+          "wall_s": 2.1267947329997696,
+          "cpu_s": 2.0978494899999998,
+          "throughput": 3009223.1754650925,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.076880890999746,
+          "cpu_s": 2.032267829,
+          "throughput": 3081544.0730061503,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0586473379999006,
+          "cpu_s": 2.024726385,
+          "throughput": 3108837.4787971135,
+          "checksum": 819729711352857448,
+          "workers": 1
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0
+    },
+    {
+      "clusters": 2,
+      "physical_workers": 2,
+      "median_wall_s": 2.017721382000218,
+      "median_iterations_per_second": 3171894.8201141222,
+      "runs": [
+        {
+          "wall_s": 2.017721382000218,
+          "cpu_s": 1.979129728000001,
+          "throughput": 3171894.8201141222,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0050336340000285,
+          "cpu_s": 1.9743563789999996,
+          "throughput": 3191966.404689204,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.01964477599995,
+          "cpu_s": 1.9563394610000007,
+          "throughput": 3168874.0891730743,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0293199593993902
+    },
+    {
+      "clusters": 4,
+      "physical_workers": 2,
+      "median_wall_s": 2.0639492639998025,
+      "median_iterations_per_second": 3100851.417053347,
+      "runs": [
+        {
+          "wall_s": 2.082142621999992,
+          "cpu_s": 2.0066587269999996,
+          "throughput": 3073756.779375906,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0639492639998025,
+          "cpu_s": 1.998051928999999,
+          "throughput": 3100851.417053347,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9886613179996857,
+          "cpu_s": 1.9596990650000023,
+          "throughput": 3218245.330199062,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0062654771730595
+    },
+    {
+      "clusters": 8,
+      "physical_workers": 2,
+      "median_wall_s": 2.0114714349997485,
+      "median_iterations_per_second": 3181750.378672815,
+      "runs": [
+        {
+          "wall_s": 2.0061177640000096,
+          "cpu_s": 1.9756588929999985,
+          "throughput": 3190241.4279204644,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0114714349997485,
+          "cpu_s": 1.9704502849999983,
+          "throughput": 3181750.378672815,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0920286009995834,
+          "cpu_s": 2.0217934050000004,
+          "throughput": 3059231.597953318,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0325182127182462
+    },
+    {
+      "clusters": 16,
+      "physical_workers": 2,
+      "median_wall_s": 2.0061537880001197,
+      "median_iterations_per_second": 3190184.141555761,
+      "runs": [
+        {
+          "wall_s": 1.9957475310002337,
+          "cpu_s": 1.9660624989999995,
+          "throughput": 3206818.44801904,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.054964463000033,
+          "cpu_s": 2.0142732850000016,
+          "throughput": 3114409.0884455834,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0061537880001197,
+          "cpu_s": 1.9644997999999987,
+          "throughput": 3190184.141555761,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0352550753699357
+    },
+    {
+      "clusters": 32,
+      "physical_workers": 2,
+      "median_wall_s": 1.9993072060001396,
+      "median_iterations_per_second": 3201108.85450365,
+      "runs": [
+        {
+          "wall_s": 1.9993072060001396,
+          "cpu_s": 1.960361369000001,
+          "throughput": 3201108.85450365,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.1096607619997485,
+          "cpu_s": 2.040179901000002,
+          "throughput": 3033663.096588779,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9722833470000296,
+          "cpu_s": 1.9426554159999938,
+          "throughput": 3244969.851687291,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.038800282801362
+    },
+    {
+      "clusters": 64,
+      "physical_workers": 2,
+      "median_wall_s": 2.04408949100025,
+      "median_iterations_per_second": 3130978.3784800144,
+      "runs": [
+        {
+          "wall_s": 2.058186719999867,
+          "cpu_s": 2.007541091,
+          "throughput": 3109533.230299151,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9916949720000048,
+          "cpu_s": 1.9568637890000034,
+          "throughput": 3213343.4536781996,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.04408949100025,
+          "cpu_s": 2.005734402999998,
+          "throughput": 3130978.3784800144,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0160420569372677
+    }
+  ],
+  "best": {
+    "clusters": 32,
+    "physical_workers": 2,
+    "median_wall_s": 1.9993072060001396,
+    "median_iterations_per_second": 3201108.85450365,
+    "runs": [
+      {
+        "wall_s": 1.9993072060001396,
+        "cpu_s": 1.960361369000001,
+        "throughput": 3201108.85450365,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 2.1096607619997485,
+        "cpu_s": 2.040179901000002,
+        "throughput": 3033663.096588779,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.9722833470000296,
+        "cpu_s": 1.9426554159999938,
+        "throughput": 3244969.851687291,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      }
+    ],
+    "speedup_vs_1_cluster": 1.038800282801362
+  }
+}

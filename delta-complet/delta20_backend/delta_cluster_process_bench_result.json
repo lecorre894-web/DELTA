@@ -1,0 +1,731 @@
+{
+  "host_available_cpus": 2,
+  "total_work": 6400000,
+  "repeats": 5,
+  "thread": [
+    {
+      "mode": "THREAD",
+      "clusters": 1,
+      "physical_workers": 1,
+      "median_wall_s": 2.0993431979995876,
+      "median_iterations_per_second": 3048572.527873671,
+      "runs": [
+        {
+          "wall_s": 2.2170894230002887,
+          "parent_cpu_s": 2.1563375899999997,
+          "throughput": 2886667.5081328764,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0679676290001225,
+          "parent_cpu_s": 2.018928849,
+          "throughput": 3094826.007065907,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0993431979995876,
+          "parent_cpu_s": 2.0620382830000006,
+          "throughput": 3048572.527873671,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.053481871999793,
+          "parent_cpu_s": 2.015198153,
+          "throughput": 3116657.657058998,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.1322506149999754,
+          "parent_cpu_s": 2.016396619,
+          "throughput": 3001523.345791167,
+          "checksum": 819729711352857448,
+          "workers": 1
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 2,
+      "physical_workers": 2,
+      "median_wall_s": 2.055399431999831,
+      "median_iterations_per_second": 3113750.0090544573,
+      "runs": [
+        {
+          "wall_s": 1.9714908930000092,
+          "parent_cpu_s": 1.9507218430000002,
+          "throughput": 3246274.1891042404,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.055399431999831,
+          "parent_cpu_s": 2.014427443999999,
+          "throughput": 3113750.0090544573,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.091501586999584,
+          "parent_cpu_s": 2.0286648439999997,
+          "throughput": 3060002.4593723975,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9814671290005208,
+          "parent_cpu_s": 1.9624046759999985,
+          "throughput": 3229929.937433909,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.063827112000581,
+          "parent_cpu_s": 2.0100706760000016,
+          "throughput": 3101034.947542737,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.021379672153067
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 4,
+      "physical_workers": 2,
+      "median_wall_s": 1.9948101540003336,
+      "median_iterations_per_second": 3208325.3572605033,
+      "runs": [
+        {
+          "wall_s": 1.9210924230001183,
+          "parent_cpu_s": 1.912380443,
+          "throughput": 3331437.844101895,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9948101540003336,
+          "parent_cpu_s": 1.9415361030000007,
+          "throughput": 3208325.3572605033,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.083799203000126,
+          "parent_cpu_s": 1.992855413000001,
+          "throughput": 3071313.2008044124,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9569763640001838,
+          "parent_cpu_s": 1.9204653990000011,
+          "throughput": 3270351.199806008,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0330813970003874,
+          "parent_cpu_s": 1.960882035000001,
+          "throughput": 3147931.0220646225,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0524025024585055
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 8,
+      "physical_workers": 2,
+      "median_wall_s": 1.9401969929995175,
+      "median_iterations_per_second": 3298634.119675492,
+      "runs": [
+        {
+          "wall_s": 1.9103434859998742,
+          "parent_cpu_s": 1.893227833000001,
+          "throughput": 3350182.858162933,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9252231180007584,
+          "parent_cpu_s": 1.9028761729999992,
+          "throughput": 3324290.021328052,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9882310960001632,
+          "parent_cpu_s": 1.9470119440000033,
+          "throughput": 3218941.7079710914,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.018443443000251,
+          "parent_cpu_s": 1.9670370730000002,
+          "throughput": 3170760.13310877,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9401969929995175,
+          "parent_cpu_s": 1.9110626880000012,
+          "throughput": 3298634.119675492,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0820257971609535
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 16,
+      "physical_workers": 2,
+      "median_wall_s": 1.9893543660000432,
+      "median_iterations_per_second": 3217124.1631868524,
+      "runs": [
+        {
+          "wall_s": 1.9926837029997841,
+          "parent_cpu_s": 1.9442455479999978,
+          "throughput": 3211749.0549882283,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9456410880002295,
+          "parent_cpu_s": 1.926193726000001,
+          "throughput": 3289404.2171868673,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9893543660000432,
+          "parent_cpu_s": 1.947372106000003,
+          "throughput": 3217124.1631868524,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0497272069997052,
+          "parent_cpu_s": 1.9936378900000022,
+          "throughput": 3122366.712089469,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.948785073000181,
+          "parent_cpu_s": 1.9123455820000004,
+          "throughput": 3284097.4044136708,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0552887076728803
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 32,
+      "physical_workers": 2,
+      "median_wall_s": 1.9385209960000793,
+      "median_iterations_per_second": 3301486.036625697,
+      "runs": [
+        {
+          "wall_s": 1.9787143849998756,
+          "parent_cpu_s": 1.9378150719999994,
+          "throughput": 3234423.3450349136,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9385209960000793,
+          "parent_cpu_s": 1.9152905460000014,
+          "throughput": 3301486.036625697,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9246051129994157,
+          "parent_cpu_s": 1.905903237000004,
+          "throughput": 3325357.4755529305,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.0650347339997097,
+          "parent_cpu_s": 1.9755499009999937,
+          "throughput": 3099221.4777927794,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.918592520999482,
+          "parent_cpu_s": 1.8880529360000011,
+          "throughput": 3335778.6658450793,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.082961289731371
+    },
+    {
+      "mode": "THREAD",
+      "clusters": 64,
+      "physical_workers": 2,
+      "median_wall_s": 1.9465343460005897,
+      "median_iterations_per_second": 3287894.7207634123,
+      "runs": [
+        {
+          "wall_s": 1.9451579050000873,
+          "parent_cpu_s": 1.913043781000006,
+          "throughput": 3290221.314962968,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.971899637000206,
+          "parent_cpu_s": 1.9261177149999966,
+          "throughput": 3245601.28716091,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9318566689998988,
+          "parent_cpu_s": 1.911911818,
+          "throughput": 3312875.174799179,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 2.031493786000283,
+          "parent_cpu_s": 1.9665876340000068,
+          "throughput": 3150391.127998808,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.9465343460005897,
+          "parent_cpu_s": 1.910764284999999,
+          "throughput": 3287894.7207634123,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0785030340270974
+    }
+  ],
+  "process": [
+    {
+      "mode": "PROCESS",
+      "clusters": 1,
+      "physical_workers": 1,
+      "median_wall_s": 2.0646477850004885,
+      "median_iterations_per_second": 3099802.32294124,
+      "runs": [
+        {
+          "wall_s": 2.11556480299987,
+          "parent_cpu_s": 0.01254024699998979,
+          "throughput": 3025196.8603962413,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0599619590002476,
+          "parent_cpu_s": 0.002595243999991226,
+          "throughput": 3106853.4892295217,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0317947089997688,
+          "parent_cpu_s": 0.0025549819999923784,
+          "throughput": 3149924.5330502177,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0958460929996363,
+          "parent_cpu_s": 0.002395832000004816,
+          "throughput": 3053659.341388056,
+          "checksum": 819729711352857448,
+          "workers": 1
+        },
+        {
+          "wall_s": 2.0646477850004885,
+          "parent_cpu_s": 0.0023454410000027792,
+          "throughput": 3099802.32294124,
+          "checksum": 819729711352857448,
+          "workers": 1
+        }
+      ],
+      "speedup_vs_1_cluster": 1.0
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 2,
+      "physical_workers": 2,
+      "median_wall_s": 1.7052929100000256,
+      "median_iterations_per_second": 3753020.939962686,
+      "runs": [
+        {
+          "wall_s": 1.687115026000356,
+          "parent_cpu_s": 0.0034879859999961127,
+          "throughput": 3793458.004563258,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.668777740999758,
+          "parent_cpu_s": 0.0036338599999936605,
+          "throughput": 3835142.237794822,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7250473290005175,
+          "parent_cpu_s": 0.003622468999992634,
+          "throughput": 3710043.1347052506,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7052929100000256,
+          "parent_cpu_s": 0.0035280900000032034,
+          "throughput": 3753020.939962686,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7759425780004676,
+          "parent_cpu_s": 0.003274235999995767,
+          "throughput": 3603720.1198282856,
+          "checksum": 16509752527644395084,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.2107291204303767
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 4,
+      "physical_workers": 2,
+      "median_wall_s": 1.6892917640007,
+      "median_iterations_per_second": 3788569.941786177,
+      "runs": [
+        {
+          "wall_s": 1.7304217110004174,
+          "parent_cpu_s": 0.0038435109999994665,
+          "throughput": 3698520.400729332,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.6833931180008221,
+          "parent_cpu_s": 0.004125119999997651,
+          "throughput": 3801845.1730398927,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.671557231999941,
+          "parent_cpu_s": 0.0039614060000019435,
+          "throughput": 3828765.104466507,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.6892917640007,
+          "parent_cpu_s": 0.0045785450000011,
+          "throughput": 3788569.941786177,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7333692470001552,
+          "parent_cpu_s": 0.0044118100000076765,
+          "throughput": 3692231.1914072093,
+          "checksum": 16771582814870600556,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.2221972716606657
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 8,
+      "physical_workers": 2,
+      "median_wall_s": 1.7225403210004515,
+      "median_iterations_per_second": 3715442.780626975,
+      "runs": [
+        {
+          "wall_s": 1.7819904059997498,
+          "parent_cpu_s": 0.005917791000001671,
+          "throughput": 3591489.5941369613,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.6618665460000557,
+          "parent_cpu_s": 0.004986575000003768,
+          "throughput": 3851091.4221145804,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7324682379994556,
+          "parent_cpu_s": 0.0049655530000052295,
+          "throughput": 3694151.4191280724,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7225403210004515,
+          "parent_cpu_s": 0.0052341569999896365,
+          "throughput": 3715442.780626975,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.6876209230003951,
+          "parent_cpu_s": 0.005446825000007038,
+          "throughput": 3792320.842183883,
+          "checksum": 12220760407542799022,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.1986063605183657
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 16,
+      "physical_workers": 2,
+      "median_wall_s": 1.7681689000000915,
+      "median_iterations_per_second": 3619563.7192802504,
+      "runs": [
+        {
+          "wall_s": 1.7792890359996818,
+          "parent_cpu_s": 0.007897704000001227,
+          "throughput": 3596942.3013974805,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.8156796670000404,
+          "parent_cpu_s": 0.007385327000008601,
+          "throughput": 3524850.840332651,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.6936302399999477,
+          "parent_cpu_s": 0.0070040369999873064,
+          "throughput": 3778864.9782258244,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7681689000000915,
+          "parent_cpu_s": 0.007967406000005894,
+          "throughput": 3619563.7192802504,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7304396260005888,
+          "parent_cpu_s": 0.007643711999989478,
+          "throughput": 3698482.110463311,
+          "checksum": 1196325457072893301,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.1676756587000154
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 32,
+      "physical_workers": 2,
+      "median_wall_s": 1.7556084970001393,
+      "median_iterations_per_second": 3645459.6858786405,
+      "runs": [
+        {
+          "wall_s": 1.7001678189999438,
+          "parent_cpu_s": 0.011359875000010788,
+          "throughput": 3764334.2783446787,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7712300879993563,
+          "parent_cpu_s": 0.011890890000003651,
+          "throughput": 3613308.0864886064,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.8206620939999993,
+          "parent_cpu_s": 0.011781678000005513,
+          "throughput": 3515204.727495141,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7134786149999854,
+          "parent_cpu_s": 0.012537239000010914,
+          "throughput": 3735091.8441430647,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7556084970001393,
+          "parent_cpu_s": 0.012092941000005908,
+          "throughput": 3645459.6858786405,
+          "checksum": 9615914438237845708,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.1760297290246737
+    },
+    {
+      "mode": "PROCESS",
+      "clusters": 64,
+      "physical_workers": 2,
+      "median_wall_s": 1.7704029899996385,
+      "median_iterations_per_second": 3614996.1540684626,
+      "runs": [
+        {
+          "wall_s": 1.7773939369999425,
+          "parent_cpu_s": 0.019848033000002374,
+          "throughput": 3600777.4454337,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7218212899997525,
+          "parent_cpu_s": 0.017959473000004778,
+          "throughput": 3716994.3461443204,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.8159294019997105,
+          "parent_cpu_s": 0.01869078800000068,
+          "throughput": 3524366.086562775,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7704029899996385,
+          "parent_cpu_s": 0.017902401000000623,
+          "throughput": 3614996.1540684626,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        },
+        {
+          "wall_s": 1.7391261900002064,
+          "parent_cpu_s": 0.018549250999996048,
+          "throughput": 3680008.981981486,
+          "checksum": 8124666927030386799,
+          "workers": 2
+        }
+      ],
+      "speedup_vs_1_cluster": 1.1662021566066776
+    }
+  ],
+  "thread_best": {
+    "mode": "THREAD",
+    "clusters": 32,
+    "physical_workers": 2,
+    "median_wall_s": 1.9385209960000793,
+    "median_iterations_per_second": 3301486.036625697,
+    "runs": [
+      {
+        "wall_s": 1.9787143849998756,
+        "parent_cpu_s": 1.9378150719999994,
+        "throughput": 3234423.3450349136,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.9385209960000793,
+        "parent_cpu_s": 1.9152905460000014,
+        "throughput": 3301486.036625697,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.9246051129994157,
+        "parent_cpu_s": 1.905903237000004,
+        "throughput": 3325357.4755529305,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 2.0650347339997097,
+        "parent_cpu_s": 1.9755499009999937,
+        "throughput": 3099221.4777927794,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.918592520999482,
+        "parent_cpu_s": 1.8880529360000011,
+        "throughput": 3335778.6658450793,
+        "checksum": 9615914438237845708,
+        "workers": 2
+      }
+    ],
+    "speedup_vs_1_cluster": 1.082961289731371
+  },
+  "process_best": {
+    "mode": "PROCESS",
+    "clusters": 4,
+    "physical_workers": 2,
+    "median_wall_s": 1.6892917640007,
+    "median_iterations_per_second": 3788569.941786177,
+    "runs": [
+      {
+        "wall_s": 1.7304217110004174,
+        "parent_cpu_s": 0.0038435109999994665,
+        "throughput": 3698520.400729332,
+        "checksum": 16771582814870600556,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.6833931180008221,
+        "parent_cpu_s": 0.004125119999997651,
+        "throughput": 3801845.1730398927,
+        "checksum": 16771582814870600556,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.671557231999941,
+        "parent_cpu_s": 0.0039614060000019435,
+        "throughput": 3828765.104466507,
+        "checksum": 16771582814870600556,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.6892917640007,
+        "parent_cpu_s": 0.0045785450000011,
+        "throughput": 3788569.941786177,
+        "checksum": 16771582814870600556,
+        "workers": 2
+      },
+      {
+        "wall_s": 1.7333692470001552,
+        "parent_cpu_s": 0.0044118100000076765,
+        "throughput": 3692231.1914072093,
+        "checksum": 16771582814870600556,
+        "workers": 2
+      }
+    ],
+    "speedup_vs_1_cluster": 1.2221972716606657
+  },
+  "process_vs_thread": 1.147534746401141,
+  "measured_winner": "PROCESS"
+}
