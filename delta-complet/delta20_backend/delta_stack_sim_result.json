@@ -1,0 +1,76 @@
+{
+ "socle": {
+  "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "threads": 2,
+  "fp64": 75.92954731065488,
+  "fp32": 158.30484976813264,
+  "bw_GBs": 4.567034634502111
+ },
+ "emules": {
+  "RYZEN_9950X3D_EMU_fp64": {
+   "GF": 38.627279600014845,
+   "overhead_vs_socle": 1.965697509555545,
+   "vs_standard": 19.827955992005858,
+   "err": 0.0,
+   "units": 16
+  },
+  "RYZEN_9950X3D_EMU_fp32": {
+   "GF": 79.50617783551787,
+   "overhead_vs_socle": 1.9911012461903679,
+   "vs_standard": 21.06628749611166,
+   "err": 7.657922196507745e-07,
+   "units": 16
+  },
+  "RTX_4080_EMU_fp32": {
+   "GF": 26.8096598656319,
+   "overhead_vs_socle": 5.90476904822908,
+   "vs_standard": 1399.6410319290549,
+   "err": 7.657922196507745e-07,
+   "units": 76
+  }
+ },
+ "nuage": {
+  "calcul_miss_s": 0.0010308230002920027,
+  "cache_hit_s": 2.796993799984193e-06,
+  "routage_s": 2.954202999717381e-07,
+  "gain_cache": 368.54675913040217,
+  "deterministe": true
+ },
+ "qpu": {
+  "pilote par le socle Xeon": 7.382300009339815e-05,
+  "pilote par Ryzen emule": 0.0001511542754633298,
+  "part_pilotage": 1.3143850040289547e-05
+ },
+ "etendue_nuage": [
+  {
+   "repetition": 0.0,
+   "uniques": 2000,
+   "GF_effectif": 29.21905524742869,
+   "x_socle": 0.18457460583314736
+  },
+  {
+   "repetition": 0.5,
+   "uniques": 1000,
+   "GF_effectif": 57.246586247255074,
+   "x_socle": 0.36162244132825694
+  },
+  {
+   "repetition": 0.9,
+   "uniques": 200,
+   "GF_effectif": 265.3874356551053,
+   "x_socle": 1.6764327564431245
+  },
+  {
+   "repetition": 0.99,
+   "uniques": 20,
+   "GF_effectif": 350.43990665628013,
+   "x_socle": 2.2137029103629207
+  },
+  {
+   "repetition": 0.999,
+   "uniques": 2,
+   "GF_effectif": 2533.1272674179268,
+   "x_socle": 16.001577154004885
+  }
+ ]
+}
