@@ -92,7 +92,7 @@ Pour l'espace, DELTA n'est **pas** qualifié : il ne tient pas compte des radiat
 3. **Cache** : il fige les tirs. Pour un algorithme qui a besoin d'échantillons frais, forcer un nouveau job (`fresh=True`, à ajouter). La clé n'inclut ni le QPU ni la date d'étalonnage : appliquer une durée de validité (par exemple 24 h) aux résultats physiques.
 4. **QPU** : fiable vers 10 qubits aujourd'hui ; au-delà, annoncer la population mesurée, jamais une « exécution réussie » sans chiffre.
 5. **Quota** : le plan gratuit IBM est limité. `least_busy` choisit un QPU différent selon l'heure, donc noter toujours le backend.
-6. **Dépendances** : `SamplerV2` est déprécié depuis qiskit-ibm-runtime 0.50 ; la migration est à prévoir dans les trois mois.
+6. **Dépendances** : migration `SamplerV2` vers `executor_sampler.Sampler` **faite et prouvée** le 2 octobre 2026 (9 fichiers, job `davih2il7guc73ceuugg` sur ibm_marrakesh, fidélité Bell 0,984).
 7. **Simulateur** : plafond à environ 26 qubits sur 2 vCPU et 8 Go. Le GHZ est un circuit de Clifford, simulable en temps polynomial par une méthode à stabilisateurs : le mur exponentiel est celui du vecteur d'état, pas de tout le classique.
 8. **Usages interdits ou déconseillés** : aucune prétention de cryptanalyse (156 qubits bruités ne cassent ni RSA ni ECC) ; pas d'usage critique (médical, aviation, spatial embarqué) sans certification.
 9. **Validation** : tout nouveau module doit sortir une ligne `*_VALIDATION=OK/FAIL` vérifiée contre une référence indépendante.
