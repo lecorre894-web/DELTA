@@ -1,0 +1,1 @@
+- 2026-10-02 07:23 VM KVM Alpine sur Xeon 8370C, CPU annonce 'AMD Ryzen 9 9950X3D' x32 : 1 tache 0.59 s, 32 taches 18.12 s (x30.7, un vrai 9950X3D ~0.6-1.2 s), NVIDIA=0. Conclusion mesuree : la virtualisation change le nom, pas la puissance ; aucune RTX emulable sans carte physique.
