@@ -17,14 +17,14 @@ if SIM:
     from delta_qpu_cache import DeltaQPUCache;S0=DeltaQPUCache(":memory:");C=[S0._sim(q,SH)[0] for q in chsh()];bk="local";jid="sim";used=PHYS
 else:
     from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
     s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
     b=s.backend(os.environ.get("SEAL_BACKEND","ibm_marrakesh"));edges=set(map(tuple,b.coupling_map.get_edges()))
     if tuple(PHYS) not in edges and tuple(PHYS[::-1]) not in edges:sys.exit("ARRET: qubits %s non relies directement sur %s"%(PHYS,b.name))
     pm=generate_preset_pass_manager(optimization_level=1,backend=b,initial_layout=PHYS);tc=[pm.run(q) for q in chsh()]
     used=list(tc[0].layout.final_index_layout())
     if sorted(used)!=sorted(PHYS):sys.exit("ARRET: le compilateur a deplace la paire vers %s"%used)
-    job=SamplerV2(mode=b).run(tc,shots=SH);print("SOUMIS %s JOB=%s qubits physiques imposes=%s"%(b.name,job.job_id(),used),flush=True)
+    job=_ExecSampler(mode=b).run(tc,shots=SH);print("SOUMIS %s JOB=%s qubits physiques imposes=%s"%(b.name,job.job_id(),used),flush=True)
     C=[]
     for r in job.result():
         d=r.data

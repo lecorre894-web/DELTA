@@ -2,7 +2,7 @@ import os,sys,json,math,time,warnings
 warnings.filterwarnings("ignore")
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
 P=int(os.environ.get("QP_PAIRS","10"));SH=1024
 s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
 b=s.backend(os.environ.get("QP_BACKEND","ibm_marrakesh"));T=b.target
@@ -31,7 +31,7 @@ lay=[q for a,c,_ in pairs for q in (a,c)]
 pm=generate_preset_pass_manager(optimization_level=1,backend=b,initial_layout=lay);tc=[pm.run(q) for q in qs]
 fl=list(tc[0].layout.final_index_layout())
 if fl!=lay:print("ATTENTION: le compilateur a modifie le placement -> %s"%fl)
-job=SamplerV2(mode=b).run(tc,shots=SH);print("SOUMIS JOB=%s"%job.job_id(),flush=True)
+job=_ExecSampler(mode=b).run(tc,shots=SH);print("SOUMIS JOB=%s"%job.job_id(),flush=True)
 C=[]
 for r in job.result():
     d=r.data

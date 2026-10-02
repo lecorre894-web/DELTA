@@ -15,10 +15,10 @@ if SIM:
     from delta_qpu_cache import DeltaQPUCache;D=DeltaQPUCache(":memory:");C=[D._sim(q,SH)[0] for q in qs];bk="local";jid="sim"
 else:
     from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
     s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
     b=s.backend(os.environ.get("INT_BACKEND","ibm_marrakesh"));pm=generate_preset_pass_manager(optimization_level=1,backend=b,initial_layout=PHYS)
-    job=SamplerV2(mode=b).run([pm.run(q) for q in qs],shots=SH);print("SOUMIS %s JOB=%s"%(b.name,job.job_id()),flush=True);C=[]
+    job=_ExecSampler(mode=b).run([pm.run(q) for q in qs],shots=SH);print("SOUMIS %s JOB=%s"%(b.name,job.job_id()),flush=True);C=[]
     for r in job.result():
         d=r.data
         for n in dir(d):

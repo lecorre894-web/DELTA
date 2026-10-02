@@ -2,10 +2,10 @@ f="delta_qpu_cache.py";s=open(f).read()
 a="    def flush(s):"
 b='''    def _qpu_batch(s,qcs,shots,bk=None):
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
         if s.svc is None:s.svc=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
         b=s.svc.backend(bk) if bk else s.svc.least_busy(operational=True,simulator=False);pm=generate_preset_pass_manager(optimization_level=1,backend=b)
-        job=SamplerV2(mode=b).run([pm.run(q) for q in qcs],shots=shots);res=job.result();outs=[]
+        job=_ExecSampler(mode=b).run([pm.run(q) for q in qcs],shots=shots);res=job.result();outs=[]
         for r in res:
             d=r.data;c={}
             for nm in dir(d):

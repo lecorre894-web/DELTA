@@ -52,19 +52,19 @@ class DeltaQPUCache:
         return {format(int(i),"0%db"%n):int(c) for i,c in zip(u,cn)},{"engine":"DELTA_STATEVECTOR_EXACT","qubits":n}
     def _qpu(s,qc,shots,bk=None):
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
         if s.svc is None:s.svc=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
-        b=s.svc.backend(bk) if bk else s.svc.least_busy(operational=True,simulator=False);job=SamplerV2(mode=b).run([generate_preset_pass_manager(optimization_level=1,backend=b).run(qc)],shots=shots)
+        b=s.svc.backend(bk) if bk else s.svc.least_busy(operational=True,simulator=False);job=_ExecSampler(mode=b).run([generate_preset_pass_manager(optimization_level=1,backend=b).run(qc)],shots=shots)
         d=job.result()[0].data;c={}
         for nm in dir(d):
             if not nm.startswith("_") and hasattr(getattr(d,nm),"get_counts"):c=getattr(d,nm).get_counts()
         return {k:int(v) for k,v in c.items()},{"engine":"IBM_QPU","backend":b.name,"job_id":job.job_id(),"physical_qubits":b.num_qubits}
     def _qpu_batch(s,qcs,shots,bk=None):
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
         if s.svc is None:s.svc=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
         b=s.svc.backend(bk) if bk else s.svc.least_busy(operational=True,simulator=False);pm=generate_preset_pass_manager(optimization_level=1,backend=b)
-        job=SamplerV2(mode=b).run([pm.run(q) for q in qcs],shots=shots);res=job.result();outs=[]
+        job=_ExecSampler(mode=b).run([pm.run(q) for q in qcs],shots=shots);res=job.result();outs=[]
         for r in res:
             d=r.data;c={}
             for nm in dir(d):

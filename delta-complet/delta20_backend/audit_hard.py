@@ -1,7 +1,7 @@
 import os,sys,json,math,time
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
 def counts_of(r):
     d=r.data
     for n in dir(d):
@@ -26,7 +26,7 @@ if "--chsh" in sys.argv:
         for bb in B:
             qc=QuantumCircuit(2);qc.h(0);qc.cx(0,1);qc.ry(-a,0);qc.ry(-bb,1);qc.measure_all();qcs.append(qc)
     pm=generate_preset_pass_manager(optimization_level=1,backend=b)
-    t0=time.time();job=SamplerV2(mode=b).run([pm.run(q) for q in qcs],shots=1024)
+    t0=time.time();job=_ExecSampler(mode=b).run([pm.run(q) for q in qcs],shots=1024)
     print("Q2_JOB_ID=%s BACKEND=%s (file d'attente IBM, patience)"%(job.job_id(),b.name),flush=True)
     res=job.result();E=[];var=0
     for r in res:

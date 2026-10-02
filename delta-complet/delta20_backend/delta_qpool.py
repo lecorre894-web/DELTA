@@ -20,10 +20,10 @@ def fill():
         bk,jid="local","sim"
     else:
         from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+        from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
         s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
         b=s.backend(best["backend"]);lay=[x for p in pairs for x in p]
-        pm=generate_preset_pass_manager(optimization_level=1,backend=b,initial_layout=lay);job=SamplerV2(mode=b).run([pm.run(q) for q in qs],shots=SH)
+        pm=generate_preset_pass_manager(optimization_level=1,backend=b,initial_layout=lay);job=_ExecSampler(mode=b).run([pm.run(q) for q in qs],shots=SH)
         print("SOUMIS %s JOB=%s"%(b.name,job.job_id()),flush=True);BS=[]
         for r in job.result():
             d=r.data

@@ -23,7 +23,7 @@ print("PROJECTION SV N=1T TEMPS=10^%.3g s MEM=10^%.3g octets [IMPOSSIBLE]"%(1e12
 if "--qpu" in sys.argv:
     from qiskit import QuantumCircuit
     from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+    from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
     print("--- B : QPU IBM execute physiquement les memes GHZ ---")
     s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
     b=s.least_busy(operational=True,simulator=False);NS=[5,10,20,50,100];qcs=[]
@@ -32,7 +32,7 @@ if "--qpu" in sys.argv:
         for q in range(n-1):qc.cx(q,q+1)
         qc.measure_all();qcs.append(qc)
     pm=generate_preset_pass_manager(optimization_level=1,backend=b)
-    t0=time.time();job=SamplerV2(mode=b).run([pm.run(q) for q in qcs],shots=1000)
+    t0=time.time();job=_ExecSampler(mode=b).run([pm.run(q) for q in qcs],shots=1000)
     print("QPU_JOB_ID=%s BACKEND=%s QUBITS_PHYSIQUES=%d"%(job.job_id(),b.name,b.num_qubits),flush=True)
     res=job.result();wall=time.time()-t0
     try:qs=job.metrics()["usage"]["quantum_seconds"]

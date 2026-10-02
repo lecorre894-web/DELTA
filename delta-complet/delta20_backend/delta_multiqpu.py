@@ -2,7 +2,7 @@ import os,sys,time,json,warnings
 warnings.filterwarnings("ignore")
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2;from qiskit_ibm_runtime.executor_sampler import Sampler as _ExecSampler
 s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"])
 print("=== DELTA MULTI-QPU : inventaire reel du compte IBM ===")
 bs=s.backends(simulator=False);ops=[]
@@ -17,7 +17,7 @@ if "--run" in sys.argv and ops:
     for q in range(n-1):qc.cx(q,q+1)
     qc.measure_all();jobs=[];t0=time.time()
     for b in ops:
-        pm=generate_preset_pass_manager(optimization_level=1,backend=b);j=SamplerV2(mode=b).run([pm.run(qc)],shots=1000);jobs.append((b,j))
+        pm=generate_preset_pass_manager(optimization_level=1,backend=b);j=_ExecSampler(mode=b).run([pm.run(qc)],shots=1000);jobs.append((b,j))
         print("SOUMIS %-16s JOB=%s"%(b.name,j.job_id()),flush=True)
     out=[]
     for b,j in jobs:
