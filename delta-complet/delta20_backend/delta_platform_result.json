@@ -1,0 +1,53 @@
+[
+ {
+  "engine": "DELTA_PLATFORM",
+  "task": "matmul",
+  "precision": "FP64",
+  "route": "cpu",
+  "emulated": "RYZEN_9950X3D_EMU",
+  "host": "XEON_PHYSICAL_MEASURED",
+  "exact": true,
+  "err": 0.0,
+  "wall_host_s": 0.04303243700042003,
+  "real_s": 0.0003504728510961286,
+  "real_source": "MESURE STATION 2 OCT",
+  "gap": 122.7839385157311,
+  "units_used": 16,
+  "units": 16,
+  "sig": "fe7da23d4d533b43"
+ },
+ {
+  "engine": "DELTA_PLATFORM",
+  "task": "matmul",
+  "precision": "FP32",
+  "route": "cuda",
+  "emulated": "RTX_4080_EMU",
+  "host": "XEON_PHYSICAL_MEASURED",
+  "exact": true,
+  "err": 8.949008159415189e-07,
+  "wall_host_s": 0.2906024419999085,
+  "real_s": 7.153710612328723e-06,
+  "real_source": "MESURE STATION 2 OCT",
+  "gap": 40622.61639422253,
+  "units_used": 76,
+  "units": 76,
+  "sig": "54c02c60d37f7d33"
+ },
+ {
+  "engine": "DELTA_PLATFORM",
+  "task": "matmul",
+  "precision": "AMP",
+  "route": "cuda",
+  "emulated": "RTX_4080_EMU",
+  "host": "XEON_PHYSICAL_MEASURED",
+  "exact": true,
+  "err": 8.513387210658993e-07,
+  "wall_host_s": 0.7354562030000125,
+  "real_s": 3.1974614103091885e-06,
+  "real_source": "MESURE STATION 2 OCT",
+  "gap": 230012.53451527824,
+  "units_used": 76,
+  "units": 76,
+  "sig": "7da73c67671d9b9d"
+ }
+]
