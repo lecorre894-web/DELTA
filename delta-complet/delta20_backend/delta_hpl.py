@@ -15,6 +15,9 @@ print("=== DELTA STRESS HPL (methode LINPACK du TOP500, FP64) ===")
 print("CPU=%s LOGICAL_CPUS=%d NUMPY=%s"%(cpu(),os.cpu_count(),np.__version__))
 rng=np.random.default_rng(42);best=0;ok=True;Q={"HPL":0.0,"DGEMM":0.0,"JOBS":0.0};T0=time.perf_counter()
 def avail_mb():
+    try:
+        import psutil;return psutil.virtual_memory().available/2**20
+    except ImportError:pass
     if os.environ.get("HPL_MEM_MB"):return int(os.environ["HPL_MEM_MB"])
     for l in open("/proc/meminfo"):
         if l.startswith("MemAvailable"):return int(l.split()[1])//1024
