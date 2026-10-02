@@ -231,5 +231,5 @@ else:
     )
 
 
-json.dump(R,open("delta_station_route.json","w"),indent=1)
-print("ROUTAGE ECRIT -> delta_station_route.json");print("STATION_VALIDATION=%s"%("OK" if len(R["route"])>=4 and max(lim.values())>=26 else "FAIL"))
+RF="delta_station_route.json" if torch.cuda.is_available() else "delta_station_route_overlay.json";json.dump(R,open(RF,"w"),indent=1)
+print("ROUTAGE ECRIT -> "+RF);print("STATION_VALIDATION=%s"%("OK" if len(R["route"])>=4 and max(lim.values())>=26 else "FAIL"))

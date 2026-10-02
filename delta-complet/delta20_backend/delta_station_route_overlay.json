@@ -1,0 +1,65 @@
+{
+ "date": "2026-10-02 09:20",
+ "cpu": "x86_64",
+ "gpu": null,
+ "mesures": {
+  "FP64": {
+   "cpu": 88.8435754795781
+  },
+  "FP32": {
+   "cpu": 27.892219034140858
+  },
+  "AMP": {
+   "cpu": 31.163111412295805
+  },
+  "SIM_cpu": {
+   "20": 0.028032289999828208,
+   "24": 0.6961161530002755,
+   "26": 3.1087295590000394
+  }
+ },
+ "route": {
+  "FP64": "cpu",
+  "FP32": "cpu",
+  "AMP": "cpu",
+  "SIM": "cpu",
+  "QPU": "IBM cloud (inchange)",
+  "OVERLAY": "RYZEN_RTX_OVER_XEON"
+ },
+ "plafond_qubits": {
+  "cpu": 26
+ },
+ "overlay": {
+  "active": true,
+  "architecture": "DELTA_RYZEN_RTX_OVERLAY_V1",
+  "execution_view": "RYZEN_RTX_OVER_XEON",
+  "cpu": {
+   "model": "AMD Ryzen 9 9950X3D",
+   "cores": 16,
+   "threads": 32,
+   "execution": "VIRTUALIZED",
+   "scheduler": "32_TO_2_MULTIPLEXED"
+  },
+  "gpu": {
+   "model": "NVIDIA GeForce RTX 4080",
+   "vram_mib": 16376,
+   "execution": "VIRTUALIZED",
+   "cuda_physical": false
+  },
+  "host": {
+   "cpu": "x86_64",
+   "logical_cpus": 2,
+   "execution": "PHYSICAL_MEASURED"
+  },
+  "measurement": {
+   "logical_lanes": 32,
+   "physical_slots_used": 2,
+   "iterations": 6400000,
+   "wall_s": 1.830108010999993,
+   "cpu_s": 1.838884275,
+   "signature": "5a04b468c976232b731f0cb85c4e6857f911f7d777ab2bbff09923cd3f7ae246"
+  },
+  "validation": "PASSED",
+  "station_wall_s": 1.904215922000276
+ }
+}

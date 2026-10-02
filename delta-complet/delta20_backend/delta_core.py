@@ -14,7 +14,7 @@ class DeltaCore:
                 if m.get("tier")=="COLD_DISK" and os.path.exists(m.get("path","")):s.mem.meta[k]=m;n+=1
         return n
     def _load_station_route(s):
-        p=os.path.join(HERE,"delta_station_route.json")
+        import shutil;o=os.path.join(HERE,"delta_station_route_overlay.json");p=o if os.path.exists(o) and not shutil.which("nvidia-smi") else os.path.join(HERE,"delta_station_route.json")
         if not os.path.exists(p):
             return {"available":False,"route":{"OVERLAY":"UNAVAILABLE"}}
         try:
