@@ -32,6 +32,8 @@ if __name__=="__main__":
     r={"date":time.strftime("%Y-%m-%d %H:%M"),"device":DEV,"name":NAME}
     r["gemm_fp64"]=gemm(N,torch.float64);r["gemm_fp32"]=gemm(N,torch.float32);r["gemm_amp"]=gemm(N,None,amp=True)
     print("GEMM N=%d  FP64=%9.1f GFLOPS  FP32=%9.1f  AMP(%s, successeur natif d'Apex)=%9.1f"%(N,r["gemm_fp64"],r["gemm_fp32"],"FP16" if DEV=="cuda" else "BF16",r["gemm_amp"]))
+    r["amp_actif"]=r["gemm_amp"]>1.1*r["gemm_fp32"];r["precision_route"]="AMP" if r["amp_actif"] else "FP32"
+    print("ROUTEUR precision=%s : AMP %s (%.1f vs FP32 %.1f GFLOPS) | capacite=%s"%(r["precision_route"],"ACTIVE" if r["amp_actif"] else "COUPEE car plus lente",r["gemm_amp"],r["gemm_fp32"],torch.backends.cpu.get_cpu_capability() if DEV=="cpu" else "CUDA"))
     g,res=hpl(HN);r["hpl_fp64"]=g;r["hpl_residu"]=res
     print("HPL FP64 N=%d  %.1f GFLOPS  RESIDU=%.4f %s"%(HN,g,res,"PASSED" if res<16 else "FAILED"))
     ph=physique()
