@@ -5,12 +5,131 @@ HERE=os.path.dirname(os.path.abspath(__file__))
 class DeltaCore:
     def __init__(s,tol=1e-3,budget_mb=None):
         s.mem=DeltaMem(budget_mb=budget_mb,tol=tol,cold_dir=os.path.join(HERE,"delta_mem_cold"));s.qpu=DeltaQPUCache();s.loaded=s._load()
+        # DELTA_CORE_STATION_OVERLAY_V1
+        s.station_route=s._load_station_route()
     def _load(s):
         p=os.path.join(s.mem.dir,"index.json");n=0
         if os.path.exists(p):
             for k,m in json.load(open(p)).items():
                 if m.get("tier")=="COLD_DISK" and os.path.exists(m.get("path","")):s.mem.meta[k]=m;n+=1
         return n
+    def _load_station_route(s):
+        p=os.path.join(HERE,"delta_station_route.json")
+        if not os.path.exists(p):
+            return {"available":False,"route":{"OVERLAY":"UNAVAILABLE"}}
+        try:
+            r=json.load(open(p))
+            r["available"]=True
+            return r
+        except Exception as e:
+            return {"available":False,"route":{"OVERLAY":"UNAVAILABLE"},"error":str(e)}
+
+    def compute_route(s):
+        r=s.station_route
+        route=r.get("route",{})
+        ov=r.get("overlay",{})
+        return {
+            "station_available":r.get("available",False),
+            "overlay_route":route.get("OVERLAY","UNAVAILABLE"),
+            "overlay_active":ov.get("active",False),
+            "execution_view":ov.get("execution_view","NONE"),
+            "cpu":ov.get("cpu",{}),
+            "gpu":ov.get("gpu",{}),
+            "host":ov.get("host",{}),
+            "measurement":ov.get("measurement",{})
+        }
+
+    # DELTA_CORE_COMPUTE_V1
+    def compute(s,name="delta_compute",work=200000):
+        """
+        Execute une charge deterministe par la route DELTA Station/Overlay.
+
+        L'overlay fournit la topologie logique.
+        Le calcul physique reste execute par le host disponible.
+        """
+        import subprocess
+
+        route=s.compute_route()
+
+        if not route.get("station_available"):
+            raise RuntimeError("DELTA Station route unavailable")
+
+        if not route.get("overlay_active"):
+            raise RuntimeError("DELTA Overlay inactive")
+
+        env=os.environ.copy()
+        env["DELTA_OVERLAY_WORK"]=str(int(work))
+
+        p=subprocess.run(
+            [sys.executable,
+             os.path.join(HERE,"delta_overlay_scheduler.py")],
+            cwd=HERE,
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        if p.returncode != 0:
+            raise RuntimeError(
+                "DELTA Overlay execution failed: "
+                + p.stderr[-1000:]
+            )
+
+        rp=os.path.join(
+            HERE,
+            "delta_overlay_scheduler_result.json"
+        )
+
+        if not os.path.exists(rp):
+            raise RuntimeError(
+                "DELTA Overlay result missing"
+            )
+
+        r=json.load(open(rp))
+
+        if r.get("validation")!="PASSED":
+            raise RuntimeError(
+                "DELTA Overlay validation failed"
+            )
+
+        m=r["measurement"]
+
+        result={
+            "name":name,
+            "engine":"DELTA_OVERLAY",
+            "execution_view":
+                "RYZEN_RTX_OVER_XEON",
+            "host_execution":
+                r["host"]["execution"],
+            "overlay_cpu":
+                r["overlay_cpu"]["model"],
+            "overlay_threads":
+                r["overlay_cpu"]["threads"],
+            "scheduler":
+                r["overlay_cpu"]["scheduler"],
+            "overlay_gpu":
+                r["overlay_gpu"]["model"],
+            "overlay_gpu_execution":
+                r["overlay_gpu"]["execution"],
+            "logical_lanes":
+                m["logical_lanes"],
+            "physical_slots":
+                m["physical_slots_used"],
+            "iterations":
+                m["iterations"],
+            "wall_s":
+                m["wall_s"],
+            "cpu_s":
+                m["cpu_s"],
+            "signature":
+                m["signature"],
+            "validation":
+                r["validation"]
+        }
+
+        return result
+
     def put(s,name,x,tol=None):return s.mem.put(name,x,tol)
     def get(s,name):return s.mem.get(name)
     def quantum(s,name,qc,shots=1000,physical=False,policy="quality",tol=None):
@@ -34,7 +153,8 @@ class DeltaCore:
         age=(time.time()-json.load(open(rk))["date"])/3600 if os.path.exists(rk) else -1
         return {"ram_hot_MB":round(s.mem.used/2**20,2),"ram_budget_MB":round(s.mem.budget/2**20),"objets_memoire":len(s.mem.meta),"charges_depuis_disque":s.loaded,
                 "disque_froid_MB":round(cold/2**20,2),"cache_qpu_entrees":st["entries"],"cache_qpu_hits":st["hits_total"],"cache_qpu_MB":round(db/2**20,3),
-                "classement_qpu_age_h":round(age,1),"disque_libre_GB":round(shutil.disk_usage(HERE).free/2**30,1)}
+                "classement_qpu_age_h":round(age,1),"disque_libre_GB":round(shutil.disk_usage(HERE).free/2**30,1),
+                "compute_route":s.compute_route()}
 if __name__=="__main__":
     phys="--qpu" in sys.argv;D=DeltaCore();ok=True
     print("=== DELTA CORE : memoire typee + disque + cache QPU, soudes ===")
