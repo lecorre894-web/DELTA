@@ -37,6 +37,12 @@ class DeltaQPUCache:
         s.c.execute("insert into r(k,mode,counts,origin,created) values(?,?,?,?,?)",(k,mode,pack(counts),json.dumps(origin),out["created"]));s.c.commit()
         return dict(out,level="MISS_COMPUTED",wall=time.perf_counter()-t0)
     def _sim(s,qc,shots):
+        if os.environ.get("DELTA_SIM_CPU")!="1":
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    from delta_gpu_sim import sim_gpu;return sim_gpu(qc,shots)
+            except ImportError:pass
         import numpy as np
         from qiskit import transpile
         n=qc.num_qubits;t=transpile(qc.remove_final_measurements(inplace=False),basis_gates=["u","cx"],optimization_level=0)
