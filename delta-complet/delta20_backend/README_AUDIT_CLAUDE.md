@@ -24,7 +24,7 @@ Chaque chiffre provient d'un run réel, avec un journal ou un identifiant de job
 | float32 | ×1,08 seulement pour 29 bits perdus, **rejeté** |
 | Recherche vectorielle IVF, SIFT 1 M vecteurs réels, 7 cœurs | recall 0,988, ×24,3 face à la force brute parallèle, 0,35 ms/requête |
 
-### Pile DELTA — GitHub Codespaces (Xeon Platinum 8370C, 1 cœur, 2 hyperthreads)
+### Pile DELTA — GitHub Codespaces (Xeon Platinum 8573C, 1 cœur, 2 hyperthreads)
 
 | Couche | Résultat | Statut |
 |---|---|---|
