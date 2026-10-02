@@ -3,11 +3,13 @@ from qiskit import qasm2
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit_ibm_runtime import QiskitRuntimeService
 from qiskit_ibm_runtime.executor_sampler import Sampler
+from delta_upgrades import mem_guard
+assert mem_guard(),"MEMOIRE INSUFFISANTE"
 G=os.path.expanduser("~/delta_guest")
-cmd=["sudo","timeout","120","qemu-system-x86_64","-enable-kvm","-cpu","host,vendor=AuthenticAMD,model-id=AMD Ryzen 9 9950X3D 16-Core Processor","-smp","32","-m","512","-mem-prealloc","-kernel",G+"/vmlinuz","-initrd",G+"/initrd_qpu.gz","-append","console=ttyS0 quiet panic=-1","-nographic","-no-reboot"]
+cmd=["sudo","timeout","120","qemu-system-x86_64","-enable-kvm","-cpu","host,vendor=AuthenticAMD,model-id=AMD Ryzen 9 9950X3D 16-Core Processor","-smp","2","-m","512","-mem-prealloc","-kernel",G+"/vmlinuz","-initrd",G+"/initrd_qpu.gz","-append","console=ttyS0 quiet panic=-1","-nographic","-no-reboot"]
 t=time.perf_counter();out=subprocess.run(cmd,stdin=subprocess.DEVNULL,capture_output=True,text=True,errors="ignore").stdout.replace("\r","");tp=time.perf_counter()-t
-import re;prep=re.findall(r"QPU_PREP .*?FIN_PREP",out);print(prep[0] if prep else "QPU_PREP absent");print("ETAPE 1 socle Ryzen emule : circuit prepare en %.1f s (demarrage VM compris)"%tp)
-q=re.search(r"QASM:(OPENQASM.*?):FIN_QASM",out).group(1);qc=qasm2.loads(q);print("ETAPE 2 circuit recu du socle :",qc.num_qubits,"qubits,",qc.size(),"portes")
+import re,hashlib;prep=re.findall(r"QPU_PREP .*?FIN_PREP",out);print(prep[0] if prep else "QPU_PREP absent");print("ETAPE 1 socle Ryzen emule : circuit prepare en %.1f s (demarrage VM compris)"%tp)
+m=re.search(r"QASM:(OPENQASM.*?):SIG:([0-9a-f]{16}):FIN_QASM",out);q=m.group(1);assert hashlib.sha256(q.encode()).hexdigest()[:16]==m.group(2),"SIGNATURE INVALIDE";print("SIGNATURE VALIDE",m.group(2));qc=qasm2.loads(q);print("ETAPE 2 circuit recu du socle :",qc.num_qubits,"qubits,",qc.size(),"portes")
 assert os.environ.get("IQP_API_TOKEN") and os.environ.get("IQP_INSTANCE_CRN"),"SECRETS IBM ABSENTS"
 s=QiskitRuntimeService(channel="ibm_quantum_platform",token=os.environ["IQP_API_TOKEN"],instance=os.environ["IQP_INSTANCE_CRN"]);bk=None;lay=None
 if os.path.exists("delta_qpairs_best.json"):d=json.load(open("delta_qpairs_best.json"));bk=d.get("backend");lay=d["pairs"][0]
