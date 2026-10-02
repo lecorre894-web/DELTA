@@ -703,3 +703,40 @@ if (process.env.DELTA_QPU_EXECUTE === "1") {
 
 
 deltaUnifiedBackend.print();
+
+/* ============================================================
+ * DELTA REMOTE COMPUTE BRIDGE
+ * Codespaces = control node
+ * Remote Ryzen / RTX = execution node when physically reachable
+ * ============================================================ */
+
+console.log("");
+console.log("=== DELTA COMPUTE OVERLAY FABRIC ===");
+
+const deltaComputeOverlay =
+    require("./delta_backend/delta_compute_overlay.js");
+
+const deltaOverlayState = deltaComputeOverlay.print();
+
+console.log(
+    "DELTA_OVERLAY_ROUTE =",
+    deltaOverlayState.overlayActive
+        ? "RYZEN_RTX_OVER_XEON"
+        : "HOST_ONLY"
+);
+
+console.log("");
+
+console.log("=== DELTA REMOTE COMPUTE FABRIC ===");
+
+const deltaComputeBridge =
+    require("./delta_backend/delta_compute_bridge.js");
+
+const deltaComputeState = deltaComputeBridge.print();
+
+console.log(
+    "DELTA_COMPUTE_ROUTE =",
+    deltaComputeState.remote.connected
+        ? "REMOTE_PHYSICAL_NODE"
+        : "CODESPACES_LOCAL"
+);
