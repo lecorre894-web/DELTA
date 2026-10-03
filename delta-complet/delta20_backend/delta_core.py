@@ -183,3 +183,8 @@ DeltaCore.compute_mt=_delta_compute_mt
 def _delta_compute_bool(s,A,B,C,mode="auto"):
     from delta_hybrid import compute_bool;return compute_bool(A,B,C,mode)
 DeltaCore.compute_bool=_delta_compute_bool
+
+def _delta_compute_x512(s,reqs,prog="micro",n=None):
+    from delta_x512 import DeltaX512
+    D=DeltaX512(n,prog);r=D.compute(reqs);D.close();return r
+DeltaCore.compute_x512=_delta_compute_x512
