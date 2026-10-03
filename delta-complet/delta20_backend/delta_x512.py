@@ -37,7 +37,7 @@ class X512Core:
     def tpop(s,A,B,C,prog="micro"):
         n=len(A);pad=(-n)%16
         if pad:A,B,C=[np.concatenate([x,np.zeros(pad,np.uint64)]) for x in (A,B,C)]
-        A,B,C=[aligne(x) for x in (A,B,C)]
+        A,B,C=[x if (isinstance(x,np.ndarray) and x.dtype==np.uint64 and x.flags.c_contiguous and x.ctypes.data%64==0) else aligne(x) for x in (A,B,C)]  # pas de copie si deja aligne
         r=s.L.x512_run(s.c,0 if prog=="direct" else 1,A.ctypes.data,B.ctypes.data,C.ctypes.data,len(A)//8,s.ni.ctypes.data);return int(r),int(s.ni[0])
 def vecs(seed,nw):
     g=np.random.default_rng(seed);return [g.integers(0,2**63,nw,dtype=np.uint64)*np.uint64(2)+g.integers(0,2,nw,dtype=np.uint64) for _ in range(3)]
