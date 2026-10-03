@@ -1,0 +1,12 @@
+{
+ "commands": [
+  {"id":"marque","label":"Formule de René (marque)","argv":["python3","delta_marque.py"],"category":"VALIDATION","dangerous":false},
+  {"id":"bench_final","label":"Benchmark final en série","argv":["python3","delta_bench_final.py"],"category":"BENCHMARK","dangerous":false},
+  {"id":"world","label":"Benchmark monde","argv":["python3","delta_world_benchmark.py"],"category":"BENCHMARK","dangerous":false},
+  {"id":"xeon","label":"Benchmark Xeon","argv":["python3","delta_final_benchmark.py"],"category":"BENCHMARK","dangerous":false},
+  {"id":"delta","label":"Ordonnanceur DELTA","argv":["python3","delta_overlay_scheduler.py"],"category":"DELTA","dangerous":false},
+  {"id":"ryzen","label":"Émulation Ryzen","argv":["python3","delta_ryzen_emu.py"],"category":"CPU","dangerous":false},
+  {"id":"rtx","label":"Émulation RTX","argv":["python3","delta_rtx_emu_fast.py"],"category":"GPU","dangerous":false},
+  {"id":"qpu","label":"Tir IBM QPU","argv":["python3","delta_backend/ibm_qpu_execute.py"],"category":"QPU","dangerous":true}
+ ]
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DELTA Control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="tete">
+  <div class="marque">
+    <span class="delta" aria-hidden="true">Δ</span>
+    <div>
+      <h1>DELTA Control</h1>
+      <p class="sous"><span class="pouls" id="pouls"></span><span id="etat">Connexion au serveur…</span></p>
+    </div>
+  </div>
+  <div class="spectre" id="spectre" role="img" aria-label="Répartition des composants par provenance"></div>
+  <dl class="chiffres" id="chiffres"></dl>
+</header>
+
+<main class="grille">
+  <section class="bloc commandes" aria-labelledby="t-cmd">
+    <div class="bloc-tete"><h2 id="t-cmd">Lancer</h2><button class="arret" id="arret" type="button">Tout arrêter</button></div>
+    <div id="cmds" class="cmds"></div>
+  </section>
+
+  <section class="bloc composants" aria-labelledby="t-comp">
+    <div class="bloc-tete"><h2 id="t-comp">Composants mesurés</h2><span class="note" id="note-comp"></span></div>
+    <div class="filtres" id="filtres" role="tablist"></div>
+    <div id="cartes" class="cartes"></div>
+    <ul class="legende" id="legende"></ul>
+  </section>
+
+  <div class="cote">
+  <section class="bloc journal" aria-labelledby="t-log">
+    <div class="bloc-tete"><h2 id="t-log">Journal en direct</h2>
+      <label class="suivre"><input type="checkbox" id="suivre" checked> suivre</label></div>
+    <pre id="log" class="console" tabindex="0">Aucune commande lancée depuis le démarrage du serveur.</pre>
+  </section>
+
+  <section class="bloc jobs" aria-labelledby="t-jobs">
+    <div class="bloc-tete"><h2 id="t-jobs">Historique des jobs</h2></div>
+    <div id="jobs"></div>
+  </section>
+  </div>
+
+  <section class="bloc modules" aria-labelledby="t-mod">
+    <details>
+      <summary><h2 id="t-mod">Modules du dépôt</h2><span class="note" id="note-mod"></span></summary>
+      <div id="mods"></div>
+    </details>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>
