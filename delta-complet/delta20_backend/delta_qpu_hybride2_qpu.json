@@ -1,0 +1,45 @@
+{
+ "date": "2026-10-03 04:52",
+ "mode": "qpu",
+ "backend": "ibm_kingston",
+ "job_id": "db08h9k92g1c739a2240",
+ "chaine": [
+  109,
+  110,
+  111,
+  98,
+  91,
+  90,
+  89,
+  88,
+  87,
+  97
+ ],
+ "cout_erreurs": 0.07292966044595389,
+ "profondeur_2q": [
+  5,
+  5
+ ],
+ "options": [
+  "decouplage XY4",
+  "twirling mesure"
+ ],
+ "n": 10,
+ "shots": 4000,
+ "zz_voisins": [
+  0.9475,
+  0.9335,
+  0.936,
+  0.952,
+  0.9375,
+  0.9415,
+  0.9555,
+  0.9425,
+  0.9385
+ ],
+ "parite_z": 0.751,
+ "parite_x": 0.7745,
+ "pop": 0.832,
+ "fidelite_min": 0.80325,
+ "sig": "49f4ba1bd8b6"
+}

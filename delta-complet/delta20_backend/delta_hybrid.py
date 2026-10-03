@@ -29,7 +29,7 @@ class Hybride:
 def compute_bool(A,B,C,mode="auto"):return Hybride(A,B,C).run(mode)
 def zz(bits):
     """bits:(nq,shots) 0/1 -> correlations <Z_i Z_j> via le moteur hybride (popcount(i XOR j)=pc(i)+pc(j)-2pc(i ET j))."""
-    nq,sh=bits.shape;P=np.packbits(bits.astype(np.uint8),axis=1,bitorder="little");P=np.pad(P,((0,0),(0,(-P.shape[1])%8)));W=P.view(np.uint64)
+    nq,sh=bits.shape;P=np.packbits(bits.astype(np.uint8),axis=1,bitorder="little");P=np.ascontiguousarray(np.pad(P,((0,0),(0,(-P.shape[1])%8))));W=P.view(np.uint64)
     a=compute_bool(W,W,np.zeros(W.shape[1],np.uint64)).astype(np.int64);pc=np.diag(a);x=pc[:,None]+pc[None,:]-2*a;return 1-2*x/sh
 def _ref(A,B,C):
     return np.array([[int(np.unpackbits(((A[i]&B[j])^C).view(np.uint8)).sum()) for j in range(len(B))] for i in range(len(A))],np.uint64)
