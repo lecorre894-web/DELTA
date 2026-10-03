@@ -170,3 +170,12 @@ if __name__=="__main__":
     print("CHECKPOINT %d objets ecrits sur disque"%D.checkpoint())
     print("STATUS "+json.dumps(D.status(),ensure_ascii=False))
     print("DELTA_CORE_VALIDATION=%s"%("OK" if ok else "FAIL"))
+
+
+def _delta_compute_mt(self,reqs,n=None):
+    """Index unifie par contenu + multi-threads + accelerateur natif detecte."""
+    from delta_mt_accel import DeltaMTAccel
+    if getattr(self,"_mt",None) is None:
+        import atexit;self._mt=DeltaMTAccel(n);atexit.register(self._mt.close)
+    return self._mt.compute_batch(reqs)
+DeltaCore.compute_mt=_delta_compute_mt
