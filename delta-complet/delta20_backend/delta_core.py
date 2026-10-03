@@ -188,3 +188,8 @@ def _delta_compute_x512(s,reqs,prog="micro",n=None):
     from delta_x512 import DeltaX512
     D=DeltaX512(n,prog);r=D.compute(reqs);D.close();return r
 DeltaCore.compute_x512=_delta_compute_x512
+
+def _delta_tuiles_marquees(s,A,B,C,T=256):
+    from delta_marque import TuilesMarquees
+    return TuilesMarquees(A,B,C,T)
+DeltaCore.tuiles_marquees=_delta_tuiles_marquees

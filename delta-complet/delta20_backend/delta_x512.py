@@ -48,28 +48,37 @@ def _worker(wid,inq,outq,prog):
     while True:
         job=inq.get()
         if job is None:break
+        if isinstance(job,tuple) and job[0]=="INVALIDE":  # formule de Rene : seules les cles marquees sont effacees
+            n=sum(1 for k in job[1] if cache.pop(k,None) is not None);outq.put((wid,[],calc,ni,tc,n));continue
         out=[]
         for pos,key,seed,nw in job:
             r=cache.get(key)
             if r is None:
                 V=[aligne(v) for v in vecs(seed,nw)];t0=time.perf_counter();r,k=core.tpop(*V,prog=prog);tc+=time.perf_counter()-t0;cache[key]=r;calc+=1;ni+=k
             out.append((pos,r))
-        outq.put((wid,out,calc,ni,tc))
+        outq.put((wid,out,calc,ni,tc,0))
 class DeltaX512:
     """DELTA multi-coeurs X512 : un coeur X512 par worker, un worker par thread Xeon"""
     def __init__(s,n=None,prog="micro"):
         build()  # compile dans le parent : une erreur remonte ici au lieu de bloquer les workers
-        s.n=n or os.cpu_count();s.outq=mp.Queue();s.inq=[mp.Queue() for _ in range(s.n)]
-        s.P=[mp.Process(target=_worker,args=(i,s.inq[i],s.outq,prog),daemon=True) for i in range(s.n)];[p.start() for p in s.P]
+        ctx=mp.get_context("fork")  # fork explicite : les workers ne re-importent pas le script appelant
+        s.n=n or os.cpu_count();s.outq=ctx.Queue();s.inq=[ctx.Queue() for _ in range(s.n)]
+        s.P=[ctx.Process(target=_worker,args=(i,s.inq[i],s.outq,prog),daemon=True) for i in range(s.n)];[p.start() for p in s.P]
     def compute(s,reqs):
         parts=[[] for _ in range(s.n)]
         for pos,(key,seed,nw) in enumerate(reqs):parts[int(key[:8],16)%s.n].append((pos,key,seed,nw))
         for i in range(s.n):s.inq[i].put(parts[i])
         res=[None]*len(reqs);calc=0;ni=0;tc=0.0
         for _ in range(s.n):
-            w,out,c,k,t=s.outq.get();calc+=c;ni+=k;tc=max(tc,t)
+            w,out,c,k,t,_=s.outq.get();calc+=c;ni+=k;tc=max(tc,t)
             for pos,r in out:res[pos]=r
         return res,calc,ni,tc
+    def invalider(s,cles):
+        """marque : n'efface que les cles modifiees, chacune dans le cache de son worker ; renvoie le nombre effacees"""
+        parts=[[] for _ in range(s.n)]
+        for k in cles:parts[int(k[:8],16)%s.n].append(k)
+        for i in range(s.n):s.inq[i].put(("INVALIDE",parts[i]))
+        return sum(s.outq.get()[5] for _ in range(s.n))
     def close(s):
         for q in s.inq:q.put(None)
         [p.join() for p in s.P]
