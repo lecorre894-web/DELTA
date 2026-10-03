@@ -179,3 +179,7 @@ def _delta_compute_mt(self,reqs,n=None):
         import atexit;self._mt=DeltaMTAccel(n);atexit.register(self._mt.close)
     return self._mt.compute_batch(reqs)
 DeltaCore.compute_mt=_delta_compute_mt
+
+def _delta_compute_bool(s,A,B,C,mode="auto"):
+    from delta_hybrid import compute_bool;return compute_bool(A,B,C,mode)
+DeltaCore.compute_bool=_delta_compute_bool

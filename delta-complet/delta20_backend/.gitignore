@@ -8,3 +8,4 @@ delta_mem_cold/
 *.bak*
 *.db
 libdelta_accel.so
+libdelta_hybrid.so

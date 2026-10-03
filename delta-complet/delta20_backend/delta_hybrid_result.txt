@@ -1,0 +1,11 @@
+=== DELTA HYBRIDE : validation ===
+ 3x 5    1000 mots aleatoire | tuiles 1 dont plages 0 | auto/dense/standard = reference : OUI
+ 4x 4   49229 mots mixte     | tuiles 4 dont plages 2 | auto/dense/standard = reference : OUI
+16x16   32768 mots structure | tuiles 2 dont plages 2 | auto/dense/standard = reference : OUI
+ZZ qubits : copie 1.000 | inverse -1.000 | independant 0.006 -> OK
+=== DELTA HYBRIDE : banc 16x16, 64 tuiles mixtes ===
+standard   186.68 ms |    276 Gbit-op/s | x1.0 vs standard | sig 59c427956e2c
+dense       42.77 ms |   1205 Gbit-op/s | x4.4 vs standard | sig 59c427956e2c
+auto        23.16 ms |   2225 Gbit-op/s logiques | x8.1 vs standard | sig 59c427956e2c
+preparation (aiguillage + compression) 57 ms, une seule fois | AVX-512 True | memoire plages 45.3 Ko
+DELTA_HYBRIDE_VALIDATION=OK
