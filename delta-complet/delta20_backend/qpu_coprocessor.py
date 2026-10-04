@@ -4,7 +4,7 @@ from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2 as Sampler
 
-TOKEN = os.environ.get("QPU_API_TOKEN")
+TOKEN = os.environ.get("IQP_API_TOKEN")
 CORES = cpu_count()
 print(f"[XEON] Cœurs locaux détectés : {CORES}")
 
@@ -27,7 +27,7 @@ def build_ghz_circuit(n_qubits=5):
     return qc
 
 def submit_qpu_job_async():
-    service = QiskitRuntimeService(channel="ibm_quantum", token=TOKEN)
+    service = QiskitRuntimeService(channel="ibm_quantum_platform", token=TOKEN)
     backend = service.least_busy(operational=True, simulator=False)
     circuit = build_ghz_circuit()
     pm = generate_preset_pass_manager(target=backend.target, optimization_level=1)

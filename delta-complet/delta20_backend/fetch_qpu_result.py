@@ -5,7 +5,7 @@ BASE_DIR = "/workspaces/DELTA/delta-complet/delta20_backend"
 PENDING_FILE = os.path.join(BASE_DIR, "qpu_job_pending.json")
 RESULT_FILE = os.path.join(BASE_DIR, "delta_qpu_result.json")
 
-TOKEN = os.environ.get("QPU_API_TOKEN")
+TOKEN = os.environ.get("IQP_API_TOKEN")
 
 if not os.path.exists(PENDING_FILE):
     raise FileNotFoundError(f"Aucun job en attente trouvé à {PENDING_FILE}")
