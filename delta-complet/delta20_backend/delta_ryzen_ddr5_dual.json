@@ -1,0 +1,35 @@
+{
+  "architecture": "DELTA_RYZEN_DDR5_DUAL",
+  "mode": "DUAL_CHANNEL_LOGICAL",
+  "physical_cache_modified": false,
+  "memories": {
+    "DDR5_EXP_A": {
+      "zones": 16,
+      "zone_kib": 64,
+      "block_bytes": 128,
+      "capacity_bytes": 1048576
+    },
+    "DDR5_EXP_B": {
+      "zones": 16,
+      "zone_kib": 64,
+      "block_bytes": 128,
+      "capacity_bytes": 1048576
+    }
+  },
+  "controller": {
+    "channels": 2,
+    "mapping": "A_B_INTERLEAVED_BY_128B_BLOCK",
+    "channel_A": "DDR5_EXP_A",
+    "channel_B": "DDR5_EXP_B"
+  },
+  "aggregate": {
+    "logical_zones": 32,
+    "working_set_kib": 2048,
+    "working_set_mib": 2.0
+  },
+  "reference": {
+    "cachemap16_gb_s": 234.116005,
+    "classification": "EXPERIMENTAL_MEASURED_REFERENCE",
+    "dual_bandwidth": "TO_BE_MEASURED"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "benchmark": "DELTA_FINAL_BENCHMARK_V1",
+  "dspc_channels": 1,
+  "components": {
+    "xeon": {
+      "name": "XEON_FMA",
+      "classification": "PHYSICAL_MEASURED",
+      "source": "bench_fma/RESULTATS.md",
+      "status": "PASSED",
+      "wall_ms": 9182.0,
+      "gflops": 182.72
+    },
+    "delta": {
+      "name": "DELTA_ENGINE",
+      "classification": "PHYSICAL_MEASURED_ON_HOST",
+      "task": "DETERMINISTIC_INTEGER_KERNEL",
+      "iterations": 1000000,
+      "wall_ms": 322.23878799959493,
+      "iterations_per_second": 3103288.7325819293,
+      "signature": "11093828714169872921",
+      "status": "PASSED"
+    },
+    "ryzen": {
+      "name": "RYZEN_9950X3D",
+      "classification": "EMULATED_ON_XEON",
+      "wall_ms": 3109.2458399998577,
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout_tail": "=== DELTA RYZEN EMU : 9950X3D (16 coeurs, 32 threads SMT, AVX-512 x16) sur Xeon ===\nVECTOR_ADD THREAD EXACT | Xeon 0.1390 s | vrai Ryzen 1.80e-04 s [MESURE 2 OCT] | ecart x774 | charge/coeur max 65536\nVECTOR_ADD LOTS   EXACT | Xeon 0.0028 s | vrai Ryzen 1.80e-04 s [MESURE 2 OCT] | ecart x16 | charge/coeur max 65536\nVECTOR_ADD GAIN FONCTIONNEL = x49.5\nMATMUL     THREAD EXACT | Xeon 0.0072 s | vrai Ryzen 1.60e-04 s [MESURE 2 OCT] | ecart x45 | charge/coeur max 32\nMATMUL     LOTS   EXACT | Xeon 0.0048 s | vrai Ryzen 1.60e-04 s [MESURE 2 OCT] | ecart x30 | charge/coeur max 32\nMATMUL     GAIN FONCTIONNEL = x1.5\nRYZEN_EMU_VALIDATION=OK\n",
+      "stderr_tail": ""
+    },
+    "rtx": {
+      "name": "RTX_4080",
+      "classification": "EMULATED_ON_XEON",
+      "wall_ms": 552.9007869999987,
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout_tail": "=== DELTA RTX EMU : warp par warp vs FONCTIONNEL par lots (memes kernels) ===\nVECTOR_ADD WARP  warps= 32768 EXACT | Xeon 0.1659 s | vraie RTX 1.29e-07 s [MODELE] | ecart x1282949\nVECTOR_ADD LOTS  warps= 32768 EXACT | Xeon 0.0198 s | vraie RTX 1.29e-07 s [MODELE] | ecart x153340\nVECTOR_ADD GAIN FONCTIONNEL = x8.4\nMATMUL     WARP  warps=  2048 EXACT | Xeon 0.0502 s | vraie RTX 1.64e-06 s [MODELE] | ecart x30675\nMATMUL     LOTS  warps=  2048 EXACT | Xeon 0.1649 s | vraie RTX 1.64e-06 s [MODELE] | ecart x100835\nMATMUL     GAIN FONCTIONNEL = x0.3\nRTX_EMU_FAST_VALIDATION=OK\n",
+      "stderr_tail": ""
+    },
+    "qpu": {
+      "name": "IBM_QPU",
+      "classification": "PHYSICAL_QPU_NOT_EXECUTED_THIS_RUN",
+      "status": "SKIPPED",
+      "reason": "DELTA_FINAL_QPU != 1"
+    }
+  },
+  "validation": "PASSED"
+}

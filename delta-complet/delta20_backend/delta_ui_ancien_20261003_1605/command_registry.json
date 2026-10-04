@@ -1,0 +1,16 @@
+{
+  "commands": [
+    {
+      "id": "fresh_benchmark",
+      "label": "BENCHMARK",
+      "argv": ["python3", "delta_world_benchmark.py"],
+      "category": "BENCHMARK"
+    },
+    {
+      "id": "qpu_validation",
+      "label": "QPU",
+      "argv": ["python3", "delta_backend/ibm_hardware_attest.py"],
+      "category": "QPU"
+    }
+  ]
+}

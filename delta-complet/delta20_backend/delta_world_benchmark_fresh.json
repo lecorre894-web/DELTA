@@ -1,0 +1,93 @@
+{
+  "benchmark": "DELTA_WORLD_FRESH_V1",
+  "fresh_measurements_only": true,
+  "dspc": {
+    "channels": 1,
+    "active": 1,
+    "mode": "SINGLE_DSPC"
+  },
+  "jobs_total": 5,
+  "world_time": {
+    "ns": 28194478602,
+    "us": 28194478.602,
+    "ms": 28194.478602
+  },
+  "results": [
+    {
+      "label": "XEON",
+      "classification": "PHYSICAL_MEASURED",
+      "program": "delta_platform.py",
+      "jobs": 1,
+      "time_ns": 874483493,
+      "time_us": 874483.493,
+      "time_ms": 874.483493,
+      "gflops": null,
+      "job_ids": [],
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout": "=== DELTA PLATEFORME VIRTUELLE INTRA-NOEUD : D.compute_platform() ===\nFP64 -> RYZEN_9950X3D_EMU EXACT err=0.0e+00 | unites 16/16 | Xeon 0.0087 s | vrai 3.50e-04 s [MESURE STATION 2 OCT] | ecart x25 | sig fe7da23d4d533b43\nFP32 -> RTX_4080_EMU      EXACT err=8.9e-07 | unites 76/76 | Xeon 0.0113 s | vrai 7.15e-06 s [MESURE STATION 2 OCT] | ecart x1580 | sig 54c02c60d37f7d33\nAMP  -> RTX_4080_EMU      EXACT err=8.5e-07 | unites 76/76 | Xeon 0.0089 s | vrai 3.20e-06 s [MESURE STATION 2 OCT] | ecart x2782 | sig 7da73c67671d9b9d\nDELTA_PLATFORM_VALIDATION=OK\n",
+      "stderr": ""
+    },
+    {
+      "label": "DELTA",
+      "classification": "PHYSICAL_MEASURED_ON_HOST",
+      "program": "delta_core.py::DeltaCore.compute",
+      "jobs": 1,
+      "time_ns": 4837739702,
+      "time_us": 4837739.702,
+      "time_ms": 4837.739702,
+      "gflops": null,
+      "iterations_per_second": null,
+      "signature": "5a04b468c976232b731f0cb85c4e6857f911f7d777ab2bbff09923cd3f7ae246",
+      "status": "PASSED"
+    },
+    {
+      "label": "RYZEN 9 9950X3D",
+      "classification": "EMULATED_ON_XEON",
+      "program": "delta_ryzen_emu.py",
+      "jobs": 1,
+      "time_ns": 457247415,
+      "time_us": 457247.415,
+      "time_ms": 457.247415,
+      "gflops": null,
+      "job_ids": [],
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout": "=== DELTA RYZEN EMU : 9950X3D (16 coeurs, 32 threads SMT, AVX-512 x16) sur Xeon ===\nVECTOR_ADD THREAD EXACT | Xeon 0.1616 s | vrai Ryzen 1.80e-04 s [MESURE 2 OCT] | ecart x899 | charge/coeur max 65536\nVECTOR_ADD LOTS   EXACT | Xeon 0.0041 s | vrai Ryzen 1.80e-04 s [MESURE 2 OCT] | ecart x23 | charge/coeur max 65536\nVECTOR_ADD GAIN FONCTIONNEL = x39.5\nMATMUL     THREAD EXACT | Xeon 0.0145 s | vrai Ryzen 1.60e-04 s [MESURE 2 OCT] | ecart x90 | charge/coeur max 32\nMATMUL     LOTS   EXACT | Xeon 0.0017 s | vrai Ryzen 1.60e-04 s [MESURE 2 OCT] | ecart x11 | charge/coeur max 32\nMATMUL     GAIN FONCTIONNEL = x8.3\nRYZEN_EMU_VALIDATION=OK\n",
+      "stderr": ""
+    },
+    {
+      "label": "RTX 4080",
+      "classification": "EMULATED_ON_XEON",
+      "program": "delta_rtx_emu_fast.py",
+      "jobs": 1,
+      "time_ns": 698616691,
+      "time_us": 698616.691,
+      "time_ms": 698.616691,
+      "gflops": null,
+      "job_ids": [],
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout": "=== DELTA RTX EMU : warp par warp vs FONCTIONNEL par lots (memes kernels) ===\nVECTOR_ADD WARP  warps= 32768 EXACT | Xeon 0.1648 s | vraie RTX 1.29e-07 s [MODELE] | ecart x1273993\nVECTOR_ADD LOTS  warps= 32768 EXACT | Xeon 0.0196 s | vraie RTX 1.29e-07 s [MODELE] | ecart x151844\nVECTOR_ADD GAIN FONCTIONNEL = x8.4\nMATMUL     WARP  warps=  2048 EXACT | Xeon 0.0494 s | vraie RTX 1.64e-06 s [MODELE] | ecart x30190\nMATMUL     LOTS  warps=  2048 EXACT | Xeon 0.1742 s | vraie RTX 1.64e-06 s [MODELE] | ecart x106510\nMATMUL     GAIN FONCTIONNEL = x0.3\nRTX_EMU_FAST_VALIDATION=OK\n",
+      "stderr": ""
+    },
+    {
+      "label": "IBM QPU",
+      "classification": "PHYSICAL_MEASURED",
+      "program": "delta_backend/ibm_qpu_execute.py",
+      "jobs": 1,
+      "time_ns": 21322553322,
+      "time_us": 21322553.322,
+      "time_ms": 21322.553322,
+      "gflops": null,
+      "job_ids": [
+        "db0i432vog1s73fgrsa0"
+      ],
+      "returncode": 0,
+      "status": "PASSED",
+      "stdout": "{\"qpuExecution\": \"PHYSICAL_MEASURED\", \"quantumProvider\": \"IBM_QUANTUM\", \"quantumBackend\": \"ibm_fez\", \"physicalQubits\": 156, \"physicalQuantumHardware\": true, \"ibmJobId\": \"db0i432vog1s73fgrsa0\", \"shots\": 1024, \"counts\": {\"0\": 536, \"1\": 488}}\n",
+      "stderr": "qiskit_runtime_service._discover_account:WARNING:2026-10-03 15:40:52,647: Loading account with the given token. A saved account will not be used.\n"
+    }
+  ],
+  "validation": "PASSED"
+}
