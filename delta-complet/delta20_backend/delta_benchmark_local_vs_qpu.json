@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-04",
+  "projet": "DELTA",
+  "mesures": {
+    "local_aer": {
+      "machine": "GitHub Codespaces basicLow (2 vCPU, 8 Go RAM)",
+      "simulateur": "qiskit_aer AerSimulator, max_parallel_threads=2",
+      "circuit": "RX(0.7) + chaine CX, 50 couches, shots=1000",
+      "resultat": "24 qubits en 105.89 s",
+      "limite_estimee": "~25-26 qubits (plafond memoire 8 Go)"
+    },
+    "qpu_ibm": {
+      "backend": "ibm_fez (Heron, 156 qubits)",
+      "circuit": "GHZ 30 qubits (H + chaine CX), shots=100",
+      "resultat": "38 s (file d'attente + execution)"
+    }
+  },
+  "backends_disponibles": ["ibm_fez", "ibm_kingston", "ibm_marrakesh"],
+  "authentification": "IQP_API_TOKEN + IQP_INSTANCE_CRN, channel ibm_quantum_platform",
+  "frontiere": "Local Aer plafonne ~25 qubits (8 Go RAM) ; au-dela, QPU IBM"
+}
