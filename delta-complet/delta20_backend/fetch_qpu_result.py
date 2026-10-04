@@ -13,7 +13,7 @@ if not os.path.exists(PENDING_FILE):
 with open(PENDING_FILE) as f:
     pending = json.load(f)
 
-service = QiskitRuntimeService(channel="ibm_quantum", token=TOKEN)
+service = QiskitRuntimeService(channel="ibm_quantum_platform", token=TOKEN)
 job = service.job(pending["job_id"])
 status = job.status()
 print(f"[QPU] Job {pending['job_id']} ({pending['backend']}) : {status}")
