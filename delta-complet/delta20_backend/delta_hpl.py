@@ -37,7 +37,7 @@ k=int(min(100000,max(1000,BUDGET/(8*32*32*3))));S=rng.random((k,32,32))+32*np.ey
 print("PETITS_JOBS %d systemes 32x32 WALL=%.3f s US_PAR_JOB=%.2f JOBS_PAR_S=%.0f"%(k,t,t/k*1e6,k/t))
 print("--- CLASSEMENT (Rmax = meilleur HPL mesure) ---")
 print("RMAX_DELTA=%.2f GFLOPS"%best)
-print("TOP500 #500 juin 2026 = %.2f PFLOPS -> facteur x%.0f, il faudrait ~%.0f Codespaces SANS perte reseau [PROJECTION]"%(TOP500_PF,TOP500_PF*1e6/best,TOP500_PF*1e6/best))
+print("TOP500 #500 juin 2026 = %.2f PFLOPS -> facteur x%.0f, il faudrait ~%.0f machines identiques a celle-ci SANS perte reseau [PROJECTION]"%(TOP500_PF,TOP500_PF*1e6/best,TOP500_PF*1e6/best))
 print("TOP500 #1 juin 2026 = %.0f PFLOPS -> facteur x%.2e [PROJECTION]"%(TOP1_PF,TOP1_PF*1e6/best))
 f=2/3*NS[-1]**3
 print("DELAI THEORIQUE du #1 pour notre plus gros HPL (N=%d) = %.3f us a Rmax plein [PROJECTION, petit probleme = machine sous-utilisee]"%(NS[-1],f/(TOP1_PF*1e15)*1e6))
