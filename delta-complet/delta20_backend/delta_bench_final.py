@@ -38,9 +38,9 @@ def main():
         c=X512Core();nw=16384;A,B,C=[aligne(g.integers(0,2**63,nw,dtype=np.uint64)) for _ in range(3)]
         for p in("direct","micro"):
             k=c.tpop(A,B,C,p)[1];s=serie(lambda:c.tpop(A,B,C,p),max(SER,20));ligne("coeur X512 %s 1 Mbit (L2)"%p,s,3*nw*64/s["med"]/1e9,"Gbit-op/s");OUT["coeur X512 %s 1 Mbit (L2)"%p]["G_instr_X512_s"]=k/s["med"]/1e9;print("%-34s %.2f G instr X512/s (appel Python compris)"%("",k/s["med"]/1e9))
-        from delta_x512 import DeltaX512
+        import delta_resident
         reqs=[(hashlib.sha256(b"b%d"%(i%40)).hexdigest(),i%40,16384) for i in range(400)]
-        def run():D=DeltaX512(None,"micro");D.compute(reqs);D.close()
+        def run(): return delta_resident.compute(reqs)
         s=serie(run,max(3,SER//3));ligne("DELTA x X512 %d workers (400 dem.)"%os.cpu_count(),s,400/s["med"],"demandes/s")
     except Exception as e:print("X512 : ABSENT (%s)"%e);ABS.append("X512")
     section("4. LOGICIEL AVX2048 (binaires du labo, en serie)")
