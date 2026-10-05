@@ -1,0 +1,8 @@
+# tpop direct : 1 instruction fusionnee par vecteur
+loop k NV
+  xld X1, A, k
+  xld X2, B, k
+  xld X3, C, k
+  tpop R0, X1, X2, X3, 0x6A
+end
+flush R0

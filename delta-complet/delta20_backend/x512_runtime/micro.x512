@@ -1,0 +1,13 @@
+# micro-registres : ternlog puis cumul dans les plans caches de X0, un seul comptage au vidage
+loop k NV/2
+  xld X1, A, 2*k
+  xld X2, B, 2*k
+  xld X3, C, 2*k
+  xtern X4, X1, X2, X3, 0x6A
+  xld X1, A, 2*k+1
+  xld X2, B, 2*k+1
+  xld X3, C, 2*k+1
+  xtern X5, X1, X2, X3, 0x6A
+  macc X0, X4, X5
+end
+mread R1, X0
