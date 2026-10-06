@@ -1,0 +1,10 @@
+DELTA X512 V19 FUSION GPU | NVIDIA GeForce RTX 4080 | 76 SM | requete = graine neuve -> 3 x NW mots -> popcount(C^(A&B))
+NW_mots    Mo_eq    GRILLE           US/REQ        REQ/S       Gbit/s    VALID
+65536      1.5      256x256           6.040       165564       2083.3     PASS
+262144     6.0      608x256           6.418       155821       7842.7     PASS
+1048576    24.0     608x256           7.667       130421      26257.3     PASS
+4194304    96.0     608x256          14.651        68252      54964.1     PASS
+16777216   384.0    608x256          45.854        21808      70248.9     PASS
+67108864   1536.0   608x256         173.920         5750      74085.0     PASS
+Note : US/REQ = temps GPU par requete, lancements en file (sans aller-retour Python par requete).
+Reference CPU (v17, fusion 16 coeurs) : 65536=1.212 us | 262144=3.084 | 1048576=10.681 | 4194304=40.964
