@@ -1,0 +1,99 @@
+==============================================================================
+ DUCB-1 — UNIVERSAL SAT BENCHMARK
+ Ryzen / CaDiCaL / Kissat / DELTA / DELTA-QPU / IBM PHYSICAL QPU
+==============================================================================
+
+------------------------------------------------------------------------------
+ COMMON SAT — EXACT CPU REFERENCE
+------------------------------------------------------------------------------
+CPU_SAT= True
+CPU_MODEL= [1, 0, 1]
+CPU_TIME_SEC=0.000008700
+COMMON_DIMACS= /home/rene/delta_sat_lab/ducb1_common.cnf
+
+CADICAL_COMMON_BEGIN=YES
+CADICAL_COMMON=SAT
+CADICAL_COMMON_RC=10
+CADICAL_COMMON_TIME_SEC=0.005735517
+
+KISSAT_COMMON_BEGIN=YES
+KISSAT_COMMON=SAT
+KISSAT_COMMON_RC=10
+KISSAT_COMMON_TIME_SEC=0.002170263
+
+------------------------------------------------------------------------------
+ DELTA BIT64 — COMMON SAT
+------------------------------------------------------------------------------
+DELTA_BIT64_RC=1
+DELTA_BIT64_TIME_SEC=0.023807989
+DELTA_BIT64>   File "/home/rene/DELTA/delta-complet/delta20_backend/delta_dimacs_sat.py", line 136, in <module>
+DELTA_BIT64>   File "/home/rene/DELTA/delta-complet/delta20_backend/delta_dimacs_sat.py", line 59, in load_dimacs
+DELTA_BIT64>         f"clause non-3-SAT: {len(pending)} littéraux"
+DELTA_BIT64> ValueError: clause non-3-SAT: 2 littéraux
+
+------------------------------------------------------------------------------
+ DELTA QPU LOGICAL — COMMON SAT
+------------------------------------------------------------------------------
+DELTA_QBIT_EXECUTION=LOGICAL_EMULATED
+DELTA_QPU_SAT= True
+DELTA_QPU_MODEL= [1, 0, 1]
+DELTA_QPU_TIME_SEC=0.000009510
+
+==============================================================================
+ IBM PHYSICAL QPU — SAT GROVER
+==============================================================================
+IBM_SAT_VARIABLES= 3
+IBM_ORACLE_QUBITS= 3
+IBM_SHOTS= 2048
+IBM_LOGICAL_DEPTH= 4
+IBM_BACKEND= ibm_marrakesh
+IBM_BACKEND_QUBITS= 156
+IBM_PENDING_JOBS= 0
+IBM_ISA_DEPTH= 38
+IBM_ISA_SIZE= 52
+IBM_ISA_OPS= {'sx': 18, 'rz': 17, 'cz': 10, 'x': 4, 'measure': 3, 'barrier': 1}
+IBM_TRANSPILATION_SEC=0.050513
+
+IBM_QPU_JOB_SUBMISSION=REAL
+IBM_QPU_EXECUTION=PHYSICAL_SUBMITTED
+IBM_JOB_ID= db1rah1b694s73dsn3e0
+IBM_WAITING_FOR_RESULT=YES
+IBM_RESULT_RECEIVED=YES
+IBM_SUBMIT_TO_RESULT_SEC=11.912703
+
+------------------------------------------------------------------------------
+ IBM SAT PHYSICAL MEASUREMENTS
+------------------------------------------------------------------------------
+IBM_MEASURED_SHOTS= 2048
+IBM_VALID_SAT_SHOTS= 1817
+IBM_INVALID_SHOTS= 231
+IBM_VALID_SAT_RATE=0.887207031
+IBM_TOP_MEASUREMENTS=
+101 975 SAT=True ASSIGNMENT=[1, 0, 1]
+111 842 SAT=True ASSIGNMENT=[1, 1, 1]
+110 59 SAT=False ASSIGNMENT=[0, 1, 1]
+001 44 SAT=False ASSIGNMENT=[1, 0, 0]
+011 44 SAT=False ASSIGNMENT=[1, 1, 0]
+100 41 SAT=False ASSIGNMENT=[0, 0, 1]
+010 25 SAT=False ASSIGNMENT=[0, 1, 0]
+000 18 SAT=False ASSIGNMENT=[0, 0, 0]
+IBM_SAT=YES
+IBM_MODEL= [1, 0, 1]
+IBM_MODEL_CLASSICALLY_VALIDATED=YES
+
+==============================================================================
+ DUCB-1 — FINAL CLASSIFICATION
+==============================================================================
+CPU_BRIDGE_EXECUTION=PHYSICAL_MEASURED
+DELTA_QBIT_EXECUTION=LOGICAL_EMULATED
+IBM_QPU_EXECUTION=PHYSICAL_MEASURED
+
+COMMON_SAT_REFERENCE_MODEL= [1, 0, 1]
+IBM_PHYSICAL_VALID_RATE= 0.887207031
+IBM_PHYSICAL_BACKEND= ibm_marrakesh
+IBM_PHYSICAL_QUBITS_USED= 3
+IBM_PHYSICAL_SHOTS= 2048
+
+DUCB1_COMMON_SAT=COMPLETE
+DUCB1_IBM_PHYSICAL_SAT=COMPLETE
+==============================================================================

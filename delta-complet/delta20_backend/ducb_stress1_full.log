@@ -1,0 +1,61 @@
+==============================================================================
+ DUCB-STRESS-1 ADAPTIVE MULTI-SUPPORT
+==============================================================================
+
+[1/5] RYZEN PHYSICAL
+RYZEN workers= 1 PASS wall=5.025s
+RYZEN workers= 2 PASS wall=5.025s
+RYZEN workers= 4 PASS wall=5.022s
+RYZEN workers= 8 PASS wall=5.023s
+RYZEN workers=16 PASS wall=5.024s
+RYZEN workers=32 PASS wall=5.025s
+
+[2/5] DELTA X512 NATIVE
+X512 workers= 1 PASS wall=0.245916s Gbitop/s=6.549 sig=21302eff06063343
+X512 workers= 2 PASS wall=0.126401s Gbitop/s=12.742 sig=21302eff06063343
+X512 workers= 4 PASS wall=0.062723s Gbitop/s=25.678 sig=21302eff06063343
+X512 workers= 8 PASS wall=0.049704s Gbitop/s=32.404 sig=21302eff06063343
+X512 workers=16 PASS wall=0.035094s Gbitop/s=45.895 sig=21302eff06063343
+X512 workers=32 PASS wall=0.036726s Gbitop/s=43.855 sig=21302eff06063343
+
+[3/5] DELTA BIT64 NATIVE
+BIT64 level= 1 PASS clauses=  64 tested=21261120 Mcand/s=18848.494 checksum=0
+BIT64 level= 2 PASS clauses= 128 tested=536870912 Mcand/s=5731.519 checksum=0
+BIT64 level= 4 PASS clauses= 256 tested=268435456 Mcand/s=2840.506 checksum=0
+BIT64 level= 8 PASS clauses= 512 tested=134217728 Mcand/s=5551.197 checksum=0
+BIT64 level=16 PASS clauses=1024 tested=67108864 Mcand/s=3887.281 checksum=0
+BIT64 level=32 PASS clauses=2048 tested=33554432 Mcand/s=4470.486 checksum=0
+
+[4/5] DELTA QPU LOGICAL
+DELTA_QPU level= 1 PASS lanes=65536 Mlane/s=4.717 checksum=96b1cbeb0528dd02
+DELTA_QPU level= 2 PASS lanes=131072 Mlane/s=4.707 checksum=dc867ae351ac774b
+DELTA_QPU level= 4 PASS lanes=262144 Mlane/s=4.704 checksum=d348e5d5fdd2040d
+DELTA_QPU level= 8 PASS lanes=524288 Mlane/s=4.706 checksum=dc2f1db3ff46d46e
+DELTA_QPU level=16 PASS lanes=1048576 Mlane/s=4.709 checksum=928330017b1db63a
+DELTA_QPU level=32 PASS lanes=2097152 Mlane/s=4.708 checksum=dab43555c21bd992
+
+[5/5] IBM PHYSICAL QPU
+IBM backend=ibm_kingston depth=1541 2Q=688
+IBM_JOB_ID= db1s00eegvvc73bi2uq0
+IBM PASS shots=2048 unique=256 wall=8.211s digest=49ccf8e858e98ae2
+
+==============================================================================
+ DUCB-STRESS-1 FINAL
+==============================================================================
+RYZEN      PASS class=PHYSICAL_CPU best_load=32
+BIT64      PASS class=DELTA_BIT64_NATIVE best_load=1
+X512       PASS class=DELTA_AVX512_NATIVE best_load=16
+DELTA_QPU  PASS class=LOGICAL_EMULATED best_load=1
+IBM_QPU    PASS class=PHYSICAL_QPU best_load=1
+
+STABILITY_WINNER=TIE:RYZEN,X512,BIT64,DELTA_QPU,IBM_QPU
+SCALING_WINNER=TIE:RYZEN
+CONTEXT_VECTOR=DELTA_X512
+CONTEXT_BITPARALLEL=DELTA_BIT64
+CONTEXT_GENERAL=RYZEN
+CONTEXT_SCHEDULER=DELTA_QPU
+CONTEXT_QUANTUM=IBM_QPU
+
+WINNER=DELTA_X512
+DUCB_STRESS1_COMPLETE=YES
+==============================================================================

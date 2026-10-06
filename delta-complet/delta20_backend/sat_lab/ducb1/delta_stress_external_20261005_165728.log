@@ -1,0 +1,160 @@
+====================================================================
+ EXTERNAL STRESS-NG — MULTI-SUPPORT BASELINE
+====================================================================
+DATE=2026-10-05T16:57:28+02:00
+CPU=AMD Ryzen 9 9950X3D 16-Core Processor
+LOGICAL_CPUS=32
+MEMORY:
+               total        used        free      shared  buff/cache   available
+Mem:            47Gi       1.4Gi        45Gi       3.6Mi       653Mi        45Gi
+Swap:           12Gi          0B        12Gi
+
+stress-ng, version 0.20.01 (gcc 15.2.0, x86_64 Linux 6.18.33.2-microsoft-standard-WSL2)
+
+====================================================================
+ STAGE=1_WORKERS
+====================================================================
+stress-ng: 16:57:28.73 info:  [5635] setting to a 1 min run per stressor
+stress-ng: 16:57:28.75 info:  [5635] dispatching hogs: 1 cpu
+stress-ng: 16:58:28.75 metrc: [5635] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 16:58:28.75 metrc: [5635]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 16:58:28.75 metrc: [5635] cpu              166123     60.00     59.95      0.00      2768.71        2770.96        99.92          9060
+stress-ng: 16:58:28.75 info:  [5635] for a 60.00s run time:
+stress-ng: 16:58:28.75 info:  [5635]    1920.08s available CPU time
+stress-ng: 16:58:28.75 info:  [5635]      59.94s user time   (  3.12%)
+stress-ng: 16:58:28.75 info:  [5635]       0.00s system time (  0.00%)
+stress-ng: 16:58:28.75 info:  [5635]      59.94s total time  (  3.12%)
+stress-ng: 16:58:28.75 info:  [5635] load average: 0.66 0.27 0.27
+stress-ng: 16:58:28.75 info:  [5635] skipped: 0
+stress-ng: 16:58:28.75 info:  [5635] passed: 1: cpu (1)
+stress-ng: 16:58:28.75 info:  [5635] failed: 0
+stress-ng: 16:58:28.75 info:  [5635] metrics untrustworthy: 0
+stress-ng: 16:58:28.75 info:  [5635] successful run completed in 1 min
+STAGE_WORKERS=1
+STAGE_RC=0
+STAGE_WALL_SEC=60.026178
+STAGE_STATUS=PASS
+
+====================================================================
+ STAGE=2_WORKERS
+====================================================================
+stress-ng: 16:58:33.79 info:  [5659] setting to a 1 min run per stressor
+stress-ng: 16:58:33.81 info:  [5659] dispatching hogs: 2 cpu
+stress-ng: 16:59:33.81 metrc: [5659] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 16:59:33.81 metrc: [5659]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 16:59:33.81 metrc: [5659] cpu              329116     60.00    120.00      0.00      5485.20        2742.64       100.00          8680
+stress-ng: 16:59:33.81 info:  [5659] for a 60.00s run time:
+stress-ng: 16:59:33.81 info:  [5659]    1920.12s available CPU time
+stress-ng: 16:59:33.81 info:  [5659]     120.00s user time   (  6.25%)
+stress-ng: 16:59:33.81 info:  [5659]       0.00s system time (  0.00%)
+stress-ng: 16:59:33.81 info:  [5659]     120.00s total time  (  6.25%)
+stress-ng: 16:59:33.81 info:  [5659] load average: 1.49 0.58 0.38
+stress-ng: 16:59:33.81 info:  [5659] skipped: 0
+stress-ng: 16:59:33.81 info:  [5659] passed: 2: cpu (2)
+stress-ng: 16:59:33.81 info:  [5659] failed: 0
+stress-ng: 16:59:33.81 info:  [5659] metrics untrustworthy: 0
+stress-ng: 16:59:33.81 info:  [5659] successful run completed in 1 min
+STAGE_WORKERS=2
+STAGE_RC=0
+STAGE_WALL_SEC=60.028157
+STAGE_STATUS=PASS
+
+====================================================================
+ STAGE=4_WORKERS
+====================================================================
+stress-ng: 16:59:38.85 info:  [5684] setting to a 1 min run per stressor
+stress-ng: 16:59:38.87 info:  [5684] dispatching hogs: 4 cpu
+stress-ng: 17:00:38.87 metrc: [5684] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 17:00:38.87 metrc: [5684]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 17:00:38.87 metrc: [5684] cpu              650092     60.00    240.00      0.00     10834.78        2708.72       100.00          8900
+stress-ng: 17:00:38.87 info:  [5684] for a 60.00s run time:
+stress-ng: 17:00:38.87 info:  [5684]    1920.12s available CPU time
+stress-ng: 17:00:38.87 info:  [5684]     239.99s user time   ( 12.50%)
+stress-ng: 17:00:38.87 info:  [5684]       0.00s system time (  0.00%)
+stress-ng: 17:00:38.87 info:  [5684]     239.99s total time  ( 12.50%)
+stress-ng: 17:00:38.87 info:  [5684] load average: 3.04 1.20 0.61
+stress-ng: 17:00:38.87 info:  [5684] skipped: 0
+stress-ng: 17:00:38.87 info:  [5684] passed: 4: cpu (4)
+stress-ng: 17:00:38.87 info:  [5684] failed: 0
+stress-ng: 17:00:38.87 info:  [5684] metrics untrustworthy: 0
+stress-ng: 17:00:38.87 info:  [5684] successful run completed in 1 min
+STAGE_WORKERS=4
+STAGE_RC=0
+STAGE_WALL_SEC=60.027853
+STAGE_STATUS=PASS
+
+====================================================================
+ STAGE=8_WORKERS
+====================================================================
+stress-ng: 17:00:43.91 info:  [5741] setting to a 1 min run per stressor
+stress-ng: 17:00:43.93 info:  [5741] dispatching hogs: 8 cpu
+stress-ng: 17:01:43.93 metrc: [5741] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 17:01:43.93 metrc: [5741]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 17:01:43.93 metrc: [5741] cpu             1244404     60.00    479.99      0.01     20739.88        2592.49       100.00          8696
+stress-ng: 17:01:43.93 info:  [5741] for a 60.00s run time:
+stress-ng: 17:01:43.93 info:  [5741]    1920.14s available CPU time
+stress-ng: 17:01:43.93 info:  [5741]     479.99s user time   ( 25.00%)
+stress-ng: 17:01:43.93 info:  [5741]       0.01s system time (  0.00%)
+stress-ng: 17:01:43.93 info:  [5741]     480.00s total time  ( 25.00%)
+stress-ng: 17:01:43.93 info:  [5741] load average: 6.09 2.42 1.07
+stress-ng: 17:01:43.93 info:  [5741] skipped: 0
+stress-ng: 17:01:43.93 info:  [5741] passed: 8: cpu (8)
+stress-ng: 17:01:43.93 info:  [5741] failed: 0
+stress-ng: 17:01:43.93 info:  [5741] metrics untrustworthy: 0
+stress-ng: 17:01:43.93 info:  [5741] successful run completed in 1 min
+STAGE_WORKERS=8
+STAGE_RC=0
+STAGE_WALL_SEC=60.028079
+STAGE_STATUS=PASS
+
+====================================================================
+ STAGE=16_WORKERS
+====================================================================
+stress-ng: 17:01:48.97 info:  [5772] setting to a 1 min run per stressor
+stress-ng: 17:01:48.99 info:  [5772] dispatching hogs: 16 cpu
+stress-ng: 17:02:48.99 metrc: [5772] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 17:02:48.99 metrc: [5772]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 17:02:48.99 metrc: [5772] cpu             2320326     60.00    959.98      0.01     38672.47        2417.03       100.00          8976
+stress-ng: 17:02:48.99 info:  [5772] for a 60.01s run time:
+stress-ng: 17:02:48.99 info:  [5772]    1920.17s available CPU time
+stress-ng: 17:02:48.99 info:  [5772]     959.98s user time   ( 49.99%)
+stress-ng: 17:02:48.99 info:  [5772]       0.01s system time (  0.00%)
+stress-ng: 17:02:48.99 info:  [5772]     959.99s total time  ( 50.00%)
+stress-ng: 17:02:48.99 info:  [5772] load average: 12.18 4.86 2.00
+stress-ng: 17:02:48.99 info:  [5772] skipped: 0
+stress-ng: 17:02:48.99 info:  [5772] passed: 16: cpu (16)
+stress-ng: 17:02:48.99 info:  [5772] failed: 0
+stress-ng: 17:02:48.99 info:  [5772] metrics untrustworthy: 0
+stress-ng: 17:02:48.99 info:  [5772] successful run completed in 1 min
+STAGE_WORKERS=16
+STAGE_RC=0
+STAGE_WALL_SEC=60.029612
+STAGE_STATUS=PASS
+
+====================================================================
+ STAGE=32_WORKERS
+====================================================================
+stress-ng: 17:02:54.04 info:  [5814] setting to a 1 min run per stressor
+stress-ng: 17:02:54.05 info:  [5814] dispatching hogs: 32 cpu
+stress-ng: 17:03:54.06 metrc: [5814] stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s CPU used per       RSS Max
+stress-ng: 17:03:54.06 metrc: [5814]                           (secs)    (secs)    (secs)   (real time) (usr+sys time) instance (%)          (KB)
+stress-ng: 17:03:54.06 metrc: [5814] cpu             3895414     60.00   1919.67      0.06     64925.70        2029.15        99.99          8772
+stress-ng: 17:03:54.06 info:  [5814] for a 60.01s run time:
+stress-ng: 17:03:54.06 info:  [5814]    1920.19s available CPU time
+stress-ng: 17:03:54.06 info:  [5814]    1919.67s user time   ( 99.97%)
+stress-ng: 17:03:54.06 info:  [5814]       0.05s system time (  0.00%)
+stress-ng: 17:03:54.06 info:  [5814]    1919.72s total time  ( 99.98%)
+stress-ng: 17:03:54.06 info:  [5814] load average: 24.46 9.77 3.88
+stress-ng: 17:03:54.06 info:  [5814] skipped: 0
+stress-ng: 17:03:54.06 info:  [5814] passed: 32: cpu (32)
+stress-ng: 17:03:54.06 info:  [5814] failed: 0
+stress-ng: 17:03:54.06 info:  [5814] metrics untrustworthy: 0
+stress-ng: 17:03:54.06 info:  [5814] successful run completed in 1 min
+STAGE_WORKERS=32
+STAGE_RC=0
+STAGE_WALL_SEC=60.030075
+STAGE_STATUS=PASS
+
+====================================================================
+ EXTERNAL_STRESS_COMPLETE
+====================================================================

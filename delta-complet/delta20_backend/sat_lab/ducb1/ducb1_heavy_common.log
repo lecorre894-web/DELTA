@@ -1,0 +1,24 @@
+================================================================================
+ DUCB-1 HEAVY COMMON — SAT
+ Ryzen / CaDiCaL / Kissat / DELTA BIT64 / DELTA QPU / IBM QPU
+================================================================================
+IBM_BACKEND= ibm_kingston
+IBM_BACKEND_QUBITS= 156
+IBM_PENDING_JOBS= 1
+
+--------------------------------------------------------------------------------
+ IBM PRE-FLIGHT — NO QPU JOB
+--------------------------------------------------------------------------------
+
+TRY_NV=8
+TRY_CLAUSES=34
+EXACT_MODEL_COUNT=2
+EXACT_ENUM_SEC=0.000190
+GROVER_ITERATIONS=8
+LOGICAL_DEPTH= 18
+ISA_DEPTH= 9919
+ISA_SIZE= 17533
+ISA_2Q= 3992
+ISA_OPS= {'sx': 8526, 'rz': 4915, 'cz': 3992, 'x': 92, 'measure': 8, 'barrier': 1}
+TRANSPILATION_SEC=0.102747
+PREFLIGHT=REJECT_TOO_HEAVY

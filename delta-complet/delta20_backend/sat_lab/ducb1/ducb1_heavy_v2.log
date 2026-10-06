@@ -1,0 +1,221 @@
+==================================================================================
+ DUCB-1 HEAVY V2 ADAPTIVE
+ Ryzen / CaDiCaL / Kissat / DELTA V1 / DELTA QPU ON / IBM QPU
+==================================================================================
+MAX_DEPTH= 6000
+MAX_2Q= 3000
+SHOTS= 4096
+
+IBM_BACKEND= ibm_marrakesh
+IBM_BACKEND_QUBITS= 156
+IBM_PENDING_JOBS= 1
+
+==================================================================================
+ ADAPTIVE IBM PREFLIGHT — ZERO QPU JOBS
+==================================================================================
+
+##################################################################################
+ VARIABLE LEVEL = 8
+##################################################################################
+NV= 8 NC= 12 M=   49 ITER=1 DEPTH= 4836 2Q= 1972 TRANS=0.090s ACCEPT
+NV= 8 NC= 12 M=   49 ITER=2 DEPTH= 9705 2Q= 4052 TRANS=0.127s REJECT
+NV= 8 NC= 12 M=   49 ITER=3 DEPTH=14714 2Q= 6155 TRANS=0.120s REJECT
+NV= 8 NC= 16 M=   30 ITER=1 DEPTH= 5765 2Q= 2325 TRANS=0.062s ACCEPT
+NV= 8 NC= 16 M=   30 ITER=2 DEPTH=11242 2Q= 4675 TRANS=0.131s REJECT
+NV= 8 NC= 16 M=   30 ITER=3 DEPTH=16915 2Q= 7077 TRANS=0.165s REJECT
+NV= 8 NC= 20 M=   17 ITER=1 DEPTH= 2863 2Q= 1091 TRANS=0.073s ACCEPT
+NV= 8 NC= 20 M=   17 ITER=2 DEPTH= 5923 2Q= 2314 TRANS=0.065s ACCEPT
+NV= 8 NC= 20 M=   17 ITER=3 DEPTH= 8957 2Q= 3602 TRANS=0.094s REJECT
+NV= 8 NC= 24 M=   11 ITER=1 DEPTH= 4969 2Q= 1922 TRANS=0.066s ACCEPT
+NV= 8 NC= 24 M=   11 ITER=2 DEPTH= 9782 2Q= 3768 TRANS=0.096s REJECT
+NV= 8 NC= 24 M=   11 ITER=3 DEPTH=14089 2Q= 5680 TRANS=0.117s REJECT
+NV= 8 NC= 28 M=    8 ITER=1 DEPTH= 1703 2Q=  715 TRANS=0.050s ACCEPT
+NV= 8 NC= 28 M=    8 ITER=2 DEPTH= 3608 2Q= 1501 TRANS=0.072s ACCEPT
+NV= 8 NC= 28 M=    8 ITER=3 DEPTH= 5338 2Q= 2203 TRANS=0.059s ACCEPT
+
+##################################################################################
+ VARIABLE LEVEL = 10
+##################################################################################
+NV=10 NC= 15 M=  142 ITER=1 DEPTH= 6984 2Q= 3340 TRANS=0.111s REJECT
+NV=10 NC= 15 M=  142 ITER=2 DEPTH=14364 2Q= 6837 TRANS=0.125s REJECT
+NV=10 NC= 15 M=  142 ITER=3 DEPTH=21964 2Q=10202 TRANS=0.215s REJECT
+NV=10 NC= 20 M=   75 ITER=1 DEPTH=18934 2Q= 8336 TRANS=0.177s REJECT
+NV=10 NC= 20 M=   75 ITER=2 DEPTH=39941 2Q=18029 TRANS=0.292s REJECT
+NV=10 NC= 20 M=   75 ITER=3 DEPTH=58465 2Q=25758 TRANS=0.464s REJECT
+NV=10 NC= 25 M=   23 ITER=1 DEPTH= 7066 2Q= 3095 TRANS=0.110s REJECT
+NV=10 NC= 25 M=   23 ITER=2 DEPTH=13544 2Q= 5895 TRANS=0.133s REJECT
+NV=10 NC= 25 M=   23 ITER=3 DEPTH=21879 2Q= 9660 TRANS=0.164s REJECT
+NV=10 NC= 30 M=   19 ITER=1 DEPTH= 9809 2Q= 4174 TRANS=0.151s REJECT
+NV=10 NC= 30 M=   19 ITER=2 DEPTH=19557 2Q= 8361 TRANS=0.148s REJECT
+NV=10 NC= 30 M=   19 ITER=3 DEPTH=29623 2Q=12791 TRANS=0.289s REJECT
+NV=10 NC= 35 M=   22 ITER=1 DEPTH=12682 2Q= 5493 TRANS=0.150s REJECT
+NV=10 NC= 35 M=   22 ITER=2 DEPTH=25144 2Q=10964 TRANS=0.229s REJECT
+NV=10 NC= 35 M=   22 ITER=3 DEPTH=39118 2Q=17305 TRANS=0.263s REJECT
+
+##################################################################################
+ VARIABLE LEVEL = 12
+##################################################################################
+NV=12 NC= 18 M=  453 ITER=1 DEPTH=47245 2Q=25468 TRANS=0.508s REJECT
+NV=12 NC= 18 M=  453 ITER=2 DEPTH=91962 2Q=49367 TRANS=0.727s REJECT
+NV=12 NC= 18 M=  453 ITER=3 DEPTH=141473 2Q=77437 TRANS=1.133s REJECT
+NV=12 NC= 24 M=  147 ITER=1 DEPTH=37901 2Q=18441 TRANS=0.509s REJECT
+NV=12 NC= 24 M=  147 ITER=2 DEPTH=77634 2Q=38687 TRANS=0.607s REJECT
+NV=12 NC= 24 M=  147 ITER=3 DEPTH=120839 2Q=61131 TRANS=1.127s REJECT
+NV=12 NC= 30 M=  125 ITER=1 DEPTH=25603 2Q=13412 TRANS=0.378s REJECT
+NV=12 NC= 30 M=  125 ITER=2 DEPTH=52361 2Q=27566 TRANS=0.407s REJECT
+NV=12 NC= 30 M=  125 ITER=3 DEPTH=77917 2Q=40802 TRANS=0.581s REJECT
+NV=12 NC= 36 M=   54 ITER=1 DEPTH= 9806 2Q= 5229 TRANS=0.321s REJECT
+NV=12 NC= 36 M=   54 ITER=2 DEPTH=20376 2Q=11547 TRANS=0.184s REJECT
+NV=12 NC= 36 M=   54 ITER=3 DEPTH=31003 2Q=17473 TRANS=0.297s REJECT
+NV=12 NC= 42 M=    1 ITER=1 DEPTH= 6610 2Q= 2909 TRANS=0.327s REJECT
+NV=12 NC= 42 M=    1 ITER=2 DEPTH=13557 2Q= 6001 TRANS=0.119s REJECT
+NV=12 NC= 42 M=    1 ITER=3 DEPTH=20650 2Q= 9272 TRANS=0.211s REJECT
+
+##################################################################################
+ VARIABLE LEVEL = 14
+##################################################################################
+NV=14 NC= 21 M= 1042 ITER=1 DEPTH=58324 2Q=35529 TRANS=1.113s REJECT
+NV=14 NC= 21 M= 1042 ITER=2 DEPTH=116733 2Q=71448 TRANS=2.189s REJECT
+NV=14 NC= 21 M= 1042 ITER=3 DEPTH=176308 2Q=107876 TRANS=3.293s REJECT
+NV=14 NC= 28 M=  354 ITER=1 DEPTH=22008 2Q=13665 TRANS=0.905s REJECT
+NV=14 NC= 28 M=  354 ITER=2 DEPTH=44456 2Q=27434 TRANS=1.780s REJECT
+NV=14 NC= 28 M=  354 ITER=3 DEPTH=66886 2Q=41720 TRANS=2.671s REJECT
+NV=14 NC= 35 M=  306 ITER=1 DEPTH=84618 2Q=44472 TRANS=1.522s REJECT
+NV=14 NC= 35 M=  306 ITER=2 DEPTH=169586 2Q=88912 TRANS=3.122s REJECT
+NV=14 NC= 35 M=  306 ITER=3 DEPTH=254593 2Q=134596 TRANS=4.786s REJECT
+NV=14 NC= 42 M=  112 ITER=1 DEPTH=53147 2Q=26551 TRANS=1.382s REJECT
+NV=14 NC= 42 M=  112 ITER=2 DEPTH=108673 2Q=54339 TRANS=3.240s REJECT
+NV=14 NC= 42 M=  112 ITER=3 DEPTH=162231 2Q=81210 TRANS=4.247s REJECT
+NV=14 NC= 49 M=   38 ITER=1 DEPTH= 9228 2Q= 4464 TRANS=1.266s REJECT
+NV=14 NC= 49 M=   38 ITER=2 DEPTH=18699 2Q= 9365 TRANS=2.533s REJECT
+NV=14 NC= 49 M=   38 ITER=3 DEPTH=28633 2Q=14445 TRANS=3.713s REJECT
+
+==================================================================================
+ V2 SELECTED HEAVY COMMON SAT
+==================================================================================
+SELECTED_NV= 8
+SELECTED_CLAUSES= 28
+SELECTED_EXACT_SOLUTIONS= 8
+SELECTED_ITERATIONS= 3
+SELECTED_ISA_DEPTH= 5338
+SELECTED_ISA_2Q= 2203
+SELECTED_ISA_OPS= {'sx': 4609, 'rz': 2616, 'cz': 2203, 'x': 92, 'measure': 8, 'barrier': 1}
+SELECTED_DIMACS= /home/rene/delta_sat_lab/ducb1_heavy_v2_8v_28c.cnf
+
+==================================================================================
+ RYZEN SUPPORT / EXACT ENUMERATION
+==================================================================================
+RYZEN_RESULT= SAT
+RYZEN_MODEL_COUNT= 8
+RYZEN_SEC=0.000196801
+CPU_BRIDGE_EXECUTION=PHYSICAL_MEASURED
+
+==================================================================================
+  CADICAL
+==================================================================================
+CADICAL_RESULT=SAT
+CADICAL_RC=10
+CADICAL_SEC=0.005482427
+
+==================================================================================
+  KISSAT
+==================================================================================
+KISSAT_RESULT=SAT
+KISSAT_RC=10
+KISSAT_SEC=0.002161239
+
+==================================================================================
+ DELTA V1 / BIT64
+==================================================================================
+DELTA_V1_RC= 0
+DELTA_V1_SEC=0.012759816
+DELTA_V1> === DELTA DIMACS SAT ===
+DELTA_V1> FILE=/home/rene/delta_sat_lab/ducb1_heavy_v2_8v_28c.cnf
+DELTA_V1> FORMAT=DIMACS_CNF_3SAT
+DELTA_V1> KNOWN_SOLUTION_GIVEN_TO_SOLVER=NO
+DELTA_V1> TESTED=17
+DELTA_V1> CANDIDATES_PER_SECOND=2160101.530
+DELTA_V1> RESULT=SAT
+DELTA_V1> SOLUTION_INTEGER=16
+DELTA_V1> INDEPENDENT_DIMACS_VALIDATION=PASSED
+DELTA_V1> SOLVER_CLASS=DELTA_BIT64_EXACT_3SAT
+
+==================================================================================
+ DELTA QPU ON
+==================================================================================
+DELTA_QBIT_EXECUTION=LOGICAL_EMULATED
+DELTA_QPU_ON_RESULT= SAT
+DELTA_QPU_ON_TESTED= 17
+DELTA_QPU_ON_MODEL= [0, 0, 0, 0, 1, 0, 0, 0]
+DELTA_QPU_ON_SEC=0.000034050
+
+==================================================================================
+ IBM PHYSICAL QPU — V2 HEAVY COMMON
+==================================================================================
+IBM_BACKEND= ibm_marrakesh
+IBM_PHYSICAL_QUBITS= 156
+IBM_LOGICAL_SAT_VARIABLES= 8
+IBM_CLAUSES= 28
+IBM_GROVER_ITERATIONS= 3
+IBM_ISA_DEPTH= 5338
+IBM_ISA_2Q= 2203
+IBM_SHOTS= 4096
+
+IBM_QPU_JOB_SUBMISSION=REAL
+IBM_QPU_EXECUTION=PHYSICAL_SUBMITTED
+IBM_JOB_ID= db1rflbid5ic73eriie0
+IBM_WAITING_FOR_RESULT=YES
+IBM_RESULT_RECEIVED=YES
+IBM_SUBMIT_TO_RESULT_SEC=13.386400
+
+==================================================================================
+ IBM PHYSICAL SAT MEASUREMENTS
+==================================================================================
+IBM_MEASURED_SHOTS= 4096
+IBM_VALID_SAT_SHOTS= 102
+IBM_INVALID_SHOTS= 3994
+IBM_VALID_SAT_RATE=0.024902344
+IBM_TOP_RESULTS=
+00100011 35 SAT=False
+00100100 33 SAT=False
+10100010 33 SAT=False
+11100001 30 SAT=False
+00100000 30 SAT=False
+10100000 30 SAT=False
+00101111 29 SAT=False
+00101010 29 SAT=False
+10101000 28 SAT=False
+00100001 28 SAT=False
+01100001 27 SAT=False
+10100011 27 SAT=False
+IBM_SAT=YES
+IBM_MODEL= [0, 0, 0, 1, 1, 0, 1, 0]
+IBM_MODEL_SHOTS= 18
+IBM_MODEL_CLASSICALLY_VALIDATED=YES
+
+==================================================================================
+ DUCB-1 HEAVY V2 — FINAL
+==================================================================================
+COMMON_SAT=8 VARIABLES / 28 CLAUSES
+EXACT_SOLUTIONS= 8
+
+RYZEN_EXACT_SEC=0.000196801
+CADICAL_RESULT=SAT SEC=0.005482427
+KISSAT_RESULT=SAT SEC=0.002161239
+DELTA_V1_SEC=0.012759816
+DELTA_QPU_ON_SEC=0.000034050
+IBM_SUBMIT_TO_RESULT_SEC=13.386400
+IBM_VALID_SAT_RATE=0.024902344
+
+CPU_BRIDGE_EXECUTION=PHYSICAL_MEASURED
+DELTA_QBIT_EXECUTION=LOGICAL_EMULATED
+IBM_QPU_EXECUTION=PHYSICAL_MEASURED
+IBM_BACKEND= ibm_marrakesh
+IBM_BACKEND_QUBITS= 156
+IBM_USED_VARIABLE_QUBITS= 8
+IBM_ISA_DEPTH= 5338
+IBM_ISA_2Q= 2203
+IBM_SHOTS= 4096
+
+DUCB1_HEAVY_V2_COMPLETE=YES
+==================================================================================
