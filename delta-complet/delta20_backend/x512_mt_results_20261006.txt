@@ -9,3 +9,4 @@ V7 WINDOWS NATIF (mingw -static, 1 thread/coeur physique, tri L3)
 T=1 9.538us | T=4 1.590 | T=8 CCD0 1.048 | T=8 CCD1 0.9935 RECORD 9.29x | T=12 1.155 | T=16 1.164
 BORNE: L2 ~32B/cycle/coeur ; T=16 calcul ~0.54us + sync inter-CCD ~0.6us ; cible 0.456 hors physique a 1.5MB/passe
 PROCHAINE: V8 = V7 + drapeaux par thread + remontee hierarchique CCD (objectif ~0.65-0.75us a T=16)
+V8 WINDOWS NATIF (drapeaux par thread): T=8 CCD1 0.955090 RECORD 9.67x | T=16 CCD1 plat 0.981672 (v7 1.164) | hierarchique CCD plus lent -> abandonne
