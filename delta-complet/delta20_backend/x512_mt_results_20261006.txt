@@ -11,3 +11,4 @@ BORNE: L2 ~32B/cycle/coeur ; T=16 calcul ~0.54us + sync inter-CCD ~0.6us ; cible
 PROCHAINE: V8 = V7 + drapeaux par thread + remontee hierarchique CCD (objectif ~0.65-0.75us a T=16)
 V8 WINDOWS NATIF (drapeaux par thread): T=8 CCD1 0.955090 RECORD 9.67x | T=16 CCD1 plat 0.981672 (v7 1.164) | hierarchique CCD plus lent -> abandonne
 V9 (hyp. A,B fixes, AB=A&B precalcule, 1 Mo/passe): T=8 CCD1 0.677782us RECORD 13.62x v3 / 1.41x v8 | T>8 inter-CCD +0.2-0.3us -> optimum 1 CCD | borne L2 ~33B/cycle ; cible 0.456 exige -1/3 octets -> levier algorithmique DELTA
+BILAN vs FASTPATH_PREVIOUS_US=45.579 (meme NW=65536): V8 0.955us = 47.7x | V9 (A,B fixes) 0.678us = 67.2x | DIV100 0.456us non atteint: plafond L2 ; levier restant = mise a jour incrementale dans un vrai usage DELTA
