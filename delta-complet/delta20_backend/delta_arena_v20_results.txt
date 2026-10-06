@@ -1,0 +1,19 @@
+====================================================================================================
+DELTA ARENA V20 | PC BRUT (outils standard) vs PILE DELTA (moteurs optimises) | meme machine | QPU EMULE, aucun QPU reel
+====================================================================================================
+-- EPREUVE 1 : TPOP LOURD, 4 194 304 mots x 3 (96 Mo par requete), graine neuve par requete --
+PC brut  NumPy            :     162661.8 us/requete
+DELTA    fusion GPU v19   :       14.877 us/requete  validation=PASS  -> 10934x
+DELTA    fusion CPU v17   :       40.964 us/requete  (16 coeurs, journal v17, valide PASS) -> 3971x
+-- EPREUVE 2 : QPU EMULE, circuit aleatoire H/RZ + echelle CX --
+validation n=12 simulateur DELTA-NumPy vs Qiskit : fidelite=1.000000000000 PASS
+validation n=12 simulateur DELTA-GPU vs Qiskit : fidelite=1.000000000000 PASS
+n=16 (  470 portes,     1.0 Mo)  PC brut Qiskit :         47.0 ms
+n=16                              DELTA GPU     :         29.6 ms  -> 1.6x
+n=20 (  590 portes,    16.0 Mo)  PC brut Qiskit :       2560.8 ms
+n=20                              DELTA GPU     :        377.4 ms  -> 6.8x
+n=22 (  650 portes,    64.0 Mo)  PC brut Qiskit :      12573.5 ms
+n=22                              DELTA GPU     :       1912.0 ms  -> 6.6x
+n=24 (  710 portes,   256.0 Mo)  PC brut Qiskit : saute (trop long)
+n=24                              DELTA GPU     :       7107.7 ms
+====================================================================================================
