@@ -3,3 +3,5 @@ V4 T=16 BEST_US=1.432120
 V5 T=8  BEST_US=1.124484 (drapeaux par thread: pas de gain)
 V5 T=16 MODE0 BEST_US=1.295704 / MODE1 1.570093 (hierarchique: perte)
 CONCLUSION: borne L2 par coeur + WSL2; cible 0.455790 FAIL; levier restant = moins d octets lus
+V6 (pin 2*id) T=8 BEST_US=1.049908 = V4 -> epinglage sans effet sous WSL2 (vCPU places par Hyper-V)
+PLAFOND_WSL2 ~1.04us a T=8 ; prochaine etape: V7 Windows natif (SetThreadAffinityMask, w64devkit)
