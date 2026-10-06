@@ -1,0 +1,19 @@
+======================================================================================================================
+DELTA X512 BENCH GLOBAL 2026-10-06 17:36:19 | Ryzen 9 9950X3D | NW=65536 x 3 = 12 582 912 bits/passe
+======================================================================================================================
+VERSION                           CONTRAT     COEURS             us          ns         ms     passes/s   Gbit/s  Gmots/s  x NumPy x 45.579
+Pipeline NumPy DELTA (gen+tpop)   complet     1 (Python)   2025.925   2025925.0   2.025925          494      6.2     0.10        1      0.0
+v3 noyau natif (WSL)              complet     1               9.069      9069.3   0.009069      110 262   1387.4    21.68      206      5.0
+v7 Windows natif                  complet     8 CCD1          0.997       996.7   0.000997    1 003 273  12624.1   197.25     1870     45.7
+v8 drapeaux par thread            complet     8 CCD1          0.953       953.5   0.000953    1 048 775  13196.6   206.20     1955     47.8
+v9 masque AB precalcule           A B fixes   8 CCD1          0.688       687.9   0.000688    1 453 630  18290.9   285.80     2710     66.3
+v11 BIAS maitre 15%               A B fixes   8 CCD1          0.648       648.2   0.000648    1 542 846  19413.5   303.34     2876     70.3
+v13 fusion gen+tpop               gen+calcul  1               9.149      9149.0   0.009149      109 302   1375.3    21.49      204      5.0
+v14 fusion multi-coeur            gen+calcul  8 CCD1          1.323      1323.4   0.001323      755 620   9507.9   148.56     1408     34.4
+v15 fusion 16 flux                gen+calcul  16              1.189      1188.7   0.001189      841 258  10585.5   165.40     1568     38.3
+v16 fusion 32 flux                gen+calcul  16              1.185      1184.8   0.001185      844 011  10620.1   165.94     1573     38.5
+----------------------------------------------------------------------------------------------------------------------
+v12 incremental (64 mots modifies)64 mots     1               0.059        59.4   0.000059   16 831 050  (contrat different : 64 mots/appel  pas 65536)
+----------------------------------------------------------------------------------------------------------------------
+Gbit/s = bits logiques traites par passe / temps ; pour la fusion, les bits sont generes en registres puis consommes (aucune lecture memoire).
+x NumPy = vs pipeline DELTA reference 1864 us (generation NumPy + tpop) ; x 45.579 = vs FASTPATH_PREVIOUS du noyau seul.
