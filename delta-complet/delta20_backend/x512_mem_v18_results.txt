@@ -1,0 +1,50 @@
+DELTA X512 V18 ACCES MEMOIRE RECONSTRUIT | requete = graine neuve -> 3 x NW mots -> popcount(C^(A&B))
+NW_mots    Mo/req   CONFIG                    METHODE            US/REQ        REQ/S     Gbit/s      VALID   REQUETES
+262144     6.0      8 coeurs CCD1             F fusion            4.813       207784    10458.1       PASS      60728
+262144     6.0      8 coeurs CCD1             M1 ecr+relec        7.002       142825     7188.6       PASS      29940
+262144     6.0      8 coeurs CCD1             M2 NT+relec       307.181         3255      163.9       PASS        979
+262144     6.0      8 coeurs CCD1             M3 calc+ecr         5.064       197463     9938.6       PASS      30674
+262144     6.0      8 coeurs CCD1             M4 calc+NT        199.287         5018      252.6       PASS       1495
+262144     6.0      8 coeurs CCD0 (V-cache)   F fusion            5.035       198603     9996.0       PASS      32397
+262144     6.0      8 coeurs CCD0 (V-cache)   M1 ecr+relec        7.311       136772     6884.0       PASS      18891
+262144     6.0      8 coeurs CCD0 (V-cache)   M2 NT+relec       309.558         3230      162.6       PASS        991
+262144     6.0      8 coeurs CCD0 (V-cache)   M3 calc+ecr         5.320       187953     9460.0       PASS      22455
+262144     6.0      8 coeurs CCD0 (V-cache)   M4 calc+NT        202.292         4943      248.8       PASS       1487
+262144     6.0      16 coeurs                 F fusion            3.080       324648    16340.1       PASS      96774
+262144     6.0      16 coeurs                 M1 ecr+relec        5.063       197506     9940.8       PASS       7342
+262144     6.0      16 coeurs                 M2 NT+relec       199.668         5008      252.1       PASS       1521
+262144     6.0      16 coeurs                 M3 calc+ecr         3.546       282010    14194.0       PASS       7218
+262144     6.0      16 coeurs                 M4 calc+NT        109.474         9135      459.8       PASS       2741
+
+1048576    24.0     8 coeurs CCD1             F fusion           18.848        53056    10681.6       PASS      16375
+1048576    24.0     8 coeurs CCD1             M1 ecr+relec       60.592        16504     3322.7       PASS       5472
+1048576    24.0     8 coeurs CCD1             M2 NT+relec      1227.640          815      164.0       PASS        243
+1048576    24.0     8 coeurs CCD1             M3 calc+ecr        27.607        36222     7292.5       PASS       8296
+1048576    24.0     8 coeurs CCD1             M4 calc+NT        813.393         1229      247.5       PASS        367
+1048576    24.0     8 coeurs CCD0 (V-cache)   F fusion           19.530        51202    10308.4       PASS      14018
+1048576    24.0     8 coeurs CCD0 (V-cache)   M1 ecr+relec       48.265        20719     4171.3       PASS       6239
+1048576    24.0     8 coeurs CCD0 (V-cache)   M2 NT+relec      1228.444          814      163.9       PASS        243
+1048576    24.0     8 coeurs CCD0 (V-cache)   M3 calc+ecr        29.657        33719     6788.5       PASS       7473
+1048576    24.0     8 coeurs CCD0 (V-cache)   M4 calc+NT        818.929         1221      245.8       PASS        364
+1048576    24.0     16 coeurs                 F fusion           10.758        92950    18713.3       PASS      30800
+1048576    24.0     16 coeurs                 M1 ecr+relec       24.536        40757     8205.5       PASS       1838
+1048576    24.0     16 coeurs                 M2 NT+relec       793.674         1260      253.7       PASS        382
+1048576    24.0     16 coeurs                 M3 calc+ecr        15.045        66468    13381.8       PASS       1993
+1048576    24.0     16 coeurs                 M4 calc+NT        427.486         2339      471.0       PASS        703
+
+4194304    96.0     8 coeurs CCD1             F fusion           74.707        13386    10779.6       PASS       4293
+4194304    96.0     8 coeurs CCD1             M1 ecr+relec     3941.187          254      204.3       PASS         75
+4194304    96.0     8 coeurs CCD1             M2 NT+relec      4818.597          208      167.1       PASS         62
+4194304    96.0     8 coeurs CCD1             M3 calc+ecr      2603.253          384      309.3       PASS        113
+4194304    96.0     8 coeurs CCD1             M4 calc+NT       3221.094          310      250.0       PASS         93
+4194304    96.0     8 coeurs CCD0 (V-cache)   F fusion           77.318        12934    10415.6       PASS       2717
+4194304    96.0     8 coeurs CCD0 (V-cache)   M1 ecr+relec     1738.370          575      463.3       PASS        163
+4194304    96.0     8 coeurs CCD0 (V-cache)   M2 NT+relec      4820.011          207      167.1       PASS         62
+4194304    96.0     8 coeurs CCD0 (V-cache)   M3 calc+ecr      1180.160          847      682.4       PASS        245
+4194304    96.0     8 coeurs CCD0 (V-cache)   M4 calc+NT       3234.865          309      248.9       PASS         92
+4194304    96.0     16 coeurs                 F fusion           40.927        24434    19676.5       PASS       7940
+4194304    96.0     16 coeurs                 M1 ecr+relec     1384.283          722      581.7       PASS        178
+4194304    96.0     16 coeurs                 M2 NT+relec      3126.900          320      257.5       PASS         93
+4194304    96.0     16 coeurs                 M3 calc+ecr       958.755         1043      840.0       PASS        237
+4194304    96.0     16 coeurs                 M4 calc+NT       1701.581          588      473.3       PASS        176
+
