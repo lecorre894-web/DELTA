@@ -1,0 +1,46 @@
+============================================================================
+DELTA X512 DUAL-LINK V2 — PROCESSING FREQUENCY PROBE
+============================================================================
+CPU_LOGICAL=32
+X512_CONTEXTS=32+32
+REQUESTS=1024
+WORDS_PER_REQUEST=65536
+SHARED_MEMORY_SLOTS=8
+
+--------------- PROCESSING ----------------
+WALL=2.197299s
+JOBS=1024
+REQUESTS_S=466.03
+TOTAL_NI=37749760
+X512_GINSTR_S_WALL=0.017180
+X512_GINSTR_S_ACTIVE=0.783760
+GBITOP_S=5.864
+AVG_TPOP_US=47.036
+EFFECTIVE_PAYLOAD_GB_S=0.733
+
+--------------- PIPELINE ------------------
+GENERATION_SUM_S=2.052143
+COPY_SUM_S=0.033978
+TPOP_SUM_S=0.048165
+A_TPOP_SUM_S=0.024731
+B_TPOP_SUM_S=0.023434
+A_JOBS=513
+B_JOBS=511
+
+--------------- PHYSICAL CPU --------------
+CPU_MHZ_MIN=4300.0
+CPU_MHZ_AVG=4300.0
+CPU_MHZ_MAX=4300.0
+
+--------------- VALIDATION ----------------
+SIG=5fbecb10a8ef936f
+EXPECTED_SIG=5fbecb10a8ef936f
+CHECKSUM=IDENTICAL
+PROBE_VALIDATION=PASS
+
+--------------- DIAGNOSTIC ----------------
+REFERENCE_DUALLINK_V2_GBITOP_S=7.411
+CURRENT_GBITOP_S=5.864
+REFERENCE_RATIO=0.7913x
+PRIMARY_BOTTLENECK=INPUT_GENERATION
+============================================================================

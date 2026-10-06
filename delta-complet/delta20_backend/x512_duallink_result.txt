@@ -1,0 +1,38 @@
+============================================================================
+DELTA X512 DUAL-LINK + SHARED MEMORY
+============================================================================
+CPU_LOGICAL=32
+X512_A_WORKERS=32
+X512_B_WORKERS=32
+TOTAL_X512_WORKERS=64
+SHARED_MEMORY_JOBS=1024
+WORDS_PER_JOB=65536
+
+--------------- SINGLE X512 ----------------
+WALL=0.139912s
+GBITOP_S=92.093
+CALC=1024
+NI=37749760
+SIG=5fbecb10a8ef936f
+
+----------- DUAL X512 LINKED ---------------
+WALL=0.294164s
+GBITOP_S=43.802
+X512_A_JOBS=544
+X512_B_JOBS=480
+TOTAL_JOBS=1024
+X512_A_CALC=4896
+X512_B_CALC=3840
+TOTAL_CALC=8736
+NI=322052640
+SIG=5fbecb10a8ef936f
+
+================ VERDICT ===================
+CHECKSUM=FAIL
+LINK_MEMORY=PASS
+SINGLE_GBITOP_S=92.093
+DUAL_LINK_GBITOP_S=43.802
+GAIN_LINK=0.4756x
+WINNER=INVALID
+DUAL_LINK_VALIDATION=FAIL
+============================================

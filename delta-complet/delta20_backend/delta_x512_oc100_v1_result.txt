@@ -1,0 +1,56 @@
+==============================================================================
+ DELTA X512 DUAL-LINK — OC +100 PROCESSING PROFILE V1
+==============================================================================
+PHYSICAL_BASE_REFERENCE=4300_MHz
+DELTA_TARGET_CLOCK=4400_MHz
+DELTA_OC=+100_MHz
+TARGET_MULTIPLIER=1.023256x
+
+X512_A_CONTEXTS=32
+X512_B_CONTEXTS=32
+TOTAL_CONTEXTS=64
+GENERATORS=2
+SHARED_MEMORY_SLOTS=16
+REQUESTS=1024
+WORDS_PER_REQUEST=65536
+
+--------------- PHYSICAL CLOCK ---------------
+CPU_MHZ_MIN=4300.0
+CPU_MHZ_AVG=4300.0
+CPU_MHZ_MAX=4300.0
+
+--------------- PIPELINE ---------------------
+WALL=1.035589s
+GENERATION_SUM_S=1.935998
+COPY_SUM_S=0.059691
+TPOP_SUM_S=0.064112
+X512_A_JOBS=512
+X512_B_JOBS=512
+TOTAL_JOBS=1024
+
+--------------- PROCESSING -------------------
+REQUESTS_S=988.81
+TOTAL_NI=37749760
+X512_GINSTR_S_WALL=0.036452
+X512_GINSTR_S_ACTIVE=0.588807
+GBITOP_S=12.442
+
+--------------- OC PROFILE -------------------
+BASELINE_GBITOP_S=7.411
+TARGET_4400_GBITOP_S=7.583
+OC_MEASURED_GBITOP_S=12.442
+PROCESSING_GAIN=1.678870x
+PROCESSING_GAIN_PERCENT=+67.887%
+DELTA_EQUIVALENT_CLOCK=7219.1_MHz
+DELTA_EQUIVALENT_OC=+2919.1_MHz
+TARGET_4400_REACHED=YES
+
+--------------- VALIDATION -------------------
+SIG=5fbecb10a8ef936f
+EXPECTED_SIG=5fbecb10a8ef936f
+CHECKSUM=IDENTICAL
+OC_PROFILE_VALIDATION=PASS
+
+==============================================================================
+WINNER=DELTA_X512_OC100
+==============================================================================

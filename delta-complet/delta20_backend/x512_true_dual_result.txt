@@ -1,0 +1,38 @@
+============================================================================
+DELTA X512 TRUE DUAL — SINGLE32 vs DUAL32+32
+============================================================================
+CPU_LOGICAL=32
+SINGLE_WORKERS=32
+DUAL_WORKERS=32+32
+TOTAL_SOFTWARE_WORKERS=64
+TOTAL_REQUESTS=1024
+WORDS_PER_REQUEST=65536
+
+--------------- SINGLE X512-A ----------------
+WORKERS=32
+WALL=0.154549s
+REQUESTS_S=6625.74
+GBITOP_S=83.371
+CALC=1024
+NI=37749760
+SIG=5fbecb10a8ef936f
+
+------------ TRUE DUAL X512-A + X512-B --------
+WORKERS=32+32
+WALL=0.175856s
+REQUESTS_S=5822.94
+GBITOP_S=73.270
+A_CALC=512
+B_CALC=512
+TOTAL_CALC=1024
+NI=37749760
+SIG=5fbecb10a8ef936f
+
+=================== VERDICT ===================
+CHECKSUM=IDENTICAL
+SINGLE_GBITOP_S=83.371
+DUAL_GBITOP_S=73.270
+GAIN_DUAL=0.8788x
+WINNER=X512_SINGLE
+TRUE_DUAL_VALIDATION=PASS
+================================================

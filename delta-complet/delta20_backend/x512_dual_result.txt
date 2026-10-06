@@ -1,0 +1,32 @@
+========================================================================
+DELTA X512 — SINGLE vs DUAL
+========================================================================
+CPU_LOGICAL=32
+TOTAL_WORKERS=32
+DUAL_A=16
+DUAL_B=16
+REQUESTS=512
+WORDS_PER_REQUEST=65536
+
+--------------- SINGLE ----------------
+WALL=0.095760s
+REQUESTS_S=5346.71
+GBITOP_S=67.277
+CALC=512
+NI=18874880
+SIG=888d04537a26ea1b
+
+---------------- DUAL -----------------
+WALL=0.111221s
+REQUESTS_S=4603.47
+GBITOP_S=57.925
+CALC=512
+NI=18874880
+SIG=888d04537a26ea1b
+
+================ VERDICT ==============
+CHECKSUM=IDENTICAL
+GAIN_DUAL=0.8610x
+WINNER=X512_SINGLE
+DUAL_PROCESSOR_VALIDATION=PASS
+=======================================
