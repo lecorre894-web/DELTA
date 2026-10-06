@@ -1,0 +1,38 @@
+DELTA X512 V17 BENCH LOURD MEME TRAVAIL | requete = graine neuve -> 3 x NW mots -> popcount(C^(A&B))
+NW_mots    Mo/req   CONFIG                    METHODE            US/REQ        REQ/S     Gbit/s      VALID   REQUETES
+65536      1.5      1 coeur CCD1              F fusion            9.052       110469     1390.0       PASS      31712
+65536      1.5      1 coeur CCD1              M memoire          14.244        70205      883.4       PASS      18726
+65536      1.5      8 coeurs CCD1             F fusion            1.338       747202     9402.0       PASS     200000
+65536      1.5      8 coeurs CCD1             M memoire           1.736       575921     7246.8       PASS     110294
+65536      1.5      8 coeurs CCD0 (V-cache)   F fusion            1.419       704593     8865.8       PASS      74257
+65536      1.5      8 coeurs CCD0 (V-cache)   M memoire           1.874       533478     6712.7       PASS      77319
+65536      1.5      16 coeurs                 F fusion            1.212       825293    10384.6       PASS     172413
+65536      1.5      16 coeurs                 M memoire           1.582       632086     7953.5       PASS     116278
+
+262144     6.0      1 coeur CCD1              F fusion           35.528        28147     1416.7       PASS       7894
+262144     6.0      1 coeur CCD1              M memoire          58.778        17013      856.3       PASS       5246
+262144     6.0      8 coeurs CCD1             F fusion            4.824       207309    10434.2       PASS      59760
+262144     6.0      8 coeurs CCD1             M memoire           6.931       144281     7261.9       PASS      33039
+262144     6.0      8 coeurs CCD0 (V-cache)   F fusion            5.078       196930     9911.8       PASS      22556
+262144     6.0      8 coeurs CCD0 (V-cache)   M memoire           7.308       136846     6887.7       PASS      17626
+262144     6.0      16 coeurs                 F fusion            3.084       324280    16321.6       PASS      59055
+262144     6.0      16 coeurs                 M memoire           4.966       201353    10134.4       PASS      46439
+
+1048576    24.0     1 coeur CCD1              F fusion          141.318         7076     1424.6       PASS       1556
+1048576    24.0     1 coeur CCD1              M memoire         258.549         3868      778.7       PASS        808
+1048576    24.0     8 coeurs CCD1             F fusion           18.675        53548    10780.7       PASS      15906
+1048576    24.0     8 coeurs CCD1             M memoire          40.982        24401     4912.6       PASS       6808
+1048576    24.0     8 coeurs CCD0 (V-cache)   F fusion           19.716        50721    10211.5       PASS       8695
+1048576    24.0     8 coeurs CCD0 (V-cache)   M memoire          47.438        21080     4244.0       PASS       5660
+1048576    24.0     16 coeurs                 F fusion           10.681        93622    18848.6       PASS      11086
+1048576    24.0     16 coeurs                 M memoire          24.174        41367     8328.2       PASS       7704
+
+4194304    96.0     1 coeur CCD1              F fusion          563.079         1776     1430.2       PASS        526
+4194304    96.0     1 coeur CCD1              M memoire        4664.678          214      172.6       PASS         63
+4194304    96.0     8 coeurs CCD1             F fusion           73.782        13553    10914.6       PASS       2577
+4194304    96.0     8 coeurs CCD1             M memoire        3958.779          253      203.4       PASS         73
+4194304    96.0     8 coeurs CCD0 (V-cache)   F fusion           77.569        12892    10381.8       PASS       4194
+4194304    96.0     8 coeurs CCD0 (V-cache)   M memoire        1041.003          961      773.6       PASS        240
+4194304    96.0     16 coeurs                 F fusion           40.964        24411    19658.7       PASS       3554
+4194304    96.0     16 coeurs                 M memoire        1185.227          844      679.5       PASS        226
+
