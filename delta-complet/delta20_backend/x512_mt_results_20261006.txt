@@ -1,0 +1,5 @@
+V4 T=8  BEST_US=1.040158 GAIN_V3=8.876x RECORD
+V4 T=16 BEST_US=1.432120
+V5 T=8  BEST_US=1.124484 (drapeaux par thread: pas de gain)
+V5 T=16 MODE0 BEST_US=1.295704 / MODE1 1.570093 (hierarchique: perte)
+CONCLUSION: borne L2 par coeur + WSL2; cible 0.455790 FAIL; levier restant = moins d octets lus
