@@ -13,3 +13,4 @@ V8 WINDOWS NATIF (drapeaux par thread): T=8 CCD1 0.955090 RECORD 9.67x | T=16 CC
 V9 (hyp. A,B fixes, AB=A&B precalcule, 1 Mo/passe): T=8 CCD1 0.677782us RECORD 13.62x v3 / 1.41x v8 | T>8 inter-CCD +0.2-0.3us -> optimum 1 CCD | borne L2 ~33B/cycle ; cible 0.456 exige -1/3 octets -> levier algorithmique DELTA
 BILAN vs FASTPATH_PREVIOUS_US=45.579 (meme NW=65536): V8 0.955us = 47.7x | V9 (A,B fixes) 0.678us = 67.2x | DIV100 0.456us non atteint: plafond L2 ; levier restant = mise a jour incrementale dans un vrai usage DELTA
 V14 FUSION MT (Windows natif, 8 flux fixes, graine neuve a chaque passe): T=1 8.826 | T=2 4.559 | T=4 2.410 | T=8 CCD1 1.333us = 1398x pipeline numpy 1864us | montee quasi lineaire: plus de mur memoire
+V15 (16 flux fixes): T=8 1.333 | T=16 CCD1 maitre 1.175us = 1587x numpy | T=16 CCD0 1.191 | gain 16 vs 8 = 1.14x seulement: frequence all-core AVX-512 + CCD0 plus lent + frontiere inter-CCD ; amorcage generateur = 2% seulement
