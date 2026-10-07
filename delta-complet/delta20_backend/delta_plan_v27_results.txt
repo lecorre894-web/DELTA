@@ -1,0 +1,21 @@
+====================================================================================================
+DELTA PLAN COMPLET V27 | etalon + exact + stabiliseur + produit 1T | RTX 4080 | etiquettes honnetes
+====================================================================================================
+[D0] reference NumPy FP64 : 200000 qubits tires sur [0,1e+12) : <Z> moyen=-0.00066  ecart-type=0.5793
+[A] ETALON VRAM (copie 2 Go) : 596 Go/s  (theorique 4080 ~716 Go/s) -> plafond de reference
+[B] EXACT validation 20 q v26 FP32 vs v21 FP64 : infidelite=4.1e-07 PASS
+[B] EXACT 24 q (2^24=1.7e+07 amplitudes, intrication totale) : 692 portes en 12.4 ms  |norme-1|=3e-07  ~238 Go/s = 40% du plafond VRAM
+[B] EXACT 28 q (2^28=2.7e+08 amplitudes, intrication totale) : 812 portes en 208.4 ms  |norme-1|=2e-08  ~206 Go/s = 35% du plafond VRAM
+[B] EXACT 30 q (2^30=1.1e+09 amplitudes, intrication totale) : 872 portes en 887.3 ms  |norme-1|=3e-07  ~232 Go/s = 39% du plafond VRAM
+[C] STABILISEUR GHZ      1000 qubits (Clifford, CPU, stim) : 16 tirs tous-0/tous-1=PASS (5 x tous-1) en 0.01 s
+[C] STABILISEUR GHZ     10000 qubits (Clifford, CPU, stim) : 16 tirs tous-0/tous-1=PASS (9 x tous-1) en 0.11 s
+[C] STABILISEUR GHZ    100000 qubits (Clifford, CPU, stim) : 16 tirs tous-0/tous-1=PASS (6 x tous-1) en 1.10 s
+[C] STABILISEUR GHZ   1000000 qubits (Clifford, CPU, stim) : 16 tirs tous-0/tous-1=PASS (6 x tous-1) en 11.16 s
+[D] PRODUIT verification GPU FP32 vs NumPy FP64 sur 200000 qubits : ecart max=2.5e-06 PASS
+[D] PRODUIT 1e+12 qubits x 4 couches (RY+RZ) = 8.0e+12 portes : 10.56 s  -> 9.47e+10 qubits/s, 7.58e+11 portes/s
+[D] PRODUIT <Z> moyen GPU=-0.000005 vs echantillon FP64=-0.000655 : ecart 0.5 sigma PASS | memoire equivalente si stocke : 16 To (rien stocke)
+----------------------------------------------------------------------------------------------------
+LECTURE HONNETE : [B] = vrai calcul quantique exact (intrication totale), plafond 30 q en 8 Go ;
+[C] = circuits Clifford seulement (simulables classiquement en temps polynomial, Gottesman-Knill) ;
+[D] = qubits independants, sans intrication : debit de portes, pas une puissance quantique. Seul [B] est dur classiquement.
+====================================================================================================
