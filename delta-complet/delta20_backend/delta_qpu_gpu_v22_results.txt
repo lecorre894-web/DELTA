@@ -1,0 +1,20 @@
+====================================================================================================
+DELTA QPU EMULE V22 | blocage de cache : plusieurs portes par passage memoire | RTX 4080
+====================================================================================================
+emulation NumPy n=12 B=6 : 200 ops -> 48 passages  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy n=12 B=8 : 200 ops -> 24 passages  fidelite vs Qiskit=1.000000000000 PASS
+validation GPU v22 (B=10) vs GPU v21 n=16 : fidelite=1.000000000000 PASS
+validation GPU v22 (B=10) vs GPU v21 n=20 : fidelite=1.000000000000 PASS
+n=20 B=10 : 572 ops ->  54 passages (10.6 portes/passage) :      10.8 ms  norme=1.000000000000  ~167 Go/s  vs v21 x1.16
+n=20 B=11 : 572 ops ->  43 passages (13.3 portes/passage) :      11.2 ms  norme=1.000000000000  ~129 Go/s  vs v21 x1.13
+n=22 B=10 : 632 ops ->  60 passages (10.5 portes/passage) :      45.5 ms  norme=1.000000000000  ~177 Go/s  vs v21 x1.18
+n=22 B=11 : 632 ops ->  48 passages (13.2 portes/passage) :      42.8 ms  norme=1.000000000000  ~151 Go/s  vs v21 x1.26
+n=24 B=10 : 692 ops ->  67 passages (10.3 portes/passage) :     186.0 ms  norme=1.000000000000  ~193 Go/s  vs v21 x2.83
+n=24 B=11 : 692 ops ->  53 passages (13.1 portes/passage) :     171.7 ms  norme=1.000000000000  ~166 Go/s  vs v21 x3.06
+n=26 B=10 : 752 ops ->  74 passages (10.2 portes/passage) :     775.6 ms  norme=1.000000000000  ~205 Go/s  vs v21 x2.92
+n=26 B=11 : 752 ops ->  58 passages (13.0 portes/passage) :     738.7 ms  norme=1.000000000000  ~169 Go/s  vs v21 x3.07
+n=28 B=10 : 812 ops ->  80 passages (10.2 portes/passage) :    3335.6 ms  norme=1.000000000000  ~206 Go/s  vs v21 x2.92
+n=28 B=11 : 812 ops ->  63 passages (12.9 portes/passage) :    3171.2 ms  norme=1.000000000000  ~171 Go/s  vs v21 x3.07
+n=29 B=10 : 841 ops ->  84 passages (10.0 portes/passage) :    6905.0 ms  norme=1.000000000000  ~209 Go/s  vs v21 x2.92
+n=29 B=11 : 841 ops ->  65 passages (12.9 portes/passage) :    6555.4 ms  norme=1.000000000000  ~170 Go/s  vs v21 x3.08
+====================================================================================================
