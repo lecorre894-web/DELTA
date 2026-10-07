@@ -1,0 +1,30 @@
+====================================================================================================
+DELTA QPU EMULE V24 | simple precision complex64 + blocage de cache | RTX 4080
+====================================================================================================
+emulation NumPy n=12 B=8 L=4 : 200 ops -> 25 passages  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy n=12 B=10 L=5 : 200 ops -> 18 passages  fidelite vs Qiskit=1.000000000000 PASS
+validation GPU v24 FP32 vs GPU v21 FP64 n=16 : infidelite=4.26e-06  PASS
+validation GPU v24 FP32 vs GPU v21 FP64 n=20 : infidelite=7.21e-06  PASS
+validation GPU v24 FP32 vs GPU v21 FP64 n=24 : infidelite=7.70e-06  PASS
+n=20 B=11 : 572 ops ->  43 passages (13.3 p/pass) :       1.4 ms  |norme-1|=3.6e-06  ~ 521 Go/s  vs v22 FP64 x7.8
+n=20 B=12 : 572 ops ->  40 passages (14.3 p/pass) :       1.1 ms  |norme-1|=3.6e-06  ~ 599 Go/s  vs v22 FP64 x9.6
+n=20 B=13 : 572 ops ->  35 passages (16.3 p/pass) :       1.3 ms  |norme-1|=3.6e-06  ~ 438 Go/s  vs v22 FP64 x8.1
+n=22 B=11 : 632 ops ->  48 passages (13.2 p/pass) :       4.3 ms  |norme-1|=3.5e-06  ~ 749 Go/s  vs v22 FP64 x9.9
+n=22 B=12 : 632 ops ->  45 passages (14.0 p/pass) :       4.4 ms  |norme-1|=3.5e-06  ~ 680 Go/s  vs v22 FP64 x9.6
+n=22 B=13 : 632 ops ->  39 passages (16.2 p/pass) :       5.0 ms  |norme-1|=3.5e-06  ~ 524 Go/s  vs v22 FP64 x8.6
+n=24 B=11 : 692 ops ->  53 passages (13.1 p/pass) :      23.8 ms  |norme-1|=3.9e-06  ~ 599 Go/s  vs v22 FP64 x7.2
+n=24 B=12 : 692 ops ->  50 passages (13.8 p/pass) :      21.8 ms  |norme-1|=3.9e-06  ~ 616 Go/s  vs v22 FP64 x7.9
+n=24 B=13 : 692 ops ->  43 passages (16.1 p/pass) :      29.5 ms  |norme-1|=3.9e-06  ~ 391 Go/s  vs v22 FP64 x5.8
+n=26 B=11 : 752 ops ->  58 passages (13.0 p/pass) :     103.7 ms  |norme-1|=4.0e-06  ~ 600 Go/s  vs v22 FP64 x7.1
+n=26 B=12 : 752 ops ->  55 passages (13.7 p/pass) :     100.6 ms  |norme-1|=4.0e-06  ~ 587 Go/s  vs v22 FP64 x7.3
+n=26 B=13 : 752 ops ->  47 passages (16.0 p/pass) :     129.6 ms  |norme-1|=4.0e-06  ~ 389 Go/s  vs v22 FP64 x5.7
+n=28 B=11 : 812 ops ->  63 passages (12.9 p/pass) :     453.0 ms  |norme-1|=4.2e-06  ~ 597 Go/s  vs v22 FP64 x7.0
+n=28 B=12 : 812 ops ->  60 passages (13.5 p/pass) :     433.9 ms  |norme-1|=4.2e-06  ~ 594 Go/s  vs v22 FP64 x7.3
+n=28 B=13 : 812 ops ->  51 passages (15.9 p/pass) :     560.6 ms  |norme-1|=4.2e-06  ~ 391 Go/s  vs v22 FP64 x5.7
+n=29 B=11 : 841 ops ->  65 passages (12.9 p/pass) :     936.6 ms  |norme-1|=4.2e-06  ~ 596 Go/s  vs v22 FP64 x7.0
+n=29 B=12 : 841 ops ->  63 passages (13.3 p/pass) :     924.1 ms  |norme-1|=4.2e-06  ~ 586 Go/s  vs v22 FP64 x7.1
+n=29 B=13 : 841 ops ->  52 passages (16.2 p/pass) :    1150.5 ms  |norme-1|=4.2e-06  ~ 388 Go/s  vs v22 FP64 x5.7
+n=30 B=11 : 872 ops ->  68 passages (12.8 p/pass) :    1960.6 ms  |norme-1|=4.4e-06  ~ 596 Go/s  (inaccessible en FP64)
+n=30 B=12 : 872 ops ->  65 passages (13.4 p/pass) :    1927.0 ms  |norme-1|=4.4e-06  ~ 579 Go/s  (inaccessible en FP64)
+n=30 B=13 : 872 ops ->  55 passages (15.9 p/pass) :    2417.3 ms  |norme-1|=4.4e-06  ~ 391 Go/s  (inaccessible en FP64)
+====================================================================================================
