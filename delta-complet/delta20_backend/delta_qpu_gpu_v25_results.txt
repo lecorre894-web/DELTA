@@ -1,0 +1,50 @@
+====================================================================================================
+DELTA QPU EMULE V25 | complex64 + blocage + ordonnanceur DAG multi-couches + fusion 2 qubits | RTX 4080
+====================================================================================================
+emulation NumPy n=12 B=8 L=3 fusion=0 : 200 ops -> 7 passages, 200 etapes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy n=12 B=8 L=3 fusion=1 : 200 ops -> 7 passages, 66 etapes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy n=12 B=10 L=2 fusion=1 : 200 ops -> 3 passages, 66 etapes  fidelite vs Qiskit=1.000000000000 PASS
+validation GPU v25 FP32 (L=3 fusion=0) vs GPU v21 FP64 n=16 : infidelite=4.69e-06  PASS
+validation GPU v25 FP32 (L=2 fusion=1) vs GPU v21 FP64 n=16 : infidelite=-1.67e-07  PASS
+validation GPU v25 FP32 (L=3 fusion=0) vs GPU v21 FP64 n=20 : infidelite=6.85e-06  PASS
+validation GPU v25 FP32 (L=2 fusion=1) vs GPU v21 FP64 n=20 : infidelite=4.14e-07  PASS
+validation GPU v25 FP32 (L=3 fusion=0) vs GPU v21 FP64 n=24 : infidelite=7.63e-06  PASS
+validation GPU v25 FP32 (L=2 fusion=1) vs GPU v21 FP64 n=24 : infidelite=5.38e-07  PASS
+n=20 B=11 L=3 fus=1 : 572 ops ->  11 passages (v24  43),  191 etapes :      1.1 ms  |norme-1|=2.4e-07  ~ 169 Go/s  vs v24 x1.01  vs v22 FP64 x10
+n=20 B=12 L=2 fus=0 : 572 ops ->   8 passages (v24  40),  572 etapes :      1.1 ms  |norme-1|=3.4e-06  ~ 121 Go/s  vs v24 x1.00  vs v22 FP64 x10
+n=20 B=12 L=2 fus=1 : 572 ops ->   8 passages (v24  40),  190 etapes :      0.9 ms  |norme-1|=2.1e-07  ~ 152 Go/s  vs v24 x1.25  vs v22 FP64 x12
+n=20 B=12 L=3 fus=1 : 572 ops ->   9 passages (v24  40),  190 etapes :      0.9 ms  |norme-1|=2.1e-07  ~ 172 Go/s  vs v24 x1.25  vs v22 FP64 x12
+n=20 B=13 L=3 fus=1 : 572 ops ->   7 passages (v24  35),  191 etapes :      0.7 ms  |norme-1|=1.8e-07  ~ 176 Go/s  vs v24 x1.65  vs v22 FP64 x16
+n=22 B=11 L=3 fus=1 : 632 ops ->  12 passages (v24  48),  211 etapes :      4.3 ms  |norme-1|=1.5e-07  ~ 186 Go/s  vs v24 x1.00  vs v22 FP64 x10
+n=22 B=12 L=2 fus=0 : 632 ops ->   8 passages (v24  45),  632 etapes :      4.0 ms  |norme-1|=3.4e-06  ~ 134 Go/s  vs v24 x1.08  vs v22 FP64 x11
+n=22 B=12 L=2 fus=1 : 632 ops ->   8 passages (v24  45),  210 etapes :      3.1 ms  |norme-1|=1.2e-07  ~ 172 Go/s  vs v24 x1.37  vs v22 FP64 x14
+n=22 B=12 L=3 fus=1 : 632 ops ->  10 passages (v24  45),  211 etapes :      3.2 ms  |norme-1|=1.2e-07  ~ 209 Go/s  vs v24 x1.34  vs v22 FP64 x13
+n=22 B=13 L=3 fus=1 : 632 ops ->   8 passages (v24  39),  211 etapes :      2.5 ms  |norme-1|=1.5e-07  ~ 217 Go/s  vs v24 x1.74  vs v22 FP64 x17
+n=24 B=11 L=3 fus=1 : 692 ops ->  14 passages (v24  53),  231 etapes :     21.6 ms  |norme-1|=3.0e-07  ~ 174 Go/s  vs v24 x1.01  vs v22 FP64 x8
+n=24 B=12 L=2 fus=0 : 692 ops ->  11 passages (v24  50),  692 etapes :     19.9 ms  |norme-1|=3.8e-06  ~ 148 Go/s  vs v24 x1.09  vs v22 FP64 x9
+n=24 B=12 L=2 fus=1 : 692 ops ->  11 passages (v24  50),  230 etapes :     15.9 ms  |norme-1|=2.7e-07  ~ 186 Go/s  vs v24 x1.37  vs v22 FP64 x11
+n=24 B=12 L=3 fus=1 : 692 ops ->  11 passages (v24  50),  231 etapes :     15.7 ms  |norme-1|=2.7e-07  ~ 188 Go/s  vs v24 x1.39  vs v22 FP64 x11
+n=24 B=13 L=3 fus=1 : 692 ops ->  10 passages (v24  43),  231 etapes :     12.6 ms  |norme-1|=2.7e-07  ~ 213 Go/s  vs v24 x1.73  vs v22 FP64 x14
+n=26 B=11 L=3 fus=1 : 752 ops ->  15 passages (v24  58),  251 etapes :     95.1 ms  |norme-1|=3.0e-08  ~ 169 Go/s  vs v24 x1.06  vs v22 FP64 x8
+n=26 B=12 L=2 fus=0 : 752 ops ->  10 passages (v24  55),  752 etapes :     80.3 ms  |norme-1|=3.9e-06  ~ 134 Go/s  vs v24 x1.25  vs v22 FP64 x9
+n=26 B=12 L=2 fus=1 : 752 ops ->  10 passages (v24  55),  250 etapes :     66.2 ms  |norme-1|=1.5e-08  ~ 162 Go/s  vs v24 x1.52  vs v22 FP64 x11
+n=26 B=12 L=3 fus=1 : 752 ops ->  13 passages (v24  55),  251 etapes :     69.5 ms  |norme-1|=3.0e-08  ~ 201 Go/s  vs v24 x1.45  vs v22 FP64 x11
+n=26 B=13 L=3 fus=1 : 752 ops ->  10 passages (v24  47),  251 etapes :     53.4 ms  |norme-1|=3.0e-08  ~ 201 Go/s  vs v24 x1.89  vs v22 FP64 x14
+n=28 B=11 L=3 fus=1 : 812 ops ->  19 passages (v24  63),  271 etapes :    427.1 ms  |norme-1|=1.5e-08  ~ 191 Go/s  vs v24 x1.02  vs v22 FP64 x7
+n=28 B=12 L=2 fus=0 : 812 ops ->  10 passages (v24  60),  812 etapes :    338.3 ms  |norme-1|=4.1e-06  ~ 127 Go/s  vs v24 x1.28  vs v22 FP64 x9
+n=28 B=12 L=2 fus=1 : 812 ops ->  10 passages (v24  60),  270 etapes :    281.2 ms  |norme-1|=1.9e-08  ~ 153 Go/s  vs v24 x1.54  vs v22 FP64 x11
+n=28 B=12 L=3 fus=1 : 812 ops ->  14 passages (v24  60),  271 etapes :    302.3 ms  |norme-1|=7.5e-09  ~ 199 Go/s  vs v24 x1.44  vs v22 FP64 x10
+n=28 B=13 L=3 fus=1 : 812 ops ->  10 passages (v24  51),  271 etapes :    224.9 ms  |norme-1|=1.9e-08  ~ 191 Go/s  vs v24 x1.93  vs v22 FP64 x14
+n=29 B=11 L=3 fus=1 : 841 ops ->  17 passages (v24  65),  281 etapes :    861.5 ms  |norme-1|=7.1e-08  ~ 170 Go/s  vs v24 x1.07  vs v22 FP64 x8
+n=29 B=12 L=2 fus=0 : 841 ops ->  11 passages (v24  63),  841 etapes :    719.1 ms  |norme-1|=4.0e-06  ~ 131 Go/s  vs v24 x1.28  vs v22 FP64 x9
+n=29 B=12 L=2 fus=1 : 841 ops ->  11 passages (v24  63),  280 etapes :    590.9 ms  |norme-1|=6.9e-08  ~ 160 Go/s  vs v24 x1.56  vs v22 FP64 x11
+n=29 B=12 L=3 fus=1 : 841 ops ->  16 passages (v24  63),  281 etapes :    642.8 ms  |norme-1|=5.6e-08  ~ 214 Go/s  vs v24 x1.44  vs v22 FP64 x10
+n=29 B=13 L=3 fus=1 : 841 ops ->  11 passages (v24  52),  281 etapes :    474.5 ms  |norme-1|=6.1e-08  ~ 199 Go/s  vs v24 x1.95  vs v22 FP64 x14
+n=30 B=11 L=3 fus=1 : 872 ops ->  18 passages (v24  68),  291 etapes :   1793.9 ms  |norme-1|=2.2e-07  ~ 172 Go/s  vs v24 x1.07  vs v22 FP64 -
+n=30 B=12 L=2 fus=0 : 872 ops ->  12 passages (v24  65),  872 etapes :   1514.3 ms  |norme-1|=4.3e-06  ~ 136 Go/s  vs v24 x1.27  vs v22 FP64 -
+n=30 B=12 L=2 fus=1 : 872 ops ->  12 passages (v24  65),  290 etapes :   1238.4 ms  |norme-1|=2.7e-07  ~ 166 Go/s  vs v24 x1.56  vs v22 FP64 -
+n=30 B=12 L=3 fus=1 : 872 ops ->  15 passages (v24  65),  292 etapes :   1309.5 ms  |norme-1|=1.6e-07  ~ 197 Go/s  vs v24 x1.47  vs v22 FP64 -
+n=30 B=13 L=3 fus=1 : 872 ops ->  12 passages (v24  55),  291 etapes :    997.5 ms  |norme-1|=2.4e-07  ~ 207 Go/s  vs v24 x1.93  vs v22 FP64 -
+----------------------------------------------------------------------------------------------------
+MEILLEUR V25 : 20q 0.7 ms (x1.65 v24)  22q 2.5 ms (x1.74 v24)  24q 12.6 ms (x1.73 v24)  26q 53.4 ms (x1.89 v24)  28q 224.9 ms (x1.93 v24)  29q 474.5 ms (x1.95 v24)  30q 997.5 ms (x1.93 v24)
+====================================================================================================
