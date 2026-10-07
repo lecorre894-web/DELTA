@@ -1,0 +1,32 @@
+====================================================================================================
+DELTA QPU EMULE V26 | v25 + portes en registres (16 amplitudes/thread, 1 synchro par groupe) | RTX 4080
+====================================================================================================
+emulation NumPy noyau v26 n=12 B=8 L=3 : 7 passages, 66 etapes, 23 groupes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy noyau v26 n=12 B=10 L=2 : 3 passages, 66 etapes, 23 groupes  fidelite vs Qiskit=1.000000000000 PASS
+validation GPU v26 FP32 vs GPU v21 FP64 n=16 : infidelite=-1.14e-07  PASS
+validation GPU v26 FP32 vs GPU v21 FP64 n=20 : infidelite=3.73e-07  PASS
+validation GPU v26 FP32 vs GPU v21 FP64 n=24 : infidelite=5.28e-07  PASS
+n=20 B=12 L=2 :   8 passages,  190 etapes ->   65 groupes :      0.7 ms  |norme-1|=2.1e-07  ~ 193 Go/s  vs v25 x1.01  vs v22 FP64 x16
+n=20 B=12 L=3 :   9 passages,  190 etapes ->   66 groupes :      0.7 ms  |norme-1|=2.1e-07  ~ 214 Go/s  vs v25 x0.99  vs v22 FP64 x15
+n=20 B=13 L=3 :   7 passages,  191 etapes ->   68 groupes :      0.7 ms  |norme-1|=1.8e-07  ~ 175 Go/s  vs v25 x1.05  vs v22 FP64 x16
+n=22 B=12 L=2 :   8 passages,  210 etapes ->   75 groupes :      2.4 ms  |norme-1|=1.2e-07  ~ 220 Go/s  vs v25 x1.02  vs v22 FP64 x18
+n=22 B=12 L=3 :  10 passages,  211 etapes ->   76 groupes :      2.5 ms  |norme-1|=1.2e-07  ~ 269 Go/s  vs v25 x1.00  vs v22 FP64 x17
+n=22 B=13 L=3 :   8 passages,  211 etapes ->   74 groupes :      2.4 ms  |norme-1|=1.5e-07  ~ 226 Go/s  vs v25 x1.05  vs v22 FP64 x18
+n=24 B=12 L=2 :  11 passages,  230 etapes ->   80 groupes :     11.7 ms  |norme-1|=2.7e-07  ~ 253 Go/s  vs v25 x1.08  vs v22 FP64 x15
+n=24 B=12 L=3 :  11 passages,  231 etapes ->   82 groupes :     11.4 ms  |norme-1|=2.7e-07  ~ 259 Go/s  vs v25 x1.11  vs v22 FP64 x15
+n=24 B=13 L=3 :  10 passages,  231 etapes ->   81 groupes :     12.2 ms  |norme-1|=2.7e-07  ~ 219 Go/s  vs v25 x1.03  vs v22 FP64 x14
+n=26 B=12 L=2 :  10 passages,  250 etapes ->   91 groupes :     47.7 ms  |norme-1|=1.5e-08  ~ 225 Go/s  vs v25 x1.12  vs v22 FP64 x15
+n=26 B=12 L=3 :  13 passages,  251 etapes ->   87 groupes :     51.4 ms  |norme-1|=3.0e-08  ~ 272 Go/s  vs v25 x1.04  vs v22 FP64 x14
+n=26 B=13 L=3 :  10 passages,  251 etapes ->   90 groupes :     51.1 ms  |norme-1|=3.0e-08  ~ 210 Go/s  vs v25 x1.04  vs v22 FP64 x14
+n=28 B=12 L=2 :  10 passages,  270 etapes ->   96 groupes :    199.7 ms  |norme-1|=1.9e-08  ~ 215 Go/s  vs v25 x1.13  vs v22 FP64 x16
+n=28 B=12 L=3 :  14 passages,  271 etapes ->   94 groupes :    218.0 ms  |norme-1|=7.5e-09  ~ 276 Go/s  vs v25 x1.03  vs v22 FP64 x15
+n=28 B=13 L=3 :  10 passages,  271 etapes ->   95 groupes :    213.6 ms  |norme-1|=1.9e-08  ~ 201 Go/s  vs v25 x1.05  vs v22 FP64 x15
+n=29 B=12 L=2 :  11 passages,  280 etapes ->  100 groupes :    421.4 ms  |norme-1|=6.9e-08  ~ 224 Go/s  vs v25 x1.13  vs v22 FP64 x16
+n=29 B=12 L=3 :  16 passages,  281 etapes ->  102 groupes :    472.9 ms  |norme-1|=5.6e-08  ~ 291 Go/s  vs v25 x1.00  vs v22 FP64 x14
+n=29 B=13 L=3 :  11 passages,  281 etapes ->   99 groupes :    451.8 ms  |norme-1|=6.1e-08  ~ 209 Go/s  vs v25 x1.05  vs v22 FP64 x15
+n=30 B=12 L=2 :  12 passages,  290 etapes ->  103 groupes :    886.3 ms  |norme-1|=2.7e-07  ~ 233 Go/s  vs v25 x1.13  vs v22 FP64 -
+n=30 B=12 L=3 :  15 passages,  292 etapes ->  103 groupes :    948.2 ms  |norme-1|=1.6e-07  ~ 272 Go/s  vs v25 x1.05  vs v22 FP64 -
+n=30 B=13 L=3 :  12 passages,  291 etapes ->  102 groupes :    946.1 ms  |norme-1|=2.4e-07  ~ 218 Go/s  vs v25 x1.05  vs v22 FP64 -
+----------------------------------------------------------------------------------------------------
+MEILLEUR V26 : 20q 0.7 ms (x1.05 v25)  22q 2.4 ms (x1.05 v25)  24q 11.4 ms (x1.11 v25)  26q 47.7 ms (x1.12 v25)  28q 199.7 ms (x1.13 v25)  29q 421.4 ms (x1.13 v25)  30q 886.3 ms (x1.13 v25)
+====================================================================================================
