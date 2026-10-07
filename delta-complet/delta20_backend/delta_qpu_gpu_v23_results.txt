@@ -1,0 +1,34 @@
+====================================================================================================
+DELTA QPU EMULE V23 | blocage de cache + paquets contigus 2^L + table d'adresses | RTX 4080
+====================================================================================================
+emulation NumPy n=12 B=8 L=4 : 200 ops -> 25 passages  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy n=12 B=10 L=5 : 200 ops -> 18 passages  fidelite vs Qiskit=1.000000000000 PASS
+validation GPU v23 (B=11 L=4) vs GPU v21 n=16 : fidelite=1.000000000000 PASS
+validation GPU v23 (B=12 L=5) vs GPU v21 n=16 : fidelite=1.000000000000 PASS
+validation GPU v23 (B=11 L=4) vs GPU v21 n=20 : fidelite=1.000000000000 PASS
+validation GPU v23 (B=12 L=5) vs GPU v21 n=20 : fidelite=1.000000000000 PASS
+n=20 B=11 L=3 : 572 ops ->  43 passages (13.3 p/pass) :      10.7 ms  norme=1.000000000000  ~ 135 Go/s  vs v21 x 1.18  vs v22 x1.01
+n=20 B=11 L=4 : 572 ops ->  50 passages (11.4 p/pass) :      10.4 ms  norme=1.000000000000  ~ 161 Go/s  vs v21 x 1.21  vs v22 x1.04
+n=20 B=12 L=4 : 572 ops ->  41 passages (14.0 p/pass) :      12.1 ms  norme=1.000000000000  ~ 114 Go/s  vs v21 x 1.04  vs v22 x0.89
+n=20 B=12 L=5 : 572 ops ->  47 passages (12.2 p/pass) :      12.1 ms  norme=1.000000000000  ~ 130 Go/s  vs v21 x 1.04  vs v22 x0.89
+n=22 B=11 L=3 : 632 ops ->  48 passages (13.2 p/pass) :      43.5 ms  norme=1.000000000000  ~ 148 Go/s  vs v21 x 1.24  vs v22 x0.98
+n=22 B=11 L=4 : 632 ops ->  57 passages (11.1 p/pass) :      43.7 ms  norme=1.000000000000  ~ 175 Go/s  vs v21 x 1.23  vs v22 x0.98
+n=22 B=12 L=4 : 632 ops ->  46 passages (13.7 p/pass) :      44.0 ms  norme=1.000000000000  ~ 140 Go/s  vs v21 x 1.22  vs v22 x0.97
+n=22 B=12 L=5 : 632 ops ->  54 passages (11.7 p/pass) :      44.4 ms  norme=1.000000000000  ~ 163 Go/s  vs v21 x 1.21  vs v22 x0.96
+n=24 B=11 L=3 : 692 ops ->  53 passages (13.1 p/pass) :     176.4 ms  norme=1.000000000000  ~ 161 Go/s  vs v21 x 2.98  vs v22 x0.97
+n=24 B=11 L=4 : 692 ops ->  64 passages (10.8 p/pass) :     176.3 ms  norme=1.000000000000  ~ 195 Go/s  vs v21 x 2.99  vs v22 x0.97
+n=24 B=12 L=4 : 692 ops ->  51 passages (13.6 p/pass) :     188.8 ms  norme=1.000000000000  ~ 145 Go/s  vs v21 x 2.79  vs v22 x0.91
+n=24 B=12 L=5 : 692 ops ->  60 passages (11.5 p/pass) :     191.9 ms  norme=1.000000000000  ~ 168 Go/s  vs v21 x 2.74  vs v22 x0.89
+n=26 B=11 L=3 : 752 ops ->  58 passages (13.0 p/pass) :     757.9 ms  norme=1.000000000000  ~ 164 Go/s  vs v21 x 2.99  vs v22 x0.97
+n=26 B=11 L=4 : 752 ops ->  70 passages (10.7 p/pass) :     760.9 ms  norme=1.000000000000  ~ 198 Go/s  vs v21 x 2.98  vs v22 x0.97
+n=26 B=12 L=4 : 752 ops ->  56 passages (13.4 p/pass) :     811.0 ms  norme=1.000000000000  ~ 148 Go/s  vs v21 x 2.79  vs v22 x0.91
+n=26 B=12 L=5 : 752 ops ->  67 passages (11.2 p/pass) :     826.1 ms  norme=1.000000000000  ~ 174 Go/s  vs v21 x 2.74  vs v22 x0.89
+n=28 B=11 L=3 : 812 ops ->  63 passages (12.9 p/pass) :    3267.2 ms  norme=1.000000000000  ~ 166 Go/s  vs v21 x 2.98  vs v22 x0.97
+n=28 B=11 L=4 : 812 ops ->  77 passages (10.5 p/pass) :    3280.8 ms  norme=1.000000000000  ~ 202 Go/s  vs v21 x 2.97  vs v22 x0.97
+n=28 B=12 L=4 : 812 ops ->  61 passages (13.3 p/pass) :    3503.6 ms  norme=1.000000000000  ~ 150 Go/s  vs v21 x 2.78  vs v22 x0.91
+n=28 B=12 L=5 : 812 ops ->  74 passages (11.0 p/pass) :    3572.7 ms  norme=1.000000000000  ~ 178 Go/s  vs v21 x 2.73  vs v22 x0.89
+n=29 B=11 L=3 : 841 ops ->  65 passages (12.9 p/pass) :    6755.0 ms  norme=1.000000000000  ~ 165 Go/s  vs v21 x 2.99  vs v22 x0.97
+n=29 B=11 L=4 : 841 ops ->  80 passages (10.5 p/pass) :    6798.3 ms  norme=1.000000000000  ~ 202 Go/s  vs v21 x 2.97  vs v22 x0.96
+n=29 B=12 L=4 : 841 ops ->  63 passages (13.3 p/pass) :    7258.6 ms  norme=1.000000000000  ~ 149 Go/s  vs v21 x 2.78  vs v22 x0.90
+n=29 B=12 L=5 : 841 ops ->  77 passages (10.9 p/pass) :    7417.0 ms  norme=1.000000000000  ~ 178 Go/s  vs v21 x 2.72  vs v22 x0.88
+====================================================================================================
