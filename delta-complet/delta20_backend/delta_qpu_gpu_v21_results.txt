@@ -1,0 +1,15 @@
+================================================================================================
+DELTA QPU EMULE V21 | vrais noyaux CUDA en place + fusion des portes 1 qubit | RTX 4080
+================================================================================================
+n=12 : 210 portes -> 200 operations apres fusion
+validation emulation NumPy des noyaux vs Qiskit : fidelite=1.000000000000 PASS
+validation GPU v21 vs Qiskit n=12 : fidelite=1.000000000000 PASS
+validation GPU v21 vs GPU v20 n=16 : fidelite=1.000000000000 PASS
+n=16 (470 portes -> 452 ops,   0.00 Go etat) :        4.2 ms  norme=1.000000000000  ~225 Go/s VRAM  vs v20 x7.0  vs Qiskit x11
+n=20 (590 portes -> 572 ops,   0.02 Go etat) :       12.6 ms  norme=1.000000000000  ~1518 Go/s VRAM  vs v20 x29.8  vs Qiskit x202
+n=22 (650 portes -> 632 ops,   0.06 Go etat) :       53.8 ms  norme=1.000000000000  ~1577 Go/s VRAM  vs v20 x35.5  vs Qiskit x234
+n=24 (710 portes -> 692 ops,   0.25 Go etat) :      526.2 ms  norme=1.000000000000  ~706 Go/s VRAM  vs v20 x13.5
+n=26 (770 portes -> 752 ops,   1.00 Go etat) :     2264.3 ms  norme=1.000000000000  ~713 Go/s VRAM
+n=28 (830 portes -> 812 ops,   4.00 Go etat) :     9750.8 ms  norme=1.000000000000  ~715 Go/s VRAM
+n=29 (860 portes -> 841 ops,   8.00 Go etat) :    20173.4 ms  norme=1.000000000000  ~716 Go/s VRAM
+================================================================================================
