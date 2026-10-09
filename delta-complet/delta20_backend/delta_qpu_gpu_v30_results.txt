@@ -1,0 +1,64 @@
+========================================================================================================
+DELTA QPU EMULE V30 | v29 + interrupteurs SW (swizzle) / PF (prechargement registres) / CA (cp.async) | RTX 4080
+========================================================================================================
+validation n=16 SW=0 PF=0 CA=0   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=1 PF=0 CA=0   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=0 PF=1 CA=0   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=0 PF=0 CA=1   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=1 PF=1 CA=0   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=1 PF=0 CA=1   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 SW=1 PF=1 CA=1   vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=20 SW=0 PF=0 CA=0   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=1 PF=0 CA=0   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=0 PF=1 CA=0   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=0 PF=0 CA=1   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=1 PF=1 CA=0   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=1 PF=0 CA=1   vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 SW=1 PF=1 CA=1   vs v21 FP64 : infidelite=4.16e-07  PASS
+--------------------------------------------------------------------------------------------------------
+n=24 L=2 SW=0 PF=0 CA=0      :  9 passages :     14.6 ms (copie seule     7.2 ms =  50%)  |norme-1|=2.4e-07  (= v29)
+n=24 L=2 SW=1 PF=0 CA=0      :  9 passages :     12.8 ms (copie seule     6.9 ms =  54%)  |norme-1|=2.4e-07  vs v29 x1.14
+n=24 L=2 SW=0 PF=1 CA=0      :  9 passages :     13.8 ms (copie seule     7.2 ms =  52%)  |norme-1|=2.4e-07  vs v29 x1.06
+n=24 L=2 SW=0 PF=0 CA=1      :  9 passages :     14.0 ms (copie seule     6.9 ms =  49%)  |norme-1|=2.4e-07  vs v29 x1.04
+n=24 L=2 SW=1 PF=1 CA=0      :  9 passages :     12.2 ms (copie seule     9.2 ms =  75%)  |norme-1|=2.4e-07  vs v29 x1.19
+n=24 L=2 SW=1 PF=0 CA=1      :  9 passages :     12.4 ms (copie seule     6.9 ms =  56%)  |norme-1|=2.4e-07  vs v29 x1.18
+n=24 L=2 SW=1 PF=1 CA=1      :  9 passages :     12.4 ms (copie seule     6.9 ms =  56%)  |norme-1|=2.4e-07  vs v29 x1.18
+n=24 L=3 SW=0 PF=0 CA=0      :  9 passages :     13.5 ms (copie seule     6.7 ms =  50%)  |norme-1|=3.0e-07  (= v29)
+n=24 L=3 SW=1 PF=0 CA=0      :  9 passages :     11.9 ms (copie seule     6.8 ms =  57%)  |norme-1|=3.0e-07  vs v29 x1.13
+n=24 L=3 SW=0 PF=1 CA=0      :  9 passages :     13.6 ms (copie seule     6.7 ms =  49%)  |norme-1|=3.0e-07  vs v29 x0.99
+n=24 L=3 SW=0 PF=0 CA=1      :  9 passages :     14.1 ms (copie seule     6.8 ms =  48%)  |norme-1|=3.0e-07  vs v29 x0.95
+n=24 L=3 SW=1 PF=1 CA=0      :  9 passages :     11.9 ms (copie seule     6.8 ms =  57%)  |norme-1|=3.0e-07  vs v29 x1.13
+n=24 L=3 SW=1 PF=0 CA=1      :  9 passages :     12.6 ms (copie seule     6.9 ms =  55%)  |norme-1|=3.0e-07  vs v29 x1.07
+n=24 L=3 SW=1 PF=1 CA=1      :  9 passages :     12.6 ms (copie seule     6.9 ms =  55%)  |norme-1|=3.0e-07  vs v29 x1.07
+n=28 L=2 SW=0 PF=0 CA=0      :  9 passages :    231.4 ms (copie seule   116.1 ms =  50%)  |norme-1|=1.9e-08  (= v29)
+n=28 L=2 SW=1 PF=0 CA=0      :  9 passages :    211.3 ms (copie seule   117.6 ms =  56%)  |norme-1|=1.9e-08  vs v29 x1.10
+n=28 L=2 SW=0 PF=1 CA=0      :  9 passages :    245.3 ms (copie seule   130.2 ms =  53%)  |norme-1|=1.9e-08  vs v29 x0.94
+n=28 L=2 SW=0 PF=0 CA=1      :  9 passages :    243.0 ms (copie seule   116.3 ms =  48%)  |norme-1|=1.9e-08  vs v29 x0.95
+n=28 L=2 SW=1 PF=1 CA=0      :  9 passages :    220.4 ms (copie seule   135.6 ms =  62%)  |norme-1|=1.9e-08  vs v29 x1.05
+n=28 L=2 SW=1 PF=0 CA=1      :  9 passages :    219.8 ms (copie seule   116.4 ms =  53%)  |norme-1|=1.9e-08  vs v29 x1.05
+n=28 L=2 SW=1 PF=1 CA=1      :  9 passages :    219.3 ms (copie seule   116.1 ms =  53%)  |norme-1|=1.9e-08  vs v29 x1.06
+n=28 L=3 SW=0 PF=0 CA=0      :  9 passages :    228.3 ms (copie seule   111.4 ms =  49%)  |norme-1|=3.7e-09  (= v29)
+n=28 L=3 SW=1 PF=0 CA=0      :  9 passages :    202.4 ms (copie seule   110.7 ms =  55%)  |norme-1|=3.7e-09  vs v29 x1.13
+n=28 L=3 SW=0 PF=1 CA=0      :  9 passages :    232.9 ms (copie seule   111.8 ms =  48%)  |norme-1|=3.7e-09  vs v29 x0.98
+n=28 L=3 SW=0 PF=0 CA=1      :  9 passages :    238.1 ms (copie seule   114.5 ms =  48%)  |norme-1|=3.7e-09  vs v29 x0.96
+n=28 L=3 SW=1 PF=1 CA=0      :  9 passages :    204.2 ms (copie seule   113.8 ms =  56%)  |norme-1|=3.7e-09  vs v29 x1.12
+n=28 L=3 SW=1 PF=0 CA=1      :  9 passages :    211.8 ms (copie seule   115.5 ms =  55%)  |norme-1|=3.7e-09  vs v29 x1.08
+n=28 L=3 SW=1 PF=1 CA=1      :  9 passages :    211.7 ms (copie seule   114.4 ms =  54%)  |norme-1|=3.7e-09  vs v29 x1.08
+n=30 L=2 SW=0 PF=0 CA=0      :  9 passages :    977.4 ms (copie seule   508.2 ms =  52%)  |norme-1|=2.6e-07  (= v29)
+n=30 L=2 SW=1 PF=0 CA=0      :  9 passages :    894.9 ms (copie seule   508.6 ms =  57%)  |norme-1|=2.6e-07  vs v29 x1.09
+n=30 L=2 SW=0 PF=1 CA=0      :  9 passages :   1026.4 ms (copie seule   558.9 ms =  54%)  |norme-1|=2.6e-07  vs v29 x0.95
+n=30 L=2 SW=0 PF=0 CA=1      :  9 passages :   1017.2 ms (copie seule   515.0 ms =  51%)  |norme-1|=2.6e-07  vs v29 x0.96
+n=30 L=2 SW=1 PF=1 CA=0      :  9 passages :    931.9 ms (copie seule   571.7 ms =  61%)  |norme-1|=2.6e-07  vs v29 x1.05
+n=30 L=2 SW=1 PF=0 CA=1      :  9 passages :    926.3 ms (copie seule   512.8 ms =  55%)  |norme-1|=2.6e-07  vs v29 x1.06
+n=30 L=2 SW=1 PF=1 CA=1      :  9 passages :    917.5 ms (copie seule   515.2 ms =  56%)  |norme-1|=2.6e-07  vs v29 x1.07
+n=30 L=3 SW=0 PF=0 CA=0      :  9 passages :    954.8 ms (copie seule   439.0 ms =  46%)  |norme-1|=2.3e-07  (= v29)
+n=30 L=3 SW=1 PF=0 CA=0      :  9 passages :    843.7 ms (copie seule   441.2 ms =  52%)  |norme-1|=2.3e-07  vs v29 x1.13
+n=30 L=3 SW=0 PF=1 CA=0      :  9 passages :    974.6 ms (copie seule   450.2 ms =  46%)  |norme-1|=2.3e-07  vs v29 x0.98
+n=30 L=3 SW=0 PF=0 CA=1      :  9 passages :   1002.3 ms (copie seule   448.5 ms =  45%)  |norme-1|=2.3e-07  vs v29 x0.95
+n=30 L=3 SW=1 PF=1 CA=0      :  9 passages :    855.8 ms (copie seule   453.1 ms =  53%)  |norme-1|=2.3e-07  vs v29 x1.12
+n=30 L=3 SW=1 PF=0 CA=1      :  9 passages :    888.2 ms (copie seule   448.0 ms =  50%)  |norme-1|=2.3e-07  vs v29 x1.08
+n=30 L=3 SW=1 PF=1 CA=1      :  9 passages :    886.8 ms (copie seule   447.3 ms =  50%)  |norme-1|=2.3e-07  vs v29 x1.08
+--------------------------------------------------------------------------------------------------------
+MEILLEUR V30 : 24q 11.9 ms [L=3 SW=1 PF=1 CA=0]  28q 202.4 ms [L=3 SW=1 PF=0 CA=0]  30q 843.7 ms [L=3 SW=1 PF=0 CA=0]
+LECTURE : si SW seul gagne -> conflits de bancs confirmes ; si PF/CA gagnent surtout sur 'copie seule' -> latence VRAM ; sinon goulot ailleurs (calcul des portes).
+========================================================================================================
