@@ -1,0 +1,37 @@
+========================================================================================================
+DELTA QPU EMULE V31 | v30 swizzle + groupes 9 qubits/warp (4 registres + 5 lanes en shuffle) | RTX 4080
+========================================================================================================
+emulation NumPy exacte v31 n=12 B=9 L=2 : 3 passages, 3 groupes-9 (v30 : 23 groupes-4)  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy exacte v31 n=12 B=10 L=3 : 3 passages, 6 groupes-9 (v30 : 24 groupes-4)  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy exacte v31 n=12 B=11 L=3 : 3 passages, 6 groupes-9 (v30 : 24 groupes-4)  fidelite vs Qiskit=1.000000000000 PASS
+groupes n=24 B=12 L=3 : v30 88 groupes-4 -> v31 24 groupes-9
+groupes n=28 B=12 L=3 : v30 97 groupes-4 -> v31 24 groupes-9
+groupes n=30 B=12 L=3 : v30 104 groupes-4 -> v31 22 groupes-9
+validation GPU v31 B=12 vs GPU v21 FP64 n=16 : infidelite=-1.18e-07  PASS
+validation GPU v31 B=13 vs GPU v21 FP64 n=16 : infidelite=-6.03e-08  PASS
+validation GPU v31 B=12 vs GPU v21 FP64 n=20 : infidelite=3.84e-07  PASS
+validation GPU v31 B=13 vs GPU v21 FP64 n=20 : infidelite=3.58e-07  PASS
+validation GPU v31 B=12 vs GPU v21 FP64 n=24 : infidelite=6.39e-07  PASS
+validation GPU v31 B=13 vs GPU v21 FP64 n=24 : infidelite=6.22e-07  PASS
+--------------------------------------------------------------------------------------------------------
+n=24 B=12 L=2 v30 SW (reference)  :  9 passages,   86 groupes-4 :     12.2 ms
+n=24 B=12 L=2   v31 shuffle        :  9 passages,   23 groupes-9 :     12.1 ms (copie seule     7.1 ms, calcul    5.0 ms)  |norme-1|=3.3e-07  vs v30 x1.01
+n=24 B=12 L=3 v30 SW (reference)  :  9 passages,   88 groupes-4 :     11.9 ms
+n=24 B=12 L=3   v31 shuffle        :  9 passages,   24 groupes-9 :     12.1 ms (copie seule     6.8 ms, calcul    5.3 ms)  |norme-1|=3.3e-07  vs v30 x0.98
+n=24 B=13 L=3 v30 SW (reference)  :  9 passages,   88 groupes-4 :     13.3 ms
+n=24 B=13 L=3   v31 shuffle        :  9 passages,   26 groupes-9 :     13.2 ms (copie seule     6.9 ms, calcul    6.3 ms)  |norme-1|=3.0e-07  vs v30 x1.01
+n=28 B=12 L=2 v30 SW (reference)  :  9 passages,  100 groupes-4 :    211.1 ms
+n=28 B=12 L=2   v31 shuffle        :  9 passages,   24 groupes-9 :    212.4 ms (copie seule   118.5 ms, calcul   94.0 ms)  |norme-1|=7.5e-09  vs v30 x0.99
+n=28 B=12 L=3 v30 SW (reference)  :  9 passages,   97 groupes-4 :    202.6 ms
+n=28 B=12 L=3   v31 shuffle        :  9 passages,   24 groupes-9 :    204.6 ms (copie seule   112.7 ms, calcul   91.8 ms)  |norme-1|=0.0e+00  vs v30 x0.99
+n=28 B=13 L=3 v30 SW (reference)  :  7 passages,   99 groupes-4 :    213.0 ms
+n=28 B=13 L=3   v31 shuffle        :  7 passages,   25 groupes-9 :    214.2 ms (copie seule    95.3 ms, calcul  118.9 ms)  |norme-1|=0.0e+00  vs v30 x0.99
+n=30 B=12 L=2 v30 SW (reference)  :  9 passages,  103 groupes-4 :    895.7 ms
+n=30 B=12 L=2   v31 shuffle        :  9 passages,   25 groupes-9 :    897.4 ms (copie seule   510.2 ms, calcul  387.2 ms)  |norme-1|=2.7e-07  vs v30 x1.00
+n=30 B=12 L=3 v30 SW (reference)  :  9 passages,  104 groupes-4 :    843.9 ms
+n=30 B=12 L=3   v31 shuffle        :  9 passages,   22 groupes-9 :    837.9 ms (copie seule   443.8 ms, calcul  394.2 ms)  |norme-1|=2.3e-07  vs v30 x1.01
+n=30 B=13 L=3 v30 SW (reference)  :  8 passages,  105 groupes-4 :    906.6 ms
+n=30 B=13 L=3   v31 shuffle        :  8 passages,   27 groupes-9 :    899.5 ms (copie seule   409.9 ms, calcul  489.6 ms)  |norme-1|=2.1e-07  vs v30 x1.01
+--------------------------------------------------------------------------------------------------------
+MEILLEUR V31 : 24q 12.1 ms [B=12 L=3]  28q 204.6 ms [B=12 L=3]  30q 837.9 ms [B=12 L=3]
+========================================================================================================
