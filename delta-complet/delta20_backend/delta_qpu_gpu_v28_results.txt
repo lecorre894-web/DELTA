@@ -1,0 +1,66 @@
+========================================================================================================
+DELTA QPU EMULE V28 | v26 + ordonnanceur meilleur-de + registres NR=4/5 + L=4 + diagnostic plancher memoire | RTX 4080
+========================================================================================================
+emulation NumPy noyau v28 n=12 dag B=8 L=3 NR=4 : 7 passages, 23 groupes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy noyau v28 n=12 bo  B=8 L=3 NR=4 : 7 passages, 23 groupes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy noyau v28 n=12 bo  B=10 L=2 NR=5 : 3 passages, 17 groupes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy noyau v28 n=12 bo  B=10 L=4 NR=5 : 4 passages, 17 groupes  fidelite vs Qiskit=1.000000000000 PASS
+emulation NumPy noyau v28 n=12 bo  B=9 L=2 NR=5 : 4 passages, 16 groupes  fidelite vs Qiskit=1.000000000000 PASS
+--------------------------------------------------------------------------------------------------------
+passages n=24 B=12 L=2 : dag (v26) 11 -> bo (v28)  9   [0.0 s ordonnancement]
+passages n=24 B=13 L=2 : dag (v26)  9 -> bo (v28)  9   [0.0 s ordonnancement]
+passages n=24 B=13 L=3 : dag (v26) 10 -> bo (v28)  9   [0.0 s ordonnancement]
+passages n=24 B=13 L=4 : dag (v26) 10 -> bo (v28) 10   [0.0 s ordonnancement]
+passages n=28 B=12 L=2 : dag (v26) 10 -> bo (v28) 10   [0.0 s ordonnancement]
+passages n=28 B=13 L=2 : dag (v26)  9 -> bo (v28)  9   [0.0 s ordonnancement]
+passages n=28 B=13 L=3 : dag (v26) 10 -> bo (v28) 10   [0.0 s ordonnancement]
+passages n=28 B=13 L=4 : dag (v26) 13 -> bo (v28) 13   [0.0 s ordonnancement]
+passages n=30 B=12 L=2 : dag (v26) 12 -> bo (v28) 12   [0.0 s ordonnancement]
+passages n=30 B=13 L=2 : dag (v26) 11 -> bo (v28) 10   [0.0 s ordonnancement]
+passages n=30 B=13 L=3 : dag (v26) 12 -> bo (v28) 12   [0.0 s ordonnancement]
+passages n=30 B=13 L=4 : dag (v26) 15 -> bo (v28) 15   [0.0 s ordonnancement]
+validation GPU v28 FP32 NR=4 vs GPU v21 FP64 n=16 : infidelite=-1.23e-07  PASS
+validation GPU v28 FP32 NR=5 vs GPU v21 FP64 n=16 : infidelite=-1.23e-07  PASS
+validation GPU v28 FP32 NR=4 vs GPU v21 FP64 n=20 : infidelite=3.73e-07  PASS
+validation GPU v28 FP32 NR=5 vs GPU v21 FP64 n=20 : infidelite=3.73e-07  PASS
+validation GPU v28 FP32 NR=4 vs GPU v21 FP64 n=24 : infidelite=5.18e-07  PASS
+validation GPU v28 FP32 NR=5 vs GPU v21 FP64 n=24 : infidelite=5.18e-07  PASS
+n=20 dag B=12 L=2 NR=4   :  8 passages,   65 groupes :      1.3 ms (copie seule     1.9 ms = 145%,   71 Go/s)  |norme-1|=2.1e-07  
+n=20 bo B=12 L=2 NR=4    :  7 passages,   67 groupes :      1.1 ms (copie seule     0.5 ms =  48%,  230 Go/s)  |norme-1|=1.8e-07  
+n=20 bo B=13 L=2 NR=4    :  6 passages,   68 groupes :      1.0 ms (copie seule     0.5 ms =  49%,  197 Go/s)  |norme-1|=2.1e-07  
+n=20 bo B=13 L=4 NR=4    :  7 passages,   68 groupes :      1.1 ms (copie seule     0.5 ms =  50%,  225 Go/s)  |norme-1|=1.8e-07  
+n=20 bo B=12 L=2 NR=5    :  7 passages,   49 groupes :      1.1 ms (copie seule     0.6 ms =  52%,  200 Go/s)  |norme-1|=1.8e-07  
+n=20 bo B=13 L=2 NR=5    :  6 passages,   48 groupes :      1.1 ms (copie seule     0.6 ms =  50%,  178 Go/s)  |norme-1|=2.1e-07  
+n=20 bo B=13 L=4 NR=5    :  7 passages,   49 groupes :      1.2 ms (copie seule     0.6 ms =  50%,  201 Go/s)  |norme-1|=1.8e-07  
+n=24 dag B=12 L=2 NR=4   : 11 passages,   80 groupes :     14.7 ms (copie seule     7.6 ms =  52%,  388 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=12 L=2 NR=4    :  9 passages,   83 groupes :     13.8 ms (copie seule     6.6 ms =  48%,  364 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=13 L=2 NR=4    :  9 passages,   82 groupes :     14.9 ms (copie seule     6.8 ms =  45%,  358 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=13 L=4 NR=4    : 10 passages,   80 groupes :     14.8 ms (copie seule     7.1 ms =  48%,  380 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=12 L=2 NR=5    :  9 passages,   63 groupes :     15.8 ms (copie seule     7.8 ms =  50%,  308 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=13 L=2 NR=5    :  9 passages,   58 groupes :     16.4 ms (copie seule     8.1 ms =  49%,  299 Go/s)  |norme-1|=2.7e-07  
+n=24 bo B=13 L=4 NR=5    : 10 passages,   59 groupes :     17.2 ms (copie seule     8.4 ms =  49%,  320 Go/s)  |norme-1|=2.7e-07  
+n=28 dag B=12 L=2 NR=4   : 10 passages,   96 groupes :    241.3 ms (copie seule   116.2 ms =  48%,  370 Go/s)  |norme-1|=1.9e-08  vs v26 x0.83
+n=28 bo B=12 L=2 NR=4    : 10 passages,   96 groupes :    240.9 ms (copie seule   116.5 ms =  48%,  369 Go/s)  |norme-1|=1.9e-08  vs v26 x0.83
+n=28 bo B=13 L=2 NR=4    :  9 passages,   97 groupes :    257.9 ms (copie seule   111.4 ms =  43%,  347 Go/s)  |norme-1|=1.5e-08  vs v26 x0.78
+n=28 bo B=13 L=4 NR=4    : 13 passages,   95 groupes :    274.8 ms (copie seule   133.0 ms =  48%,  420 Go/s)  |norme-1|=1.5e-08  vs v26 x0.73
+n=28 bo B=12 L=2 NR=5    : 10 passages,   74 groupes :    277.7 ms (copie seule   139.7 ms =  50%,  308 Go/s)  |norme-1|=1.9e-08  vs v26 x0.72
+n=28 bo B=13 L=2 NR=5    :  9 passages,   73 groupes :    281.7 ms (copie seule   135.1 ms =  48%,  286 Go/s)  |norme-1|=1.5e-08  vs v26 x0.71
+n=28 bo B=13 L=4 NR=5    : 13 passages,   69 groupes :    311.2 ms (copie seule   159.5 ms =  51%,  350 Go/s)  |norme-1|=1.5e-08  vs v26 x0.64
+n=29 dag B=12 L=2 NR=4   : 11 passages,  100 groupes :    505.1 ms (copie seule   247.5 ms =  49%,  382 Go/s)  |norme-1|=6.9e-08  
+n=29 bo B=12 L=2 NR=4    : 11 passages,  100 groupes :    504.4 ms (copie seule   247.2 ms =  49%,  382 Go/s)  |norme-1|=6.9e-08  
+n=29 bo B=13 L=2 NR=4    : 10 passages,  101 groupes :    538.6 ms (copie seule   234.4 ms =  44%,  366 Go/s)  |norme-1|=6.5e-08  
+n=29 bo B=13 L=4 NR=4    : 15 passages,  101 groupes :    582.9 ms (copie seule   292.8 ms =  50%,  440 Go/s)  |norme-1|=6.9e-08  
+n=29 bo B=12 L=2 NR=5    : 11 passages,   76 groupes :    582.4 ms (copie seule   297.8 ms =  51%,  317 Go/s)  |norme-1|=6.9e-08  
+n=29 bo B=13 L=2 NR=5    : 10 passages,   75 groupes :    588.6 ms (copie seule   286.2 ms =  49%,  300 Go/s)  |norme-1|=6.5e-08  
+n=29 bo B=13 L=4 NR=5    : 15 passages,   74 groupes :    666.1 ms (copie seule   353.3 ms =  53%,  365 Go/s)  |norme-1|=6.9e-08  
+n=30 dag B=12 L=2 NR=4   : 12 passages,  103 groupes :   1051.4 ms (copie seule   524.6 ms =  50%,  393 Go/s)  |norme-1|=2.7e-07  vs v26 x0.84
+n=30 bo B=12 L=2 NR=4    : 12 passages,  103 groupes :   1051.4 ms (copie seule   524.4 ms =  50%,  393 Go/s)  |norme-1|=2.7e-07  vs v26 x0.84
+n=30 bo B=13 L=2 NR=4    : 10 passages,  104 groupes :   1101.7 ms (copie seule   484.0 ms =  44%,  355 Go/s)  |norme-1|=2.8e-07  vs v26 x0.80
+n=30 bo B=13 L=4 NR=4    : 15 passages,  104 groupes :   1197.3 ms (copie seule   587.3 ms =  49%,  439 Go/s)  |norme-1|=1.4e-07  vs v26 x0.74
+n=30 bo B=12 L=2 NR=5    : 12 passages,   77 groupes :   1212.7 ms (copie seule   632.0 ms =  52%,  326 Go/s)  |norme-1|=2.7e-07  vs v26 x0.73
+n=30 bo B=13 L=2 NR=5    : 10 passages,   76 groupes :   1187.3 ms (copie seule   590.3 ms =  50%,  291 Go/s)  |norme-1|=2.8e-07  vs v26 x0.75
+n=30 bo B=13 L=4 NR=5    : 15 passages,   76 groupes :   1374.8 ms (copie seule   713.6 ms =  52%,  361 Go/s)  |norme-1|=1.4e-07  vs v26 x0.64
+--------------------------------------------------------------------------------------------------------
+MEILLEUR V28 : 20q 1.0 ms [bo B=13 L=2 NR=4]  24q 13.8 ms [bo B=12 L=2 NR=4]  28q 240.9 ms [bo B=12 L=2 NR=4]  29q 504.4 ms [bo B=12 L=2 NR=4]  30q 1051.4 ms [bo B=12 L=2 NR=4]
+LECTURE : 'copie seule' = memes acces memoire sans aucune porte ; si proche du total -> goulot VRAM (reduire passages/v29 L2) ; sinon goulot calcul/synchros.
+========================================================================================================
