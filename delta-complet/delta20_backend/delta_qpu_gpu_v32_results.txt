@@ -1,0 +1,27 @@
+========================================================================================================
+DELTA QPU EMULE V32 | v30 swizzle + CM (coefficients en memoire constante) x FZ (fusion on/off) | RTX 4080
+========================================================================================================
+validation n=16 FZ=1 CM=0 vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 FZ=1 CM=1 vs v21 FP64 : infidelite=-1.64e-07  PASS
+validation n=16 FZ=0 CM=0 vs v21 FP64 : infidelite=4.70e-06  PASS
+validation n=16 FZ=0 CM=1 vs v21 FP64 : infidelite=4.70e-06  PASS
+validation n=20 FZ=1 CM=0 vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 FZ=1 CM=1 vs v21 FP64 : infidelite=4.16e-07  PASS
+validation n=20 FZ=0 CM=0 vs v21 FP64 : infidelite=6.90e-06  PASS
+validation n=20 FZ=0 CM=1 vs v21 FP64 : infidelite=6.90e-06  PASS
+--------------------------------------------------------------------------------------------------------
+n=24 FZ=1 CM=0  :  9 passages,  231 portes :     12.9 ms (copie     7.1 ms, calcul    5.8 ms)  (= v30 SW)
+n=24 FZ=1 CM=1  :  9 passages,  231 portes :     11.9 ms (copie     7.1 ms, calcul    4.9 ms)  vs v30 x1.08
+n=24 FZ=0 CM=0  :  9 passages,  692 portes :     14.5 ms (copie     7.0 ms, calcul    7.5 ms)  vs v30 x0.89
+n=24 FZ=0 CM=1  :  9 passages,  692 portes :     11.8 ms (copie     6.9 ms, calcul    4.9 ms)  vs v30 x1.10
+n=28 FZ=1 CM=0  :  9 passages,  271 portes :    202.4 ms (copie   112.6 ms, calcul   89.8 ms)  (= v30 SW)
+n=28 FZ=1 CM=1  :  9 passages,  271 portes :    189.2 ms (copie   111.6 ms, calcul   77.5 ms)  vs v30 x1.07
+n=28 FZ=0 CM=0  :  9 passages,  812 portes :    228.9 ms (copie   110.6 ms, calcul  118.2 ms)  vs v30 x0.88
+n=28 FZ=0 CM=1  :  9 passages,  812 portes :    185.5 ms (copie   110.2 ms, calcul   75.3 ms)  vs v30 x1.09
+n=30 FZ=1 CM=0  :  9 passages,  291 portes :    836.8 ms (copie   439.3 ms, calcul  397.5 ms)  (= v30 SW)
+n=30 FZ=1 CM=1  :  9 passages,  291 portes :    779.6 ms (copie   434.6 ms, calcul  345.0 ms)  vs v30 x1.07
+n=30 FZ=0 CM=0  :  9 passages,  872 portes :    940.7 ms (copie   437.0 ms, calcul  503.7 ms)  vs v30 x0.89
+n=30 FZ=0 CM=1  :  9 passages,  872 portes :    764.6 ms (copie   437.2 ms, calcul  327.4 ms)  vs v30 x1.09
+--------------------------------------------------------------------------------------------------------
+MEILLEUR V32 : 24q 11.8 ms [FZ=0 CM=1]  28q 185.5 ms [FZ=0 CM=1]  30q 764.6 ms [FZ=0 CM=1]
+========================================================================================================
